@@ -1,32 +1,22 @@
 package com.vm.shadowsocks.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -35,51 +25,27 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.graphics.Color;
 import android.app.ListActivity;
 import android.net.VpnService;
 import android.widget.AdapterView;
 import android.os.Handler;
 import android.os.Message;
 
-//import com.google.android.gms.common.api.Status;
-//import com.google.android.gms.tasks.OnCompleteListener;
-//import com.google.android.gms.tasks.Task;
-//import com.google.android.gms.wallet.AutoResolveHelper;
-//import com.google.android.gms.wallet.IsReadyToPayRequest;
-//import com.google.android.gms.wallet.ItemInfo;
-//import com.google.android.gms.wallet.PaymentData;
-//import com.google.android.gms.wallet.PaymentDataRequest;
-//import com.google.android.gms.wallet.PaymentsClient;
-//import com.google.android.gms.wallet.PaymentsUtil;
-//import com.google.zxing.integration.android.IntentIntegrator;
-//import com.google.zxing.integration.android.IntentResult;
 import com.vm.shadowsocks.R;
 import com.vm.shadowsocks.core.AppProxyManager;
 import com.vm.shadowsocks.core.LocalVpnService;
 import com.vm.shadowsocks.core.ProxyConfig;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.HashMap;
-import java.net.NetworkInterface;
-import java.net.InetAddress;
-import java.net.Inet4Address;
-import java.util.Enumeration;
-import java.net.SocketException;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.markushi.ui.CircleButton;
@@ -88,24 +54,17 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 import android.widget.Spinner;
-
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import me.shaohui.bottomdialog.BottomDialog;
 import androidx.fragment.app.FragmentActivity;
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
-import android.app.Dialog;
 import androidx.core.content.ContextCompat;
 import java.lang.String;
-import java.io.File;
-import android.widget.Switch;
 import android.webkit.WebView;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
-import android.webkit.WebSettings.RenderPriority;
 import android.view.KeyEvent;
-
-import com.suke.widget.SwitchButton;
 
 public class MainActivity extends FragmentActivity  implements
         View.OnClickListener,
@@ -133,11 +92,10 @@ public class MainActivity extends FragmentActivity  implements
     private static final int GOT_INVALID_STATUS = 7;
     private static final int GOT_CHANGE_VIP_STATUS = 8;
     private int check_vip_times = 0;
+    private boolean upgrade_dialog_showing = false;
 
-    public static boolean init_p2p_network_succ = false;
 
     private HashMap<Integer, String> block_hashmap = new HashMap<Integer, String>();
-    ArrayList<String> listItems=new ArrayList<String>();
     int list_counter = 0;
 
     public ArrayList<String> vpn_country_list = new ArrayList<String>();
@@ -145,92 +103,31 @@ public class MainActivity extends FragmentActivity  implements
     private HashMap<String, Vector<String>> country_vpn_map = new HashMap<String, Vector<String>>();
     private HashMap<String, Vector<String>> country_route_map = new HashMap<String, Vector<String>>();
     private HashMap<String, String> country_to_short = new HashMap<String, String>();
-    static public HashMap<String, String> default_routing_map = new HashMap<String, String>();
 
     private CircleProgressView mCircleView;
 
     private Spinner mSpinner;
     private String[] spinnerTitles;
-    private String[] spinnerPopulation;
     private int[] spinnerImages;
-    private boolean isUserInteracting;
     private String now_choosed_country = "US";
-    private String local_country = "CN";
     private BottomDialog bottom_dialog;
     private BottomDialog upgrade_dialog;
     private BottomDialog webview_dialog;
-
-    private String private_key;
-    private String account_address;
+    private BottomDialog outof_bandwidth_dialog;
 
     private String transactions_res = new String("");
     private long account_balance = -1;
-    private String local_ip = "0.0.0.0";
-    public static String choosed_vpn_seckey = "";
     public static String choosed_vpn_url = "";
-    private String relay_country = local_country;
-    public static boolean use_smart_route = true;
     private final int kDefaultVpnServerPort = 9033;
     private String version_download_url = "";
-
-    private com.suke.widget.SwitchButton switchButton;
     private WebView wv_produce;
-
     private Button web_view_open_btn;
     private TextView tilte_text_view;
-
     private long goback_prev_timestamp = 0;
-    private String bootstrap = "id:139.59.91.63:9001,id:39.105.125.37:9001,id:139.59.47.229:9001,id:46.101.152.5:9001,id:165.227.18.179:9001,id:165.227.60.177:9001,id:39.107.46.245:9001,id:39.97.224.47:9001";
-    //"id:122.112.234.133:9001",
-    private final int kLocalPort = 7891;
-
     private boolean isExit;
-
     private WebView pay_view;
     private BottomDialog payview_dialog;
 
-
-    private final String kCurrentVersion = "3.0.0";
-    private int dip2px(float dpValue) {
-        final float scale = getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    private void InitItemLayout() {
-        WindowManager wm1 = this.getWindowManager();
-        DisplayMetrics mec = new DisplayMetrics();
-        wm1.getDefaultDisplay().getMetrics(mec);
-        if (mec.heightPixels > 1900) {
-            mCircleView.setY(160);
-            CircleButton c_btn = (CircleButton)findViewById(R.id.start_vpn);
-            c_btn.setY(160);
-        }
-    }
-
-    private static JSONObject getBaseRequest() {
-        try {
-            return new JSONObject()
-                    .put("apiVersion", 2)
-                    .put("apiVersionMinor", 0);
-        } catch (org.json.JSONException e) {
-            return null;
-        }
-    }
-
-    private static JSONObject getTokenizationSpecification() {
-        try {
-            JSONObject tokenizationSpecification = new JSONObject();
-            tokenizationSpecification.put("type", "DIRECT");
-            tokenizationSpecification.put(
-                    "parameters",
-                    new JSONObject()
-                            .put("protocolVersion", "ECv2")
-                            .put("publicKey", "BOdoXP1aiNp.....kh3JUhiSZKHYF2Y="));
-            return tokenizationSpecification;
-        } catch (org.json.JSONException e) {
-            return null;
-        }
-    }
     private static JSONArray getAllowedCardNetworks() {
             return new JSONArray()
                 .put("AMEX")
@@ -245,22 +142,6 @@ public class MainActivity extends FragmentActivity  implements
         return new JSONArray()
                 .put("PAN_ONLY")
                 .put("CRYPTOGRAM_3DS");
-    }
-
-    private static JSONObject getBaseCardPaymentMethod() {
-        try {
-            JSONObject cardPaymentMethod = new JSONObject();
-            cardPaymentMethod.put("type", "CARD");
-            cardPaymentMethod.put(
-                    "parameters",
-                    new JSONObject()
-                            .put("allowedAuthMethods", getAllowedCardAuthMethods())
-                            .put("allowedCardNetworks", getAllowedCardNetworks()));
-
-            return cardPaymentMethod;
-        } catch (org.json.JSONException e) {
-            return null;
-        }
     }
 
     private Handler handler = new Handler(){
@@ -353,30 +234,62 @@ public class MainActivity extends FragmentActivity  implements
         }
     };
 
-    public void closeWebview(View view) {
-        web_view_open_btn.setText(this.getString(R.string.navigation_string));
-        tilte_text_view.setText("TenonVPN");
-        webview_dialog.dismiss();
-    }
     public void hideDialog(View view) {
         bottom_dialog.dismiss();
     }
+
+    public void hideOutofBandwidth(View view) {
+        outof_bandwidth_dialog.dismiss();
+    }
+
     public void copyAccount(View view) {
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData mClipData = ClipData.newPlainText("Label", account_address);
+        ClipData mClipData = ClipData.newPlainText("Label", P2pLibManager.getInstance().account_id);
         cm.setPrimaryClip(mClipData);
         Toast.makeText(this, getString(R.string.copy_succ), Toast.LENGTH_SHORT).show();
     }
 
     public void copyPrikey(View view) {
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData mClipData = ClipData.newPlainText("Label", private_key);
+        ClipData mClipData = ClipData.newPlainText("Label", P2pLibManager.getInstance().private_key);
         cm.setPrimaryClip(mClipData);
         Toast.makeText(this, getString(R.string.copy_succ), Toast.LENGTH_SHORT).show();
     }
 
-    public void buyTenon(View view) {
-        payview_dialog.show();
+    public void shareVip(View view) {
+        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData mClipData = ClipData.newPlainText("Label", getString(R.string.share_content) + "\n http://" + P2pLibManager.getInstance().share_ip + "?id=" + P2pLibManager.getInstance().account_id);
+        cm.setPrimaryClip(mClipData);
+        Toast.makeText(this, getString(R.string.copy_share_vip), Toast.LENGTH_SHORT).show();
+    }
+
+    public void JoinUs(View view) {
+        String url = "https://github.com/tenondvpn/tenonvpn-join";
+        if (url.isEmpty() || url.startsWith("file")) {
+            Toast.makeText(this, getString(R.string.select_a_website_string), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(uri);
+        startActivity(intent);
+    }
+
+    public void buyTenon(View view)
+    {
+        String url = "http://" + P2pLibManager.getInstance().buy_tenon_ip + "/chongzhi/" + P2pLibManager.getInstance().account_id;
+        if (url.isEmpty() || url.startsWith("file")) {
+            Toast.makeText(this, getString(R.string.select_a_website_string), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     public void hidePayDialog(View view) {
@@ -399,12 +312,12 @@ public class MainActivity extends FragmentActivity  implements
             }
         }
 
-        if (tmp_prikey.equals(private_key)) {
+        if (tmp_prikey.equals(P2pLibManager.getInstance().private_key)) {
             Toast.makeText(this, getString(R.string.set_prikey), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!SaveUserPrivateKey(tmp_prikey)) {
+        if (!P2pLibManager.getInstance().SaveUserPrivateKey(tmp_prikey)) {
             Toast.makeText(this, getString(R.string.max_set_prikey), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -416,11 +329,10 @@ public class MainActivity extends FragmentActivity  implements
 
         EditText prikey_text=(EditText)bottom_dialog.getView().findViewById(R.id.dlg_private_key);
         prikey_text.setText(tmp_prikey.toUpperCase());
-        private_key = tmp_prikey;
+        P2pLibManager.getInstance().private_key = tmp_prikey;
 
-        account_address = P2pLibManager.getInstance().account_id;
         EditText acc_text=(EditText)bottom_dialog.getView().findViewById(R.id.dlg_account_address);
-        acc_text.setText(account_address.toUpperCase());
+        acc_text.setText(P2pLibManager.getInstance().account_id.toUpperCase());
         Toast.makeText(this, getString(R.string.set_prikey), Toast.LENGTH_SHORT).show();
 
         TextView main_balance = (TextView)findViewById(R.id.main_balance_lego);
@@ -440,7 +352,10 @@ public class MainActivity extends FragmentActivity  implements
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                System.exit(0);
+                LocalVpnService.IsRunning = false;
+                LocalVpnService.removeOnStatusChangedListener(MainActivity.this);
+                p2pDestroy();
+                MainActivity.this.finish();
             }
         });
         builder.show();
@@ -448,17 +363,19 @@ public class MainActivity extends FragmentActivity  implements
 
     public void hideUpgrade(View view) {
         upgrade_dialog.dismiss();
+        upgrade_dialog_showing = false;
+
     }
     public void switchSmartRoute(View view) {
-        use_smart_route = switchButton.isChecked();
         LocalVpnService.IsRunning = false;
-        P2pLibManager.getInstance().use_smart_route = switchButton.isChecked();
+        P2pLibManager.getInstance().use_smart_route = true;
     }
 
     public void homePage(View view) {
         wv_produce.loadUrl("file:///android_asset/index.html");
         wv_produce.clearHistory();
     }
+
 
     public void useBrower(View view) {
         String url = wv_produce.getUrl();
@@ -485,7 +402,7 @@ public class MainActivity extends FragmentActivity  implements
         }
 
         if (P2pLibManager.getInstance().now_status.equals("bwo")) {
-            notice_txt.setText(getString(R.string.bandwidth_over));
+           // notice_txt.setText(getString(R.string.bandwidth_over));
         }
     }
 
@@ -493,16 +410,24 @@ public class MainActivity extends FragmentActivity  implements
         TextView vip_txt = (TextView)findViewById(R.id.main_vip_left_status);
         if (P2pLibManager.getInstance().vip_left_days == -1 && P2pLibManager.getInstance().now_balance != -1) {
             vip_txt.setText(getString(R.string.now_free_to_use));
+            Button no_vip_button = (Button)findViewById(R.id.vip_no);
+            no_vip_button.setVisibility(View.VISIBLE);
+            Button vip_button = (Button)findViewById(R.id.vip_yes);
+            vip_button.setVisibility(View.INVISIBLE);
         }
 
         if (P2pLibManager.getInstance().vip_left_days >= 0) {
             vip_txt.setText(getString(R.string.layters_over_before) + " " + P2pLibManager.getInstance().vip_left_days + " " + getString(R.string.layters_over_after));
+            Button no_vip_button = (Button)findViewById(R.id.vip_no);
+            no_vip_button.setVisibility(View.INVISIBLE);
+            Button vip_button = (Button)findViewById(R.id.vip_yes);
+            vip_button.setVisibility(View.VISIBLE);
         }
     }
 
     void initPayView(final View view) {
         pay_view=(WebView) view.findViewById(R.id.wv_pay);
-        pay_view.loadUrl("http://39.105.125.37:7744/chongzhi/" + P2pLibManager.getInstance().account_id);
+        pay_view.loadUrl("http://" + P2pLibManager.getInstance().buy_tenon_ip + "/chongzhi/" + P2pLibManager.getInstance().account_id);
         WebSettings webSettings = pay_view.getSettings();
         webSettings.setJavaScriptEnabled(true);
         pay_view.getSettings().setSupportZoom(true);
@@ -556,9 +481,9 @@ public class MainActivity extends FragmentActivity  implements
             DATA_TO_SHOW[i][3] = items[3];
         }
         EditText prikey_text=(EditText)view.findViewById(R.id.dlg_private_key);
-        prikey_text.setText(private_key.toUpperCase());
+        prikey_text.setText(P2pLibManager.getInstance().private_key.toUpperCase());
         EditText acc_text=(EditText)view.findViewById(R.id.dlg_account_address);
-        acc_text.setText(account_address.toUpperCase());
+        acc_text.setText(P2pLibManager.getInstance().account_id.toUpperCase());
 
         TextView balance = (TextView)findViewById(R.id.balance_lego);
         TextView dlg_balance = (TextView)view.findViewById(R.id.dlg_balance_lego);
@@ -650,35 +575,61 @@ public class MainActivity extends FragmentActivity  implements
         bottom_dialog.show();
     }
 
+    public void showBandwidthOutDialog(View view) {
+        outof_bandwidth_dialog.show();
+    }
+
     public void checkVer(View view) {
         version_download_url = "";
         String ver = checkVersion();
+
         if (ver.isEmpty()) {
-            Toast.makeText(this, "Already the latest version.", Toast.LENGTH_SHORT).show();
+            if (view != null) {
+                Toast.makeText(this, getString(R.string.latest_version), Toast.LENGTH_SHORT).show();
+            }
         } else {
             String[] downs = ver.split(",");
             for (int i = 0; i < downs.length; ++i) {
                 String[] item = downs[i].split(";");
-                if (item.length < 3) {
+
+                if (item.length < 2) {
                     continue;
                 }
 
                 if (item[0].equals("android")) {
-                    if (item[1].compareTo(kCurrentVersion) <= 0) {
-                        Toast.makeText(this, "Already the latest version.", Toast.LENGTH_SHORT).show();
-                        return;
+                    if (item[1].compareTo(P2pLibManager.getInstance().kCurrentVersion) <= 0) {
+                        if (view != null) {
+                            Toast.makeText(this, getString(R.string.latest_version), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        version_download_url = item[2];
                     }
+                }
 
-                    version_download_url = item[2];
-                    break;
+                if (item[0].equals("share_ip")) {
+                    if (!item[1].isEmpty()) {
+                        P2pLibManager.getInstance().share_ip = item[1];
+                    }
+                }
+
+                if (item[0].equals("buy_ip")) {
+                    if (!item[1].isEmpty()) {
+                        P2pLibManager.getInstance().buy_tenon_ip = item[1];
+                    }
                 }
             }
 
             if (version_download_url.isEmpty()) {
-                Toast.makeText(this, "Already the latest version...", Toast.LENGTH_SHORT).show();
+                if (view != null) {
+                    Toast.makeText(this, getString(R.string.latest_version), Toast.LENGTH_SHORT).show();
+                }
                 return;
             }
-            upgrade_dialog.show();
+
+            if (!upgrade_dialog_showing) {
+                upgrade_dialog_showing = true;
+                upgrade_dialog.show();
+            }
         }
     }
 
@@ -690,6 +641,8 @@ public class MainActivity extends FragmentActivity  implements
         intent.setData(uri);
         startActivity(intent);
         upgrade_dialog.dismiss();
+        upgrade_dialog_showing = false;
+
     }
 
     private void InitSpinner() {
@@ -759,49 +712,12 @@ public class MainActivity extends FragmentActivity  implements
                 now_choosed_country = country_to_short.get(spinnerTitles[i]);
                 P2pLibManager.getInstance().choosed_country = country_to_short.get(spinnerTitles[i]);
                 LocalVpnService.IsRunning = false;
-                InitItemLayout();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-    }
-
-    public String GetUserPrivateKey() {
-        SharedPreferences sharedPreferences = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String private_key=sharedPreferences.getString("private_key","");
-        return private_key;
-    }
-
-    public boolean SaveUserPrivateKey(String pri_key) {
-        SharedPreferences sharedPreferences= getSharedPreferences("data",Context.MODE_PRIVATE);
-        String saved_private_key = sharedPreferences.getString("saved_private_key","");
-        String[] saved_prikeys = saved_private_key.split(",");
-        for (int i = 0; i < saved_prikeys.length; ++i) {
-            if (saved_prikeys[i].equals(pri_key)) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("private_key", pri_key);
-                editor.commit();
-                return true;
-            }
-        }
-
-        if (saved_prikeys.length >= 3) {
-            return false;
-        }
-
-        if (saved_private_key.isEmpty()) {
-            saved_private_key = pri_key;
-        } else {
-            saved_private_key += "," + pri_key;
-        }
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("private_key", pri_key);
-        editor.putString("saved_private_key", saved_private_key);
-        editor.commit();
-        return true;
     }
 
     @Override
@@ -816,55 +732,18 @@ public class MainActivity extends FragmentActivity  implements
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
         mCircleView.setValue(100);
         mCircleView.setBarColor(getResources().getColor(R.color.disconnect_succ_out));
+
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
 
         web_view_open_btn = findViewById(R.id.web_open_buton);
         tilte_text_view = findViewById(R.id.title_text);
-        switchButton = (com.suke.widget.SwitchButton)
-                findViewById(R.id.switch_smart_route);
-        switchButton.setChecked(true);
-        switchButton.setShadowEffect(true);//disable shadow effect
-        switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                //TODO do your job
-                switchSmartRoute(view);
-            }
-        });
 
-        //Pre-App Proxy
-        if (AppProxyManager.isLollipopOrAbove){
-            new AppProxyManager(this);
-        }
-        operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
-        LinearInterpolator lin = new LinearInterpolator();
-        operatingAnim.setInterpolator(lin);
-        local_ip = getIpAddressString();
-        String data_path = this.getFilesDir().getPath();
-        Log.e(TAG, "get file path:" + data_path);
-        String pri_key = GetUserPrivateKey();
-        Log.e("TAG", "get private key: " + pri_key);
-        String res = "";
-        int try_times = 0;
-        for (try_times = 0; try_times < 3; ++try_times) {
-            res = initP2PNetwork(local_ip, kLocalPort,
-                    bootstrap,
-                    data_path,
-                    kCurrentVersion,
-                    pri_key);
-            if (res.equals("create account address error!")) {
-                try {
-                    Thread.sleep(1000);
-                } catch(InterruptedException e) {
-                    e.printStackTrace();
-                }
-                continue;
-            }
-            break;
-        }
+        TextView share_text = findViewById(R.id.share_link_text);
+        String htmlString="<u>" + getString(R.string.share_vip) + "</u>";
+        share_text.setText(Html.fromHtml(htmlString));
 
-        if (try_times == 5) {
+        if (!P2pLibManager.getInstance().InitNetwork(this)) {
             Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
             try {
                 Thread.sleep(1000);
@@ -874,39 +753,26 @@ public class MainActivity extends FragmentActivity  implements
             this.finish();
             return;
         }
-        String[] res_split = res.split(",");
-        if (res_split.length < 4) {
-            Log.e(TAG,"init p2p network failed!" + res + ", " + local_ip + ":" + kLocalPort);
-            return;
-        }
-        Log.d(TAG, "onCreate: start check tx thread. 22222 ");
 
-        local_country = res_split[0];
-        account_address = res_split[1];
-        private_key = res_split[2];
-        if (pri_key.isEmpty()) {
-            SaveUserPrivateKey(private_key);
-            Log.e("TAG", "save private key: " + private_key);
+        int p2p_socket = getP2PSocket();
+        if (!vpn_service.protect(p2p_socket)) {
+            Log.e(TAG,"protect vpn socket failed");
         }
 
-        P2pLibManager.getInstance().account_id = account_address;
-        P2pLibManager.getInstance().private_key = private_key;
-        String[] default_routing = res_split[3].split(";");
-        for (int i = 0; i < default_routing.length; ++i) {
-            String[] tmp_item = default_routing[i].split(":");
-            if (tmp_item.length < 2) {
-                continue;
-            }
-
-            if (tmp_item[0].length() != 2 && tmp_item[1].length() != 2) {
-                continue;
-            }
-
-            default_routing_map.put(tmp_item[0], tmp_item[1]);
+        //Pre-App Proxy
+        if (AppProxyManager.isLollipopOrAbove){
+            new AppProxyManager(this);
         }
+        operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
+        LinearInterpolator lin = new LinearInterpolator();
+        operatingAnim.setInterpolator(lin);
 
-        P2pLibManager.getInstance().local_country = local_country;
-        Log.e(TAG, "get local country: " + local_country);
+
+        Log.e(TAG, "get local country: " + P2pLibManager.getInstance().local_country);
+        createAccount();
+        Thread t1 = new Thread(check_tx,"check tx");
+        t1.start();
+        Log.e("init", "init OK");
         bottom_dialog = BottomDialog.create(getSupportFragmentManager())
                 .setViewListener(new BottomDialog.ViewListener() {
                     @Override
@@ -966,12 +832,40 @@ public class MainActivity extends FragmentActivity  implements
                 .setCancelOutside(false)
                 .setTag("WebviewDialog");
 
-        payview_dialog = BottomDialog.create(getSupportFragmentManager());
-        payview_dialog.setViewListener(new BottomDialog.ViewListener() {
+//        payview_dialog = BottomDialog.create(getSupportFragmentManager());
+//        payview_dialog.setViewListener(new BottomDialog.ViewListener() {
+//            @Override
+//            public void bindView(View v) {
+//                initPayView(v);
+//                payview_dialog.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+//                    @Override
+//                    public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+//                        if (i == KeyEvent.KEYCODE_BACK) {
+//                            long now_timestamp = System.currentTimeMillis();
+//                            if (now_timestamp - goback_prev_timestamp <= 200) {
+//                                return true;
+//                            }
+//
+//                            goback_prev_timestamp = now_timestamp;
+//                            if (pay_view.canGoBack()) {
+//                                pay_view.goBack();
+//                                return true;
+//                            } else {
+//                                payview_dialog.dismiss();
+//                                return false;
+//                            }
+//                        }
+//                        return true;
+//                    }
+//                });
+//            }
+//        }) .setLayoutRes(R.layout.pay).setDimAmount(0.1f).setCancelOutside(false).setTag("PayviewDialog");
+
+        outof_bandwidth_dialog = BottomDialog.create(getSupportFragmentManager());
+        outof_bandwidth_dialog.setViewListener(new BottomDialog.ViewListener() {
             @Override
             public void bindView(View v) {
-                initPayView(v);
-                payview_dialog.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+                outof_bandwidth_dialog.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
                     public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
                         if (i == KeyEvent.KEYCODE_BACK) {
@@ -985,7 +879,7 @@ public class MainActivity extends FragmentActivity  implements
                                 pay_view.goBack();
                                 return true;
                             } else {
-                                payview_dialog.dismiss();
+                                outof_bandwidth_dialog.dismiss();
                                 return false;
                             }
                         }
@@ -993,16 +887,7 @@ public class MainActivity extends FragmentActivity  implements
                     }
                 });
             }
-        }) .setLayoutRes(R.layout.pay).setDimAmount(0.1f).setCancelOutside(false).setTag("PayviewDialog");
-
-        int p2p_socket = getP2PSocket();
-        if (!vpn_service.protect(p2p_socket)) {
-            Log.e(TAG,"protect vpn socket failed");
-        }
-        createAccount();
-        Thread t1 = new Thread(check_tx,"check tx");
-        t1.start();
-        Log.d(TAG, "onCreate: start check tx thread.");
+        }) .setLayoutRes(R.layout.outof_bandwidth).setDimAmount(0.1f).setCancelOutside(false).setTag("outbandwidthDialog");
     }
 
     String getVersionName() {
@@ -1081,7 +966,6 @@ public class MainActivity extends FragmentActivity  implements
     }
 
     public void startVpn(View view) {
-        P2pLibManager.getInstance().now_status = "ok";
         TextView notice_txt = (TextView)findViewById(R.id.notice_text);
         notice_txt.setText("");
         if (P2pLibManager.getInstance().now_status.equals("bwo")) {
@@ -1089,7 +973,8 @@ public class MainActivity extends FragmentActivity  implements
                 P2pLibManager.getInstance().now_status = "ok";
                 P2pLibManager.getInstance().PayforVpn();
             } else {
-                Toast.makeText(MainActivity.this, getString(R.string.bandwidth_over), Toast.LENGTH_SHORT).show();
+                showBandwidthOutDialog(view);
+                // Toast.makeText(MainActivity.this, getString(R.string.bandwidth_over), Toast.LENGTH_SHORT).show();
             }
             return;
         }
@@ -1124,7 +1009,6 @@ public class MainActivity extends FragmentActivity  implements
             String[] item_split = vpn_url_vec.get(rand_num).split(":");
             if (item_split.length >= 6) {
                 route_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
-                relay_country = dest_country;
             }
         }
 
@@ -1135,7 +1019,6 @@ public class MainActivity extends FragmentActivity  implements
                 String[] item_split = vpn_url_vec.get(rand_num).split(":");
                 if (item_split.length >= 6) {
                     route_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
-                    relay_country = now_choosed_country;
                 }
             }
         }
@@ -1148,7 +1031,6 @@ public class MainActivity extends FragmentActivity  implements
                     String[] item_split = vpn_url_vec.get(rand_num).split(":");
                     if (item_split.length >= 6) {
                         route_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
-                        relay_country = key;
                         break;
                     }
                 }
@@ -1191,7 +1073,7 @@ public class MainActivity extends FragmentActivity  implements
 
         if (vpn_proxy_url.isEmpty()) {
             for (String key : country_vpn_map.keySet()) {
-                if (key == local_country) {
+                if (key == P2pLibManager.getInstance().local_country) {
                     continue;
                 }
 
@@ -1228,13 +1110,10 @@ public class MainActivity extends FragmentActivity  implements
     }
 
     private void startVPNService() {
-        String route_proxy_url = "";
-        if (use_smart_route) {
-            route_proxy_url = ChooseRouteProxyUrl(local_country);
-            if (!isValidUrl(route_proxy_url)) {
-                Toast.makeText(this, "Waiting Decentralized Routing...", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        String route_proxy_url = ChooseRouteProxyUrl(P2pLibManager.getInstance().local_country);
+        if (!isValidUrl(route_proxy_url)) {
+            Toast.makeText(this, "Waiting Decentralized Routing...", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         String vpn_proxy_url = ChooseVpnProxyUrl();
@@ -1259,13 +1138,13 @@ public class MainActivity extends FragmentActivity  implements
             return;
         }
 
-        if (use_smart_route) {
+        if (P2pLibManager.getInstance().use_smart_route) {
             //Toast.makeText(this, " to " + direct_vpn_proxy_url +  " use " + route_proxy_url, Toast.LENGTH_SHORT).show();
             choosed_vpn_url = vpn_proxy_url;
             LocalVpnService.ProxyUrl = route_proxy_url;
             Log.e(TAG, " to " + vpn_proxy_url +  " use " + route_proxy_url);
         } else {
-            //Toast.makeText(this, "local " + local_country + " direct to " + now_choosed_country + ", " + direct_vpn_proxy_url, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "local " + P2pLibManager.getInstance().local_country + " direct to " + now_choosed_country + ", " + direct_vpn_proxy_url, Toast.LENGTH_SHORT).show();
             choosed_vpn_url = vpn_proxy_url;
             LocalVpnService.ProxyUrl = direct_vpn_proxy_url;
         }
@@ -1340,10 +1219,6 @@ public class MainActivity extends FragmentActivity  implements
         super.onDestroy();
     }
 
-    public static String getIpAddressString() {
-        return "0.0.0.0";
-    }
-
     public class CheckTransaction extends ListActivity implements Runnable {
         public List<String> gid_list = new ArrayList<String>();
         private ArrayList<String> not_get_country_list = new ArrayList<String>();
@@ -1376,7 +1251,6 @@ public class MainActivity extends FragmentActivity  implements
 
                 {
                     long now_balance = getBalance();
-                    Log.e(TAG, "got balance: " + now_balance);
                     P2pLibManager.getInstance().SetBalance(now_balance);
                     if (now_balance != -1) {
                         Message message = new Message();
@@ -1395,12 +1269,22 @@ public class MainActivity extends FragmentActivity  implements
                 }
 
                 vpn_service.protect(getP2PSocket());
-                if (check_vip_times < 10) {
-                    long tm = Long.parseLong(P2pLibManager.checkVip());
-                    if (P2pLibManager.getInstance().payfor_timestamp == 0 || tm != Long.MAX_VALUE) {
-                        P2pLibManager.getInstance().payfor_timestamp = tm;
+                if (check_vip_times < 1) {
+                    String res = P2pLibManager.checkVip();
+                    String[] items = res.split(",");
+                    if (items.length == 2) {
+                        long tm = Long.parseLong(items[0]);
+                        long amount = Long.parseLong(items[1]);
+                        if (P2pLibManager.getInstance().payfor_timestamp == 0 || tm != Long.MAX_VALUE) {
+                            if (tm != Long.MAX_VALUE && tm != 0)
+                            {
+                                check_vip_times = 11;
+                            }
+                            P2pLibManager.getInstance().payfor_timestamp = tm;
+                            P2pLibManager.getInstance().payfor_amount = amount;
+                        }
+                        check_vip_times++;
                     }
-                    check_vip_times++;
                 } else {
                     P2pLibManager.getInstance().PayforVpn();
                     Message message = new Message();
@@ -1408,6 +1292,11 @@ public class MainActivity extends FragmentActivity  implements
                     handler.sendMessage(message);
                 }
 
+                if (P2pLibManager.getInstance().now_balance == -1) {
+                    createAccount();
+                }
+
+                checkVer(null);
                 try {
                     Thread.sleep(2000);
                 } catch(InterruptedException e) {
@@ -1423,7 +1312,6 @@ public class MainActivity extends FragmentActivity  implements
         }
     }
 
-    public native String initP2PNetwork(String ip, int port, String bootstarp, String file_path, String version, String pri_key);
     public native int getP2PSocket();
     public native String createAccount();
     public native String getVpnNodes(String country);

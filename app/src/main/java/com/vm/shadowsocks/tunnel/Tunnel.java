@@ -77,9 +77,17 @@ public abstract class Tunnel {
             }
             int now_times = connect_times.incrementAndGet();
             if (now_times > 15) {
-                P2pLibManager.getInstance().now_status = "ncc";
-                LocalVpnService.IsRunning = false;
-                connect_times.set(0);
+                String old_ip = P2pLibManager.getInstance().choosed_vpn_ip;
+                P2pLibManager.getInstance().GetVpnNode();
+                if (!old_ip.equals(P2pLibManager.getInstance().choosed_vpn_ip)) {
+                    connect_times.set(0);
+                }
+
+                if (now_times >= 30) {
+                    P2pLibManager.getInstance().now_status = "ncc";
+                    LocalVpnService.IsRunning = false;
+                    connect_times.set(0);
+                }
                 return;
             }
 

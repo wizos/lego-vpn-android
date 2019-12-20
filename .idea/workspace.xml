@@ -12,33 +12,20 @@
     <last-search-timestamp>1566961858684</last-search-timestamp>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" description="            Toast.makeText(this, &quot;Waiting Decentra..." line="1020" />
-    <bookmark url="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml" line="162" />
+    <bookmark url="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" description="            Toast.makeText(this, &quot;Waiting Decentra..." line="1128" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a2fa57e-acfc-41d2-b90b-348aaf140a4d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ceryle_RadioRealButton_v2_1_1_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_zcweng_switch_button_0_0_3_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/Coinbase.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/bian.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/bitmex.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/duck.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/facebook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/fireball.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/fireball.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/hubi.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/okex.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/peekier.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/qwant.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/twitter.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/webcrawler.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/wikipedia.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/wolfram.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/assets/images/logos/youtube.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/test.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/link_web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsubscript.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libroot_congress.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsubscript.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsubscript.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsubscript.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/join_us.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/no_vip.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/share.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/vip.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/outof_bandwidth.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -85,8 +72,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_andreabaccega_android_form_edittext_1_3_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_andreabaccega_android_form_edittext_1_3_5_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_futuremind_recyclerfastscroll_fastscroll_0_2_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_futuremind_recyclerfastscroll_fastscroll_0_2_5_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ceryle_RadioRealButton_v2_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ceryle_RadioRealButton_v2_1_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_jakob_grabner_Circle_Progress_View_1_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_jakob_grabner_Circle_Progress_View_1_4_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_markushi_circlebutton_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_markushi_circlebutton_1_1_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_zcweng_switch_button_0_0_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_zcweng_switch_button_0_0_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_journeyapps_zxing_android_embedded_3_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_journeyapps_zxing_android_embedded_3_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wrapp_floatlabelededittext_library_0_0_6_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wrapp_floatlabelededittext_library_0_0_6_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_codecrafters_tableview_tableview_2_8_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_codecrafters_tableview_tableview_2_8_0_aar.xml" afterDir="false" />
@@ -95,40 +84,117 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_shaohui_bottomdialog_1_1_9_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_shaohui_bottomdialog_1_1_9_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/armeabi-v7a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/armeabi-v7a/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/armeabi-v7a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/armeabi-v7a/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/armeabi-v7a/android_gradle_build_native-lib_armeabi-v7a.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/armeabi-v7a/android_gradle_build_native-lib_armeabi-v7a.stdout.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86/android_gradle_build_native-lib_x86.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86/android_gradle_build_native-lib_x86.stdout.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86_64/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86_64/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86_64/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86_64/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/android_gradle_build_native-lib_arm64-v8a.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/arm64-v8a/android_gradle_build_native-lib_arm64-v8a.stdout.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/android_gradle_build_native-lib_armeabi-v7a.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/armeabi-v7a/android_gradle_build_native-lib_armeabi-v7a.stdout.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/android_gradle_build_native-lib_x86.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86/android_gradle_build_native-lib_x86.stdout.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/release/x86_64/android_gradle_build_native-lib_x86_64.stdout.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/debug/TenonVPN.apk" beforeDir="false" afterPath="$PROJECT_DIR$/app/debug/TenonVPN.apk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/TenonVPN.apk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libblock.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbroadcast.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libclient.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcommon.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcontract.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libdb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libdht.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libelection.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libinit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libip.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libjson2pb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libjson2pb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/liblimit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnat_traverse.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnetwork.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libroot_congress.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsecurity.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libstatistics.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsync.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libtransport.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libuuid.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libuuid.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libvss.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libblock.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbroadcast.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libclient.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcommon.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcontract.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdht.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libelection.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libinit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libip.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/liblimit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnat_traverse.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnetwork.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsecurity.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libstatistics.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsync.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libtransport.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libvss.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/include/vpn_client.h" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/include/vpn_client.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libblock.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbroadcast.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libclient.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcommon.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcontract.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdht.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libelection.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libinit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libip.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libjson2pb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libjson2pb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/liblimit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnat_traverse.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnetwork.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libroot_congress.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsecurity.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libstatistics.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsync.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libtransport.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libvss.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libblock.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbroadcast.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libclient.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcommon.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcontract.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdht.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libelection.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libinit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libip.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libjson2pb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libjson2pb.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/liblimit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnat_traverse.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnetwork.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libroot_congress.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsecurity.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libstatistics.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsync.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libtransport.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libvss.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksTunnel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksTunnel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/dialog_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/dialog_layout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/color.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/color.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -152,179 +218,92 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="189" selection-start-line="189" selection-end-line="189" />
+            <state relative-caret-position="396">
+              <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#13565#13607#0" expanded="true" />
-                <element signature="e#14396#14439#0" expanded="true" />
-                <element signature="e#15352#15603#0" expanded="true" />
-                <element signature="e#15602#15603#0" expanded="true" />
-                <element signature="e#19054#19094#0" expanded="true" />
-                <element signature="e#19555#19556#0" expanded="true" />
-                <element signature="e#19632#19633#0" expanded="true" />
-                <element signature="e#26851#26852#0" expanded="true" />
-                <element signature="e#26910#26911#0" expanded="true" />
-                <element signature="e#29212#29249#0" expanded="true" />
-                <element signature="e#41791#41792#0" expanded="true" />
-                <element signature="e#43913#43914#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39166c99be51a582bc6f0587439d6e81/jars/classes.jar!/me/shaohui/bottomdialog/BottomDialog.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.shaohui/bottomdialog/1.1.9/9be370f61ee7288490139da8a97503e6508110ef/bottomdialog-1.1.9-sources.jar!/me/shaohui/bottomdialog/BottomDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="180" selection-start-line="180" selection-end-line="181" />
-            </state>
-          </provider>
           <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="42" selection-start-line="42" selection-end-line="43" />
+            <state relative-caret-position="1804">
+              <caret line="82" column="39" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="35" column="27" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/link_web.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+            <state relative-caret-position="264">
+              <caret line="90" column="54" selection-start-line="90" selection-start-column="53" selection-end-line="90" selection-end-column="54" />
               <folding>
-                <element signature="e#1254#1273#0" expanded="true" />
-                <element signature="e#3740#3768#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/assets/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+            <state relative-caret-position="990">
+              <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="201" />
               <folding>
-                <element signature="e#1323#1349#0" expanded="true" />
-                <element signature="e#1342#1362#0" expanded="true" />
-                <element signature="e#1989#2043#0" expanded="true" />
-                <element signature="e#2219#2255#0" expanded="true" />
-                <element signature="e#2342#2362#0" expanded="true" />
-                <element signature="e#3076#3097#0" expanded="true" />
-                <element signature="e#3156#3192#0" expanded="true" />
-                <element signature="e#3280#3300#0" expanded="true" />
-                <element signature="e#4021#4042#0" expanded="true" />
-                <element signature="e#4101#4137#0" expanded="true" />
-                <element signature="e#4224#4244#0" expanded="true" />
-                <element signature="e#4952#4973#0" expanded="true" />
-                <element signature="e#5032#5068#0" expanded="true" />
-                <element signature="e#5155#5175#0" expanded="true" />
-                <element signature="e#5881#5902#0" expanded="true" />
-                <element signature="e#5961#5997#0" expanded="true" />
-                <element signature="e#6085#6105#0" expanded="true" />
-                <element signature="e#6815#6836#0" expanded="true" />
-                <element signature="e#6895#6931#0" expanded="true" />
-                <element signature="e#7069#7095#0" expanded="true" />
-                <element signature="e#7190#7210#0" expanded="true" />
-                <element signature="e#7900#7921#0" expanded="true" />
-                <element signature="e#7980#8016#0" expanded="true" />
-                <element signature="e#8104#8124#0" expanded="true" />
-                <element signature="e#8855#8876#0" expanded="true" />
-                <element signature="e#8935#8971#0" expanded="true" />
-                <element signature="e#9059#9079#0" expanded="true" />
-                <element signature="e#9799#9820#0" expanded="true" />
-                <element signature="e#9879#9915#0" expanded="true" />
-                <element signature="e#10003#10023#0" expanded="true" />
-                <element signature="e#10718#10739#0" expanded="true" />
-                <element signature="e#10798#10834#0" expanded="true" />
-                <element signature="e#10922#10942#0" expanded="true" />
-                <element signature="e#11665#11686#0" expanded="true" />
-                <element signature="e#11745#11781#0" expanded="true" />
-                <element signature="e#11915#11941#0" expanded="true" />
-                <element signature="e#12034#12054#0" expanded="true" />
-                <element signature="e#12770#12791#0" expanded="true" />
-                <element signature="e#12850#12886#0" expanded="true" />
-                <element signature="e#12972#12992#0" expanded="true" />
-                <element signature="e#13717#13738#0" expanded="true" />
-                <element signature="e#13797#13833#0" expanded="true" />
-                <element signature="e#13919#13939#0" expanded="true" />
-                <element signature="e#14636#14657#0" expanded="true" />
-                <element signature="e#14716#14752#0" expanded="true" />
-                <element signature="e#14880#14900#0" expanded="true" />
-                <element signature="e#15631#15652#0" expanded="true" />
-                <element signature="e#15711#15747#0" expanded="true" />
-                <element signature="e#15834#15854#0" expanded="true" />
-                <element signature="e#16559#16580#0" expanded="true" />
-                <element signature="e#16639#16675#0" expanded="true" />
-                <element signature="e#16762#16782#0" expanded="true" />
-                <element signature="e#17516#17537#0" expanded="true" />
-                <element signature="e#17596#17632#0" expanded="true" />
-                <element signature="e#17719#17739#0" expanded="true" />
-                <element signature="e#18485#18506#0" expanded="true" />
-                <element signature="e#18565#18601#0" expanded="true" />
-                <element signature="e#18730#18750#0" expanded="true" />
-                <element signature="e#19462#19483#0" expanded="true" />
-                <element signature="e#19542#19578#0" expanded="true" />
-                <element signature="e#19665#19685#0" expanded="true" />
-                <element signature="e#20386#20407#0" expanded="true" />
-                <element signature="e#15573#15609#0" expanded="true" />
+                <element signature="e#1218#1243#0" expanded="true" />
+                <element signature="e#1336#1360#0" expanded="true" />
+                <element signature="e#2717#2753#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1452">
+              <caret line="82" column="41" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/assets/images/go.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/assets/images/logos/loading.gif">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/cpp/libs/include/vpn_client.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5434">
+              <caret line="247" column="48" selection-start-line="247" selection-start-column="48" selection-end-line="247" selection-end-column="48" />
+              <folding>
+                <element signature="e#14#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/files/lego.conf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -340,36 +319,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>lego</find>
-      <find>initWebView()</find>
-      <find>view</find>
-      <find>initWebView</find>
-      <find>bottom_dialog</find>
-      <find>webview_dialog</find>
-      <find>web_view_close_btn</find>
-      <find>font</find>
-      <find>closeWebview</find>
-      <find>17dp</find>
-      <find>col-sm-3</find>
-      <find>overflowKeyword</find>
-      <find>xe-comment-entry</find>
-      <find>&lt;div class=&quot;xe-widget xe-conversations box2 label-info&quot;</find>
-      <find>OnClick</find>
-      <find>onClick</find>
-      <find>onKeyDown</find>
-      <find>web_view_open_btn</find>
-      <find>facebook</find>
-      <find>RadioRealButton</find>
-      <find>onCreateView</find>
-      <find>web_view_prev_btn</find>
-      <find>upgrade</find>
-      <find>useBrower</find>
-      <find>webPrev</find>
-      <find>useBr</find>
-      <find>width=&quot;15&quot;  style=</find>
-      <find>loadUrl</find>
-      <find>center_title</find>
-      <find>wv_produce</find>
+      <find>0ab9010a20e9a7987fb4adac3413900787189e32f1b8c8c7adc289bd98a09e89edf523b2ff1220b7cd307da7805de9dd200f87a67b656acafc0f45024cc0ed5ceb85cb0ddb6dc71a21027b1572f46cba1f46d9ab9d4ec25b9a3ca870eadce77103219fc5d5ee9d90d09c2a20b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4309405380542140a10757365725f7061795f666f725f76706e12004a13636f6e74726163745f76706e5f706179666f72</find>
+      <find>0ab9010a20fabf394d19faa74de7f35125f465a704d7b1053d1b110fc8d2dfb3d526ad027d1220b7cd307da7805de9dd200f87a67b656acafc0f45024cc0ed5ceb85cb0ddb6dc71a21027b1572f46cba1f46d9ab9d4ec25b9a3ca870eadce77103219fc5d5ee9d90d09c2a20b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4309405380542140a10757365725f7061795f666f725f76706e12004a13636f6e74726163745f76706e5f706179666f72</find>
+      <find>0ab9010a20b1afe387915974669999a47f0fa58a448bc2052895b86ee157cf95f7f7b31b981220b7cd307da7805de9dd200f87a67b656acafc0f45024cc0ed5ceb85cb0ddb6dc71a21027b1572f46cba1f46d9ab9d4ec25b9a3ca870eadce77103219fc5d5ee9d90d09c2a20b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4309405380542140a10757365725f7061795f666f725f76706e12004a13636f6e74726163745f76706e5f706179666f72</find>
+      <find>0ab9010a209e64ebd0ad529c0d3b1aa39586560771237c4c71edd63bad4be81e01007d689a1220b7cd307da7805de9dd200f87a67b656acafc0f45024cc0ed5ceb85cb0ddb6dc71a21027b1572f46cba1f46d9ab9d4ec25b9a3ca870eadce77103219fc5d5ee9d90d09c2a20b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4309405380542140a10757365725f7061795f666f725f76706e12004a13636f6e74726163745f76706e5f706179666f72</find>
+      <find>0ab9010a20ce53ccc01a3963f04ab147c02c5a5786b4129d7694f9ca5ac73639720a1ca12b1220b7cd307da7805de9dd200f87a67b656acafc0f45024cc0ed5ceb85cb0ddb6dc71a21027b1572f46cba1f46d9ab9d4ec25b9a3ca870eadce77103219fc5d5ee9d90d09c2a20b5be6f0090e4f5d40458258ed9adf843324c0327145c48b55091f33673d2d5a4309405380542140a10757365725f7061795f666f725f76706e12004a13636f6e74726163745f76706e5f706179666f72</find>
+      <find>Payfo</find>
+      <find>check res</find>
+      <find>payview</find>
+      <find>kCurrentVersion</find>
+      <find>share_text</find>
+      <find>shareVip</find>
+      <find>buyTe</find>
+      <find>share</find>
+      <find>GOT_CHANGE_VIP_STATUS</find>
+      <find>39.105.125.37:7744</find>
+      <find>route node</find>
+      <find>c_btn.setY</find>
+      <find>InitItemLayout</find>
+      <find>mCircleView</find>
+      <find>onCreate: start check tx thread</find>
+      <find>111</find>
+      <find>i</find>
+      <find>&quot;route</find>
+      <find>route_proxy_url</find>
+      <find>buy_tenon_ip</find>
+      <find>checkVer</find>
+      <find>upgrade_dialog</find>
+      <find>buy</find>
+      <find>now_balance</find>
+      <find>bwo</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;div style=&quot;height:75px;&quot; class=&quot;xe-widget xe-conversations box2 label-info&quot;</replace>
@@ -389,10 +368,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-hdpi/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-xhdpi/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/AppManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/CustomAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MyAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/googlepay_button_no_shadow_background.xml" />
@@ -405,12 +380,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/SortStateViewProviders.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/TableDataRowBackgroundProviders.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/custom_spinner_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/cpp/libs/include/vpn_client.h" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/LocalVpnService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/TcpProxyServer.java" />
         <option value="$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.legovpn/lego.log" />
         <option value="$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.legovpn/lego.conf" />
-        <option value="$PROJECT_DIR$/app/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/switch_custom_thumb_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/switch_custom_track_on.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/switch_custom_track_off.xml" />
@@ -420,53 +391,49 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/switch_custom_thumb_off.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/btn_bg_normal.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/upgrade.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/TunnelFactory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksTunnel.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/new_switch_draw.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/assets/test.html" />
         <option value="$PROJECT_DIR$/app/src/main/assets/test.html" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/color.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/dialog_layout.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/link_web.xml" />
         <option value="$PROJECT_DIR$/app/src/main/assets/index.html" />
+        <option value="$PROJECT_DIR$/app/CMakeLists.txt" />
+        <option value="$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/files/lego.log" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/TcpProxyServer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/LocalVpnService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/pay.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/dialog_layout.xml" />
+        <option value="$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/files/lego.conf" />
+        <option value="$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/outof_bandwidth.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksTunnel.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/link_web.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/cpp/libs/include/vpn_client.h" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java" />
       </list>
     </option>
   </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1912" />
     <option name="y" value="-8" />
-    <option name="width" value="1345" />
-    <option name="height" value="882" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="lego-vpn-android" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -521,9 +488,7 @@
               <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
+              <item name="cpp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="lego-vpn-android" type="b2602c69:ProjectViewProjectNode" />
@@ -578,24 +543,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="layout-xxhdpi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lego-vpn-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lego-vpn-android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
-              <item name="values" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lego-vpn-android" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lego-vpn-android" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="res" type="462c0819:PsiDirectoryNode" />
               <item name="values-zh-rCN" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -607,31 +554,44 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="lego-vpn-android" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ExportApk.ApkPath" value="D:\lego\lego-vpn-android\app" />
-    <property name="ExportApk.BuildVariants" value="debug" />
+    <property name="ExportApk.BuildVariants" value="release" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="JUBNU19527109498" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/kestore.jks" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../PayWebView-master" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="http.proxy" />
+    <property name="settings.editor.selected.configurable" value="android.studio.gradle" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\armeabi-v7a" />
+      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\x86_64" />
+      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\x86" />
+      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\arm64-v8a" />
+      <recent name="D:\lego\lego-vpn-android\app\src\main\res\drawable" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\lego\lego-vpn-android\app\src\main\res\layout-xxhdpi" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\lego\lego-vpn-android\app\src\main\assets\assets\images\logos" />
-      <recent name="D:\lego\lego-vpn-android\app\src\main\assets" />
-      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\x86" />
-      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\armeabi-v7a" />
-      <recent name="D:\lego\lego-vpn-android\app\src\main\cpp\libs\arm64-v8a" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -726,7 +686,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2153518" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17697228" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -734,23 +694,23 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.6604478" weight="0.35550934" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.6604478" weight="0.3191268" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.49946696" weight="0.3275488" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.17493297" side_tool="true" weight="0.36633664" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" sideWeight="0.82506704" visible="true" weight="0.26715177" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.82506704" visible="true" weight="0.3056133" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32952183" />
-      <window_info anchor="right" id="Device File Explorer" order="0" sideWeight="0.2689211" side_tool="true" weight="0.5133262" />
+      <window_info anchor="right" id="Device File Explorer" order="0" sideWeight="0.039402176" side_tool="true" visible="true" weight="0.20042644" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Assistant" order="5" weight="0.32942432" />
-      <window_info anchor="right" id="Preview" order="6" sideWeight="0.7310789" weight="0.3704691" />
+      <window_info anchor="right" id="Preview" order="6" sideWeight="0.9605978" weight="0.34594882" />
     </layout>
     <layout-to-restore>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -782,162 +742,9 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/httpconnect/HttpConnectConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/httpconnect/HttpConnectTunnel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LICENSE">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradlew.bat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shadowsocks-android-java.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/attrs.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1452" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2307">
-          <caret line="107" column="12" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradlew">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lego-vpn-android.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lego_vpn_android.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/upgrade.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="36" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="36" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/files/lego.conf" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="45" column="19" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3168">
-          <caret line="144" column="66" selection-start-line="144" selection-start-column="66" selection-end-line="144" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/TcpProxyServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2354">
-          <caret line="117" column="72" selection-start-line="117" selection-start-column="52" selection-end-line="117" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/TunnelFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksTunnel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1760">
-          <caret line="90" column="29" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3984#3985#0" expanded="true" />
-            <element signature="e#4026#4027#0" expanded="true" />
-            <element signature="e#4695#4696#0" expanded="true" />
-            <element signature="e#4727#4728#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="33" column="83" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6142#6143#0" expanded="true" />
-            <element signature="e#6179#6180#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/java/net/InetSocketAddress.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_activity_actions.xml">
-      <provider selected="true" editor-type-id="text-editor" />
       <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/new_switch_draw.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
@@ -994,12 +801,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/custom_spinner_row.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="16" column="41" selection-start-line="7" selection-start-column="4" selection-end-line="16" selection-end-column="41" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/android/view/View.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -1018,16 +825,8 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/layout_apps.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/dialog_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="53" selection-end-column="23" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/android/app/Activity.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -1040,24 +839,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="78" column="54" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/assets/css/xenon.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
           <caret line="17" column="170122" selection-start-line="17" selection-start-column="170106" selection-end-line="17" selection-end-column="170122" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.fragment/fragment/1.0.0/bcd167792ec03e930d5c8345c99ae07b2627de84/fragment-1.0.0-sources.jar!/androidx/fragment/app/FragmentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="727" column="56" selection-start-line="727" selection-start-column="56" selection-end-line="727" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -1071,160 +856,270 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39166c99be51a582bc6f0587439d6e81/jars/classes.jar!/me/shaohui/bottomdialog/BottomDialog.class" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.fragment/fragment/1.0.0/bcd167792ec03e930d5c8345c99ae07b2627de84/fragment-1.0.0-sources.jar!/androidx/fragment/app/FragmentActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="22" column="48" selection-start-line="22" selection-start-column="48" selection-end-line="22" selection-end-column="48" />
+        <state relative-caret-position="6050">
+          <caret line="331" column="19" selection-start-line="331" selection-start-column="19" selection-end-line="331" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.shaohui/bottomdialog/1.1.9/9be370f61ee7288490139da8a97503e6508110ef/bottomdialog-1.1.9-sources.jar!/me/shaohui/bottomdialog/BottomDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+        <state relative-caret-position="154">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml">
+    <entry file="file://$PROJECT_DIR$/../block_brower/bower_components_1/Ionicons/css/ionicons.min.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="180" selection-start-line="180" selection-end-line="181" />
+        <state relative-caret-position="242">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/index.html">
+    <entry file="file://$PROJECT_DIR$/../block_brower/adminlet/ionicons.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1870">
+          <caret line="85" column="23" selection-start-line="85" selection-start-column="23" selection-end-line="85" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/android/content/Context.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="239" column="38" selection-start-line="239" selection-start-column="38" selection-end-line="239" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/shared_prefs/data.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="25" column="34" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/java/nio/channels/SocketChannel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/java/net/SocketAddress.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/LocalVpnService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3520">
+          <caret line="189" column="48" selection-start-line="189" selection-start-column="48" selection-end-line="189" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MyAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <caret line="15" column="6" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/core/TcpProxyServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
           <folding>
-            <element signature="e#1323#1349#0" expanded="true" />
-            <element signature="e#1342#1362#0" expanded="true" />
-            <element signature="e#1989#2043#0" expanded="true" />
-            <element signature="e#2219#2255#0" expanded="true" />
-            <element signature="e#2342#2362#0" expanded="true" />
-            <element signature="e#3076#3097#0" expanded="true" />
-            <element signature="e#3156#3192#0" expanded="true" />
-            <element signature="e#3280#3300#0" expanded="true" />
-            <element signature="e#4021#4042#0" expanded="true" />
-            <element signature="e#4101#4137#0" expanded="true" />
-            <element signature="e#4224#4244#0" expanded="true" />
-            <element signature="e#4952#4973#0" expanded="true" />
-            <element signature="e#5032#5068#0" expanded="true" />
-            <element signature="e#5155#5175#0" expanded="true" />
-            <element signature="e#5881#5902#0" expanded="true" />
-            <element signature="e#5961#5997#0" expanded="true" />
-            <element signature="e#6085#6105#0" expanded="true" />
-            <element signature="e#6815#6836#0" expanded="true" />
-            <element signature="e#6895#6931#0" expanded="true" />
-            <element signature="e#7069#7095#0" expanded="true" />
-            <element signature="e#7190#7210#0" expanded="true" />
-            <element signature="e#7900#7921#0" expanded="true" />
-            <element signature="e#7980#8016#0" expanded="true" />
-            <element signature="e#8104#8124#0" expanded="true" />
-            <element signature="e#8855#8876#0" expanded="true" />
-            <element signature="e#8935#8971#0" expanded="true" />
-            <element signature="e#9059#9079#0" expanded="true" />
-            <element signature="e#9799#9820#0" expanded="true" />
-            <element signature="e#9879#9915#0" expanded="true" />
-            <element signature="e#10003#10023#0" expanded="true" />
-            <element signature="e#10718#10739#0" expanded="true" />
-            <element signature="e#10798#10834#0" expanded="true" />
-            <element signature="e#10922#10942#0" expanded="true" />
-            <element signature="e#11665#11686#0" expanded="true" />
-            <element signature="e#11745#11781#0" expanded="true" />
-            <element signature="e#11915#11941#0" expanded="true" />
-            <element signature="e#12034#12054#0" expanded="true" />
-            <element signature="e#12770#12791#0" expanded="true" />
-            <element signature="e#12850#12886#0" expanded="true" />
-            <element signature="e#12972#12992#0" expanded="true" />
-            <element signature="e#13717#13738#0" expanded="true" />
-            <element signature="e#13797#13833#0" expanded="true" />
-            <element signature="e#13919#13939#0" expanded="true" />
-            <element signature="e#14636#14657#0" expanded="true" />
-            <element signature="e#14716#14752#0" expanded="true" />
-            <element signature="e#14880#14900#0" expanded="true" />
-            <element signature="e#15631#15652#0" expanded="true" />
-            <element signature="e#15711#15747#0" expanded="true" />
-            <element signature="e#15834#15854#0" expanded="true" />
-            <element signature="e#16559#16580#0" expanded="true" />
-            <element signature="e#16639#16675#0" expanded="true" />
-            <element signature="e#16762#16782#0" expanded="true" />
-            <element signature="e#17516#17537#0" expanded="true" />
-            <element signature="e#17596#17632#0" expanded="true" />
-            <element signature="e#17719#17739#0" expanded="true" />
-            <element signature="e#18485#18506#0" expanded="true" />
-            <element signature="e#18565#18601#0" expanded="true" />
-            <element signature="e#18730#18750#0" expanded="true" />
-            <element signature="e#19462#19483#0" expanded="true" />
-            <element signature="e#19542#19578#0" expanded="true" />
-            <element signature="e#19665#19685#0" expanded="true" />
-            <element signature="e#20386#20407#0" expanded="true" />
-            <element signature="e#15573#15609#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/pay.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="880">
+          <caret line="40" column="46" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/tools/tools/lib/platforms/android-29/android.jar!/android/content/ContextWrapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="946">
+          <caret line="107" column="29" selection-start-line="107" selection-start-column="29" selection-end-line="107" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/link_web.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2794">
+          <caret line="127" column="14" selection-start-line="121" selection-start-column="4" selection-end-line="127" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/dialog_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1540">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/shadowsocks/ShadowsocksTunnel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1826">
+          <caret line="94" column="9" selection-start-line="94" selection-start-column="9" selection-end-line="94" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/cpp/native-lib.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="770">
+          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/outof_bandwidth.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="52" selection-start-line="52" selection-end-line="60" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="613">
+          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="42" selection-start-line="42" selection-end-line="43" />
+        <state relative-caret-position="245">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values-zh-rCN/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="35" column="27" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="27" />
+        <state relative-caret-position="253">
+          <caret line="51" column="29" selection-start-line="51" selection-start-column="29" selection-end-line="51" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/link_web.xml">
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-eva_tl00-B2T0216602002091/data/data/com.vm.tenonvpn/files/lego.conf" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-eva_tl00-B2T0216602002091/data/data/com.vm.tenonvpn/files/lego.log" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/files/lego.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        <state relative-caret-position="1804">
+          <caret line="82" column="39" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="201" />
           <folding>
-            <element signature="e#1254#1273#0" expanded="true" />
-            <element signature="e#3740#3768#0" expanded="true" />
+            <element signature="e#1218#1243#0" expanded="true" />
+            <element signature="e#1336#1360#0" expanded="true" />
+            <element signature="e#2717#2753#0" expanded="true" />
           </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/title_layout.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/tunnel/Tunnel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+        <state relative-caret-position="1452">
+          <caret line="82" column="41" selection-start-line="82" selection-start-column="41" selection-end-line="82" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/39166c99be51a582bc6f0587439d6e81/jars/classes.jar!/me/shaohui/bottomdialog/BottomDialog.class">
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/assets/images/go.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/assets/images/logos/loading.gif">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/cpp/libs/include/vpn_client.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+        <state relative-caret-position="5434">
+          <caret line="247" column="48" selection-start-line="247" selection-start-column="48" selection-end-line="247" selection-end-column="48" />
+          <folding>
+            <element signature="e#14#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/huawei-rvl_al09-JUBNU19527109498/data/data/com.vm.tenonvpn/files/lego.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="189" selection-start-line="189" selection-end-line="189" />
+        <state relative-caret-position="264">
+          <caret line="90" column="54" selection-start-line="90" selection-start-column="53" selection-end-line="90" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#13565#13607#0" expanded="true" />
-            <element signature="e#14396#14439#0" expanded="true" />
-            <element signature="e#15352#15603#0" expanded="true" />
-            <element signature="e#15602#15603#0" expanded="true" />
-            <element signature="e#19054#19094#0" expanded="true" />
-            <element signature="e#19555#19556#0" expanded="true" />
-            <element signature="e#19632#19633#0" expanded="true" />
-            <element signature="e#26851#26852#0" expanded="true" />
-            <element signature="e#26910#26911#0" expanded="true" />
-            <element signature="e#29212#29249#0" expanded="true" />
-            <element signature="e#41791#41792#0" expanded="true" />
-            <element signature="e#43913#43914#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="62" column="52" selection-start-line="62" selection-start-column="52" selection-end-line="62" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

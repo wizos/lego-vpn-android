@@ -78,6 +78,16 @@ public class ShadowsocksTunnel extends Tunnel {
 
         buffer.clear();
         if (P2pLibManager.getInstance().use_smart_route) {
+            String ex_route = P2pLibManager.getInstance().GetExRouteNode();
+            if (!ex_route.isEmpty()) {
+                String[] splits = ex_route.split(":");
+                if (splits.length == 2) {
+                    String ex_route_ip = splits[0];
+                    int ex_route_port = Integer.parseInt(splits[1]);
+                    buffer.putInt(ipToNum(ex_route_ip));
+                    buffer.putShort((short)ex_route_port);
+                }
+            }
             String vpn_ip = P2pLibManager.getInstance().choosed_vpn_ip;
             int vpn_port = P2pLibManager.getInstance().choosed_vpn_port;
             buffer.putInt(ipToNum(vpn_ip));

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.futuremind.recyclerfastscroll:fastscroll:0.2.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9e9b3fa3aa8f12e74ee054598018bcce/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9e9b3fa3aa8f12e74ee054598018bcce/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f0a664c2d7647d2aaf7cf503b8bb5c1e/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f0a664c2d7647d2aaf7cf503b8bb5c1e/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

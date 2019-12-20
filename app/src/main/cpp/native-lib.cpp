@@ -16,7 +16,7 @@ extern "C"{
 #endif
 
 
-JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_MainActivity_initP2PNetwork(
+JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_initP2PNetwork(
         JNIEnv *env,
         jobject,
         jstring ip,
@@ -299,6 +299,13 @@ JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_resetPrivateK
     jboolean iscopy;
     const char *prikey = env->GetStringUTFChars(pri_key, &iscopy);
     std::string res = lego::client::VpnClient::Instance()->ResetPrivateKey(prikey);
+    return env->NewStringUTF(res.c_str());
+}
+
+JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getClientProperty(
+        JNIEnv *env,
+        jobject) {
+    std::string res = lego::client::VpnClient::Instance()->GetClientProperty();
     return env->NewStringUTF(res.c_str());
 }
 

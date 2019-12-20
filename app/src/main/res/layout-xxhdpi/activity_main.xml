@@ -47,21 +47,53 @@
             android:textSize="13sp"
             android:gravity="center"
             android:text="@string/smart_route_usefull"                />
+        <Button
+            android:layout_width="61dp"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/join_us"
+            android:onClick="JoinUs"
+            android:focusable="false" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="150dp"
-        android:gravity="center_horizontal|center|center_vertical"
+        android:gravity="center_horizontal|top"
         >
 
+        <Button
+            android:id="@+id/vip_yes"
+            android:layout_width="81dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="-54dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/vip"
+            android:focusable="false"
+            android:gravity="left"
+            android:visibility="invisible"
+            android:onClick="buyTenon" />
+        <Button
+            android:id="@+id/vip_no"
+            android:layout_width="81dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="-54dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/no_vip"
+            android:focusable="false"
+            android:gravity="left"
+            android:visibility="invisible"
+            android:onClick="buyTenon" />
         <at.grabner.circleprogress.CircleProgressView
             android:id="@+id/circleView"
             android:layout_marginTop="0dp"
-            android:layout_width="224dp"
-            android:layout_height="224dp"
+            android:layout_width="244dp"
+            android:layout_height="244dp"
             app:cpv_autoTextSize="false"
             app:cpv_barColor="@color/gray"
             app:cpv_innerContourSize="0dp"
@@ -81,8 +113,8 @@
         <at.markushi.ui.CircleButton
             android:layout_marginTop="0dp"
             android:id="@+id/start_vpn"
-            android:layout_width="224dp"
-            android:layout_height="224dp"
+            android:layout_width="244dp"
+            android:layout_height="244dp"
             android:layout_marginLeft="0dp"
             android:onClick="startVpn"
             app:cb_color="#D9D9D9"
@@ -99,7 +131,6 @@
                 android:textSize="13sp"
                 android:gravity="center_horizontal|center|center_vertical"
                 android:text=""/>
-
     </RelativeLayout >
 
     <FrameLayout
@@ -111,40 +142,6 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical"
         android:layout_marginTop="-200dp">
-        <LinearLayout
-            android:layout_marginTop="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="65dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_horizontal"
-                android:visibility="invisible"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="112dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/connect_succ_in"
-                    android:gravity="left"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:text="@string/smart_route_name_string" />
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_smart_route"
-                    android:layout_width="85dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="0dp"
-                    android:onClick="switchSmartRoute"
-                    android:checked="true"
-                    sb_checked = "true"
-                    android:layout_marginLeft="10dp" />
-                        </LinearLayout>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="29dp"
@@ -188,7 +185,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/share_link_text"
+                android:layout_marginTop="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="14sp"
+                android:layout_marginLeft="0dp"
+                android:textColor="@color/connect_succ_in"
+                android:text="@string/share_vip"
+                android:textStyle="italic"
+                android:onClick="shareVip"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="94dp"
             android:gravity="left"
             android:orientation="horizontal">
             <TextView
@@ -209,7 +230,7 @@
                 android:layout_weight="1.2"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:layout_marginLeft="-10dp"
+                android:layout_marginLeft="0dp"
                 android:textColor="@color/disconnect_succ_in"
                 android:text="@string/now_wait_to_sync"
                 />
@@ -225,15 +246,7 @@
                 android:text=""
                 />
 
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/buy"
-                android:focusable="false"
-                android:gravity="center"
-                android:onClick="buyTenon" />
+
         </LinearLayout>
     </FrameLayout>
     <LinearLayout
