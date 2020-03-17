@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.vm.shadowsocks.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
@@ -45,15 +46,63 @@ public final class P2pLibManager {
     public long now_balance = -1;
     private String payfor_gid = "";
     private final int kLocalPort = 7891;
-    private String bootstrap = "id:139.59.91.63:9001,id:139.59.47.229:9001,id:46.101.152.5:9001,id:165.227.18.179:9001,id:165.227.60.177:9001,id:206.189.239.148:9001,id:121.201.1.186:9001,id:121.201.10.101:9001,id:121.201.102.126:9001";
-    public final String kCurrentVersion = "3.1.0";
+    private String bootstrap = "id:114.67.115.16:9003,id:91.193.103.66:9001,id:103.205.5.163:9001,id:46.101.152.5:9001,id:206.189.226.23:9001,id:159.65.0.164:9001,id:8.9.31.116:9001,id:103.205.4.139:9001,id:178.128.174.110:9001,id:139.59.47.229:9001,id:104.248.45.86:9001,id:172.96.205.146:9001,id:165.227.18.179:9001,id:128.199.38.94:9001";
+    public final String kCurrentVersion = "3.1.6";
     public String share_ip = "103.205.5.217";
     public String buy_tenon_ip = "222.186.170.72";
 
-    static public HashMap<String, String> default_routing_map = new HashMap<String, String>();
+    static private HashMap<String, String> default_routing_map = new HashMap<String, String>();
+    private final Object def_route_lock = new Object();
+    static private HashMap<String, String> ex_route_map = new HashMap<String, String>();
+    private final Object ex_route_lock = new Object();
 
     public void Init() {
         InitPayforAccounts();
+    }
+
+    public String GetDefaultRouting(String des) {
+        synchronized(def_route_lock) {
+            if (default_routing_map.containsKey(des)) {
+                return default_routing_map.get(des);
+            }
+
+            return "";
+        }
+    }
+
+    public void SetDefaultRouting(String data) {
+        synchronized(def_route_lock) {
+            default_routing_map.clear();
+            String[] data_split = data.split("1");
+            for (int i = 0; i < data_split.length; ++i) {
+                String[] tmp_split = data_split[i].split("2");
+                if (tmp_split.length == 2) {
+                    default_routing_map.put(tmp_split[0], tmp_split[1]);
+                }
+            }
+        }
+    }
+
+    public String GetExRouting(String des) {
+        synchronized(ex_route_lock) {
+            if (ex_route_map.containsKey(des)) {
+                return ex_route_map.get(des);
+            }
+            return "";
+        }
+    }
+
+    public void SetExRouting(String data) {
+        synchronized(def_route_lock) {
+            ex_route_map.clear();
+            String[] data_split = data.split("1");
+            for (int i = 0; i < data_split.length; ++i) {
+                String[] tmp_split = data_split[i].split("2");
+                if (tmp_split.length == 2) {
+                    ex_route_map.put(tmp_split[0], tmp_split[1]);
+                }
+            }
+        }
     }
 
     public boolean InitNetwork(MainActivity main_class) {
@@ -65,9 +114,32 @@ public final class P2pLibManager {
         Log.e("TAG", "get private key: " + pri_key);
         String res = "";
         int try_times = 0;
+        String tmp_boot_nodes = bootstrap + "," + GetNewBootstrapNodes();
+        String[] nodes = tmp_boot_nodes.split(",");
+        ArrayList<String> node_list = new ArrayList<String>();
+        for (int i = 0; i < nodes.length; ++i) {
+            if (node_list.contains(nodes[i])) {
+                continue;
+            }
+
+            node_list.add(nodes[i]);
+            if (node_list.size() >= 32) {
+                break;
+            }
+        }
+
+        String boot_nodes = "";
+        for (int i = 0; i < node_list.size(); ++i) {
+            boot_nodes += node_list.get(i) + ",";
+        }
+
+        System.err.println(node_list.size());
+        System.err.println(boot_nodes );
         for (try_times = 0; try_times < 3; ++try_times) {
-            res = initP2PNetwork(local_ip, kLocalPort,
-                    bootstrap,
+            res = initP2PNetwork(
+                    local_ip,
+                    kLocalPort,
+                    boot_nodes,
                     data_path,
                     kCurrentVersion,
                     pri_key);
@@ -182,6 +254,21 @@ public final class P2pLibManager {
         return true;
     }
 
+    public String GetNewBootstrapNodes() {
+        SharedPreferences sharedPreferences= main_this.getSharedPreferences("data",Context.MODE_PRIVATE);
+        String saved_bootstrap = sharedPreferences.getString("saved_bootstrap","");
+        return saved_bootstrap;
+    }
+
+    public void SaveNewBootstrapNodes(String bootstrap) {
+        SharedPreferences sharedPreferences= main_this.getSharedPreferences("data",Context.MODE_PRIVATE);
+        String saved_private_key = sharedPreferences.getString("saved_bootstrap","");
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("saved_bootstrap", bootstrap);
+        editor.commit();
+    }
+
     public void InitResetPrivateKey() {
         vip_level = 0;
         free_used_bandwidth = 0;
@@ -208,9 +295,7 @@ public final class P2pLibManager {
             vip_left_days = (days_timestamp + vip_days - days_cur) + (now_balance / min_payfor_vpn_tenon);
             return;
         } else {
-            if (now_balance >= min_payfor_vpn_tenon) {
-                PayforVipTrans();
-            }
+            PayforVipTrans();
         }
 
         String res = P2pLibManager.checkVip();
@@ -239,7 +324,6 @@ public final class P2pLibManager {
             return;
         }
         payfor_gid = payforVpn(acc, amount, payfor_gid);
-        Log.e("payfor vpn and get gid", payfor_gid);
     }
 
     private P2pLibManager() {
@@ -289,6 +373,15 @@ public final class P2pLibManager {
     }
 
     public String GetExRouteNode() {
+        String key = local_country + choosed_country;
+        String ex_country = GetExRouting(key);
+        if (!ex_country.isEmpty()) {
+            String res = GetOneRouteNode(ex_country);
+            if (!res.isEmpty()) {
+                return res;
+            }
+        }
+
         if (local_country.equals("CN") && (choosed_country.equals("SG") || choosed_country.equals("JP"))) {
             String res = GetOneRouteNode("US");
             if (!res.isEmpty()) {
@@ -307,8 +400,9 @@ public final class P2pLibManager {
 
     public String GetRouteNode() {
         String routing_country = local_country;
-        if (default_routing_map.containsKey(local_country)) {
-            routing_country = default_routing_map.get(local_country);
+        String tmp_country = GetDefaultRouting(local_country);
+        if (!tmp_country.isEmpty()) {
+            routing_country = tmp_country;
         }
 
         String res = GetOneRouteNode(routing_country);

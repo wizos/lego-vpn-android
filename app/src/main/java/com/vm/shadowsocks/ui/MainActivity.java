@@ -221,6 +221,7 @@ public class MainActivity extends FragmentActivity  implements
                 String res = (String)msg.obj;
                 if (res.equals("bwo")) {
                     LocalVpnService.IsRunning = false;
+                    Log.e("main 224", "bwo stop vpn server.");
                 }
             }
 
@@ -363,6 +364,7 @@ public class MainActivity extends FragmentActivity  implements
 
     public void hideUpgrade(View view) {
         upgrade_dialog.dismiss();
+
         upgrade_dialog_showing = false;
 
     }
@@ -480,6 +482,42 @@ public class MainActivity extends FragmentActivity  implements
             DATA_TO_SHOW[i][2] = items[2].substring(0, 5).toUpperCase() + "..." + items[2].substring(items[2].length() - 5).toUpperCase();
             DATA_TO_SHOW[i][3] = items[3];
         }
+
+        Button hide_dlg = (Button) view.findViewById(R.id.dlg_hide_dialog);
+        hide_dlg.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                bottom_dialog.dismiss();
+            }
+        });
+
+        Button copy_prikey = (Button) view.findViewById(R.id.dlg_copy_prikey);
+        copy_prikey.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                copyPrikey(v);
+            }
+        });
+
+        Button paste_prikey = (Button) view.findViewById(R.id.dlg_paste_prikey);
+        paste_prikey.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                pastePrikey(v);
+            }
+        });
+
+        Button copy_id = (Button) view.findViewById(R.id.dlg_copy_account_id);
+        copy_id.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                copyAccount(v);
+            }
+        });
+
+        Button buy_tenon = (Button) view.findViewById(R.id.dlg_buy_button);
+        buy_tenon.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                buyTenon(v);
+            }
+        });
+
         EditText prikey_text=(EditText)view.findViewById(R.id.dlg_private_key);
         prikey_text.setText(P2pLibManager.getInstance().private_key.toUpperCase());
         EditText acc_text=(EditText)view.findViewById(R.id.dlg_account_address);
@@ -555,6 +593,7 @@ public class MainActivity extends FragmentActivity  implements
                 LocalVpnService.removeOnStatusChangedListener(this);
                 p2pDestroy();
                 this.finish();
+                System.exit(0);
             } else {
                 Toast.makeText(this, getString(R.string.exit_check), Toast.LENGTH_SHORT).show();
                 isExit = true;
@@ -617,6 +656,18 @@ public class MainActivity extends FragmentActivity  implements
                         P2pLibManager.getInstance().buy_tenon_ip = item[1];
                     }
                 }
+
+                if (item[0].equals("dr")) {
+                    if (!item[1].isEmpty()) {
+                        P2pLibManager.getInstance().SetDefaultRouting(item[1]);
+                    }
+                }
+
+                if (item[0].equals("er")) {
+                    if (!item[1].isEmpty()) {
+                        P2pLibManager.getInstance().SetExRouting(item[1]);
+                    }
+                }
             }
 
             if (version_download_url.isEmpty()) {
@@ -626,7 +677,7 @@ public class MainActivity extends FragmentActivity  implements
                 return;
             }
 
-            if (!upgrade_dialog_showing) {
+            if (view != null) {
                 upgrade_dialog_showing = true;
                 upgrade_dialog.show();
             }
@@ -770,6 +821,7 @@ public class MainActivity extends FragmentActivity  implements
 
         Log.e(TAG, "get local country: " + P2pLibManager.getInstance().local_country);
         createAccount();
+
         Thread t1 = new Thread(check_tx,"check tx");
         t1.start();
         Log.e("init", "init OK");
@@ -784,10 +836,24 @@ public class MainActivity extends FragmentActivity  implements
                 .setDimAmount(0.1f)
                 .setCancelOutside(false)
                 .setTag("BottomDialog");
+
         upgrade_dialog = BottomDialog.create(getSupportFragmentManager())
                 .setViewListener(new BottomDialog.ViewListener() {
                     @Override
-                    public void bindView(View v) {
+                    public void bindView(View view) {
+                        Button upgrade_btn = (Button) view.findViewById(R.id.dlg_upgrade_button);
+                        upgrade_btn.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                upgradeNow(v);
+                            }
+                        });
+
+                        Button hide_upgrade = (Button) view.findViewById(R.id.dlg_upgrade_hide);
+                        hide_upgrade.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                hideUpgrade(v);
+                            }
+                        });
                     }
                 })
                 .setLayoutRes(R.layout.upgrade)
@@ -864,7 +930,21 @@ public class MainActivity extends FragmentActivity  implements
         outof_bandwidth_dialog = BottomDialog.create(getSupportFragmentManager());
         outof_bandwidth_dialog.setViewListener(new BottomDialog.ViewListener() {
             @Override
-            public void bindView(View v) {
+            public void bindView(View view) {
+                Button bwo_buy_tenon = (Button) view.findViewById(R.id.dlg_bwo_buy_tenon);
+                bwo_buy_tenon.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        buyTenon(v);
+                    }
+                });
+
+                Button bwo_hide = (Button) view.findViewById(R.id.dlg_bwo_hide);
+                bwo_hide.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        outof_bandwidth_dialog.dismiss();
+                    }
+                });
+
                 outof_bandwidth_dialog.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
                     public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
@@ -1296,6 +1376,8 @@ public class MainActivity extends FragmentActivity  implements
                     createAccount();
                 }
 
+                String new_bootstrap = getNewBootstrap();
+                P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
                 checkVer(null);
                 try {
                     Thread.sleep(2000);
@@ -1320,5 +1402,6 @@ public class MainActivity extends FragmentActivity  implements
     public native long getBalance();
     public native String checkVersion();
     public native void p2pDestroy();
+    public native String getNewBootstrap();
 
 }

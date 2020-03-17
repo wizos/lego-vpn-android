@@ -40,7 +40,6 @@ public abstract class Tunnel {
     protected InetSocketAddress m_DestAddress;
 
     static private AtomicInteger connect_times = new AtomicInteger(1);
-    static private AtomicInteger change_times = new AtomicInteger(1);
 
     public Tunnel(SocketChannel innerChannel, Selector selector) {
         this.m_InnerChannel = innerChannel;
@@ -159,7 +158,6 @@ public abstract class Tunnel {
             if (bytesRead > 0) {
                 buffer.flip();
                 connect_times.set(0);
-                change_times.set(0);
                 afterReceived(buffer);//先让子类处理，例如解密数据。
                 if (isTunnelEstablished() && buffer.hasRemaining()) {//将读到的数据，转发给兄弟。
                     m_BrotherTunnel.beforeSend(buffer);//发送之前，先让子类处理，例如做加密等。
@@ -173,7 +171,6 @@ public abstract class Tunnel {
                 this.dispose();//连接已关闭，释放资源。
             }
         } catch (Exception e) {
-            e.printStackTrace();
             this.dispose();
         }
     }

@@ -43,6 +43,7 @@ add_library(uuid STATIC IMPORTED)
 add_library(broadcast STATIC IMPORTED)
 add_library(nat_traverse STATIC IMPORTED)
 add_library(zlib STATIC IMPORTED)
+add_library(init STATIC IMPORTED)
 set_target_properties(cryptopp    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libcryptopp.a )
 set_target_properties(ssl    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libssl.a )
 set_target_properties(crypto    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libcrypto.a )
@@ -64,6 +65,8 @@ set_target_properties(uuid    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs
 set_target_properties(broadcast    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libbroadcast.a )
 set_target_properties(nat_traverse    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libnat_traverse.a )
 set_target_properties(zlib    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libzlib.a )
+set_target_properties(init    PROPERTIES IMPORTED_LOCATION    ${LOCAL_PATH}/libs/${ANDROID_ABI}/libinit.a )
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -102,6 +105,7 @@ target_link_libraries( # Specifies the target library.
         network
         broadcast
         dht
+        init
         nat_traverse
         transport
         security

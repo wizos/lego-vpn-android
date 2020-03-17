@@ -1,17 +1,13 @@
 package com.vm.shadowsocks.tunnel.shadowsocks;
 
+import android.util.Log;
+
 import com.vm.shadowsocks.core.LocalVpnService;
 import com.vm.shadowsocks.tunnel.Tunnel;
-import com.vm.shadowsocks.ui.MainActivity;
 import com.vm.shadowsocks.ui.P2pLibManager;
-
-import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.Selector;
-import java.util.ArrayList;
-import java.util.List;
-import android.util.Log;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class ShadowsocksTunnel extends Tunnel {
     private boolean m_TunnelEstablished;
@@ -30,31 +26,7 @@ public class ShadowsocksTunnel extends Tunnel {
             num += (Long.parseLong(str) << (i * 8));
             i--;
         }
-        //	System.out.println(num);
         return num;
-    }
-
-    private static String HexEncode(byte[] src) {
-        String strHex = "";
-        StringBuilder sb = new StringBuilder("");
-        for (int n = 0; n < src.length; n++) {
-            strHex = Integer.toHexString(src[n] & 0xFF);
-            sb.append((strHex.length() == 1) ? "0" + strHex : strHex);
-        }
-        return sb.toString().trim();
-    }
-
-    private static byte[] HexDecode(String src) {
-        int m = 0, n = 0;
-        int byteLen = src.length() / 2;
-        byte[] ret = new byte[byteLen];
-        for (int i = 0; i < byteLen; i++) {
-            m = i * 2 + 1;
-            n = m + 1;
-            int intVal = Integer.decode("0x" + src.substring(i * 2, m) + src.substring(m, n));
-            ret[i] = Byte.valueOf((byte)intVal);
-        }
-        return ret;
     }
 
     @Override
@@ -134,6 +106,8 @@ public class ShadowsocksTunnel extends Tunnel {
             if (str.equals("bwo") || str.equals("cni") || str.equals("oul")) {
                 P2pLibManager.getInstance().now_status = str;
                 LocalVpnService.IsRunning = false;
+                Log.e("shadowsocks 109", str + " stop vpn server.");
+
                 return;
             }
         }

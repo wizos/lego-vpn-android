@@ -309,6 +309,13 @@ JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getClientProp
     return env->NewStringUTF(res.c_str());
 }
 
+JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_MainActivity_getNewBootstrap(
+        JNIEnv *env,
+        jobject) {
+    std::string res = lego::client::VpnClient::Instance()->GetNewBoot();
+    return env->NewStringUTF(res.c_str());
+}
+
 #ifdef __cplusplus
 }
 #endif

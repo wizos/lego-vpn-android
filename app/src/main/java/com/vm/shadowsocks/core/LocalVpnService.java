@@ -20,6 +20,7 @@ import com.vm.shadowsocks.tcpip.IPHeader;
 import com.vm.shadowsocks.tcpip.TCPHeader;
 import com.vm.shadowsocks.tcpip.UDPHeader;
 import com.vm.shadowsocks.ui.MainActivity;
+import com.vm.shadowsocks.ui.P2pLibManager;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,6 +37,8 @@ public class LocalVpnService extends VpnService implements Runnable {
     public static LocalVpnService Instance;
     public static String ProxyUrl;
     public static boolean IsRunning = false;
+
+    public static int test_times = 0;
 
     private static int ID;
     private static int LOCAL_IP;
@@ -54,7 +57,7 @@ public class LocalVpnService extends VpnService implements Runnable {
     private ByteBuffer m_DNSBuffer;
     private Handler m_Handler;
     private long m_SentBytes;
-    private long m_ReceivedBytes;
+    public long m_ReceivedBytes;
 
     public LocalVpnService() {
         ID++;
@@ -185,7 +188,7 @@ public class LocalVpnService extends VpnService implements Runnable {
                 writeLog("Load failed with error: %s", errString);
             }
 
-            m_TcpProxyServer = new TcpProxyServer(1086);
+            m_TcpProxyServer = new TcpProxyServer(0);
             m_TcpProxyServer.start();
             writeLog("LocalTcpServer started.");
 
@@ -195,15 +198,10 @@ public class LocalVpnService extends VpnService implements Runnable {
 
             while (true) {
                 if (IsRunning) {
-                    //加载配置文件
-
-                    writeLog("set shadowsocks/(http proxy)");
                     try {
                         ProxyConfig.Instance.m_ProxyList.clear();
                         ProxyConfig.Instance.addProxyToList(ProxyUrl);
-                        writeLog("Proxy is: %s", ProxyConfig.Instance.getDefaultProxy());
                     } catch (Exception e) {
-                        ;
                         String errString = e.getMessage();
                         if (errString == null || errString.isEmpty()) {
                             errString = e.toString();
@@ -212,12 +210,6 @@ public class LocalVpnService extends VpnService implements Runnable {
                         onStatusChanged(errString, false);
                         continue;
                     }
-                    String welcomeInfoString = ProxyConfig.Instance.getWelcomeInfo();
-                    if (welcomeInfoString != null && !welcomeInfoString.isEmpty()) {
-                        writeLog("%s", ProxyConfig.Instance.getWelcomeInfo());
-                    }
-                    writeLog("Global mode is " + (ProxyConfig.Instance.globalMode ? "on" : "off"));
-
                     runVPN();
                 } else {
                     Thread.sleep(100);
@@ -269,8 +261,6 @@ public class LocalVpnService extends VpnService implements Runnable {
                             CommonMethods.ComputeTCPChecksum(ipHeader, tcpHeader);
                             m_VPNOutputStream.write(ipHeader.m_Data, ipHeader.m_Offset, size);
                             m_ReceivedBytes += size;
-                        } else {
-                            System.out.printf("NoSession: %s %s\n", ipHeader.toString(), tcpHeader.toString());
                         }
                     } else {
 
@@ -448,10 +438,13 @@ public class LocalVpnService extends VpnService implements Runnable {
             m_DnsProxy = null;
             writeLog("LocalDnsProxy stopped.");
         }
-
-        stopSelf();
         IsRunning = false;
-        System.exit(0);
+        stopSelf();
+
+        m_VPNThread.interrupt();
+        IsRunning = true;
+        m_VPNThread = new Thread(this, "VPNServiceThread");
+        m_VPNThread.start();
     }
 
     @Override

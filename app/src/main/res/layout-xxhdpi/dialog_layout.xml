@@ -31,6 +31,7 @@
                 android:gravity="left"
                 android:text="@string/private_key_string" />
             <Button
+                android:id="@+id/dlg_copy_prikey"
                 android:layout_width="20dp"
                 android:layout_height="17dp"
                 android:gravity="left"
@@ -38,25 +39,24 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/copy"
-                android:onClick="copyPrikey"
                 android:focusable="false" />
             <Button
+                android:id="@+id/dlg_paste_prikey"
                 android:layout_width="20dp"
                 android:layout_height="17dp"
                 android:gravity="center"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/paste"
-                android:onClick="pastePrikey"
                 android:focusable="false" />
             <Button
+                android:id="@+id/dlg_hide_dialog"
                 android:layout_width="20dp"
                 android:layout_height="17dp"
                 android:gravity="center"
                 android:layout_marginRight="0dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/arrow_down"
-                android:onClick="hideDialog"
                 android:focusable="false" />
 
         </LinearLayout>
@@ -86,6 +86,8 @@
                 android:gravity="left"
                 android:text="@string/account_id_string" />
             <Button
+                android:id="@+id/dlg_copy_account_id"
+
                 android:layout_width="20dp"
                 android:layout_height="17dp"
                 android:gravity="left"
@@ -93,7 +95,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/copy"
-                android:onClick="copyAccount"
                 android:focusable="false" />
         </LinearLayout>
 
@@ -146,13 +147,14 @@
                 android:text="32.8$"
                 />
             <Button
+                android:id="@+id/dlg_buy_button"
+
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/buy"
-                android:onClick="buyTenon"
                 android:focusable="false" />
         </LinearLayout>
     </LinearLayout>

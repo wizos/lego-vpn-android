@@ -20,6 +20,7 @@ public class TcpProxyServer implements Runnable {
     Selector m_Selector;
     ServerSocketChannel m_ServerSocketChannel;
     Thread m_ServerThread;
+    private int new_acc = 0;
 
     public TcpProxyServer(int port) throws IOException {
         m_Selector = Selector.open();
@@ -64,6 +65,7 @@ public class TcpProxyServer implements Runnable {
         try {
             while (true) {
                 m_Selector.select();
+
                 Iterator<SelectionKey> keyIterator = m_Selector.selectedKeys().iterator();
                 while (keyIterator.hasNext()) {
                     SelectionKey key = keyIterator.next();
@@ -86,6 +88,7 @@ public class TcpProxyServer implements Runnable {
                 }
             }
         } catch (Exception e) {
+            System.out.println("catched error.");
             e.printStackTrace();
         } finally {
             this.stop();

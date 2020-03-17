@@ -32,13 +32,14 @@
                 android:text="@string/bandwidth_over" />
 
             <Button
+                android:id="@+id/dlg_bwo_hide"
+
                 android:layout_width="20dp"
                 android:layout_height="17dp"
                 android:gravity="center"
                 android:layout_marginRight="0dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/arrow_down"
-                android:onClick="hideOutofBandwidth"
                 android:focusable="false" />
 
         </LinearLayout>
@@ -51,13 +52,14 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/dlg_bwo_buy_tenon"
+
                 android:layout_width="85dp"
                 android:layout_height="70dp"
                 android:gravity="center"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="0dp"
                 android:background="@drawable/buy"
-                android:onClick="buyTenon"
                 android:focusable="false" />
         </LinearLayout>
     </LinearLayout>

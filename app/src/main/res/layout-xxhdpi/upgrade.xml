@@ -14,13 +14,14 @@
         android:gravity="right"
         android:orientation="vertical">
     <Button
+        android:id="@+id/dlg_upgrade_hide"
+
         android:layout_width="20dp"
         android:layout_height="17dp"
         android:gravity="right"
         android:layout_marginRight="0dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/arrow_down"
-        android:onClick="hideUpgrade"
         android:focusable="false" />
     </LinearLayout>
 
@@ -53,13 +54,14 @@
                 android:textStyle="bold" />
 
             <Button
+                android:id="@+id/dlg_upgrade_button"
+
                 android:layout_width="289dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:focusable="false"
                 android:gravity="center"
-                android:onClick="upgradeNow"
                 android:text="upgrade"
                 android:textColor="@color/connect_succ_in"
                 android:textSize="14dp" />
