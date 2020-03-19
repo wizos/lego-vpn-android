@@ -1082,115 +1082,78 @@ public class MainActivity extends FragmentActivity  implements
     }
 
     private String ChooseRouteProxyUrl(String dest_country) {
-        String route_proxy_url = new String();
-        if (country_route_map.containsKey(dest_country)) {
-            Vector<String> vpn_url_vec = country_route_map.get(dest_country);
-            int rand_num = (int)(Math.random() * vpn_url_vec.size());
-            String[] item_split = vpn_url_vec.get(rand_num).split(":");
-            if (item_split.length >= 6) {
-                route_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
-            }
-        }
-
-        if (route_proxy_url.isEmpty()) {
-            if (country_route_map.containsKey(now_choosed_country)) {
-                Vector<String> vpn_url_vec = country_route_map.get(now_choosed_country);
-                int rand_num = (int)(Math.random() * vpn_url_vec.size());
-                String[] item_split = vpn_url_vec.get(rand_num).split(":");
+        {
+            String nodes = getRouteNodes(dest_country);
+            if (!nodes.isEmpty()) {
+                String[] node_list = nodes.split(",");
+                int rand_num = (int) (Math.random() * node_list.length);
+                String[] item_split = node_list[rand_num].split(":");
                 if (item_split.length >= 6) {
-                    route_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
+                    return "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
                 }
             }
         }
 
-        if (route_proxy_url.isEmpty()) {
-            for (String key : country_route_map.keySet()) {
-                Vector<String> vpn_url_vec = country_route_map.get(key);
-                if (vpn_url_vec.size() > 0) {
-                    int rand_num = (int)(Math.random() * vpn_url_vec.size());
-                    String[] item_split = vpn_url_vec.get(rand_num).split(":");
-                    if (item_split.length >= 6) {
-                        route_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
-                        break;
-                    }
+        if (country_route_map.containsKey(now_choosed_country)) {
+            String nodes = getRouteNodes(now_choosed_country);
+            if (!nodes.isEmpty()) {
+                String[] node_list = nodes.split(",");
+                int rand_num = (int)(Math.random() * node_list.length);
+                String[] item_split = node_list[rand_num].split(":");
+                if (item_split.length >= 6) {
+                    return "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
                 }
             }
         }
-        return route_proxy_url;
+
+        for (String key : country_route_map.keySet()) {
+            String nodes = getRouteNodes(key);
+            if (!nodes.isEmpty()) {
+                String[] node_list = nodes.split(",");
+                int rand_num = (int) (Math.random() * node_list.length);
+                String[] item_split = node_list[rand_num].split(":");
+                if (item_split.length >= 6) {
+                    return "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
+                }
+            }
+        }
+        return "";
     }
 
     private String ChooseVpnProxyUrl() {
-        String vpn_proxy_url = new String();
-        if (country_vpn_map.containsKey(now_choosed_country)) {
-            Vector<String> vpn_url_vec = country_vpn_map.get(now_choosed_country);
-            Vector<String> new_url_vec = new Vector<String>();
-            for (String item: vpn_url_vec) {
-                String[] item_split = item.split(":");
+        {
+            String nodes = getVpnNodes(now_choosed_country);
+            if (!nodes.isEmpty()) {
+                String[] node_list = nodes.split(",");
+                int rand_num = (int)(Math.random() * node_list.length);
+                String[] item_split = node_list[rand_num].split(":");
                 if (item_split.length >= 6) {
-                    if (Integer.parseInt(item_split[1]) != kDefaultVpnServerPort) {
-                        new_url_vec.add(item);
-                    }
-                }
-            }
-
-            String item_string = "";
-            if (!new_url_vec.isEmpty()) {
-                int rand_num = (int)(Math.random() * new_url_vec.size());
-                item_string = new_url_vec.get(rand_num);
-                Log.e(TAG, "tt get vpn nodes: " + item_string);
-
-            }
-
-            if (item_string.isEmpty()) {
-                int rand_num = (int)(Math.random() * vpn_url_vec.size());
-                item_string = vpn_url_vec.get(rand_num);
-            }
-
-            if (!item_string.isEmpty()) {
-                vpn_proxy_url = item_string;
-            }
-        }
-
-        if (vpn_proxy_url.isEmpty()) {
-            for (String key : country_vpn_map.keySet()) {
-                if (key == P2pLibManager.getInstance().local_country) {
-                    continue;
-                }
-
-                Vector<String> vpn_url_vec = country_vpn_map.get(key);
-                if (vpn_url_vec.size() > 0) {
-                    Vector<String> new_url_vec = new Vector<String>();
-                    for (String item: vpn_url_vec) {
-                        String[] item_split = item.split(":");
-                        if (item_split.length >= 6) {
-                            if (Integer.parseInt(item_split[2]) != kDefaultVpnServerPort) {
-                                new_url_vec.add(item);
-                            }
-                        }
-                    }
-
-                    String item_string = "";
-                    if (!new_url_vec.isEmpty()) {
-                        int rand_num = (int)(Math.random() * new_url_vec.size());
-                        item_string = new_url_vec.get(rand_num);
-                    }
-
-                    if (item_string.isEmpty()) {
-                        int rand_num = (int)(Math.random() * vpn_url_vec.size());
-                        item_string = vpn_url_vec.get(rand_num);
-                    }
-
-                    if (!item_string.isEmpty()) {
-                        vpn_proxy_url = item_string;
-                    }
+                    return node_list[rand_num];
                 }
             }
         }
-        return vpn_proxy_url;
+
+        for (String key : country_vpn_map.keySet()) {
+            if (key == P2pLibManager.getInstance().local_country) {
+                continue;
+            }
+
+            String nodes = getVpnNodes(key);
+            if (!nodes.isEmpty()) {
+                String[] node_list = nodes.split(",");
+                int rand_num = (int)(Math.random() * node_list.length);
+                String[] item_split = node_list[rand_num].split(":");
+                if (item_split.length >= 6) {
+                    return node_list[rand_num];
+                }
+            }
+        }
+        return "";
     }
 
     private void startVPNService() {
         String route_proxy_url = ChooseRouteProxyUrl(P2pLibManager.getInstance().local_country);
+        System.out.println("get routing node: " + route_proxy_url);
         if (!isValidUrl(route_proxy_url)) {
             Toast.makeText(this, "Waiting Decentralized Routing...", Toast.LENGTH_SHORT).show();
             return;
@@ -1309,25 +1272,25 @@ public class MainActivity extends FragmentActivity  implements
             }
 
             while (true) {
-                for (int i = 0; i < not_get_country_list.size(); ++i) {
-                    String vpn_url = getVpnNodes(not_get_country_list.get(i));
-                    if (!vpn_url.isEmpty()) {
-                        vpn_url = not_get_country_list.get(i) + "\t" + vpn_url;
-                        Message message = new Message();
-                        message.what = GOT_VPN_SERVICE;
-                        message.obj = vpn_url;
-                        handler.sendMessage(message);
-                    }
-
-                    String route_url = getRouteNodes(not_get_country_list.get(i));
-                    if (!route_url.isEmpty()) {
-                        route_url = not_get_country_list.get(i) + "\t" + route_url;
-                        Message message = new Message();
-                        message.what = GOT_VPN_ROUTE;
-                        message.obj = route_url;
-                        handler.sendMessage(message);
-                    }
-                }
+//                for (int i = 0; i < not_get_country_list.size(); ++i) {
+//                    String vpn_url = getVpnNodes(not_get_country_list.get(i));
+//                    if (!vpn_url.isEmpty()) {
+//                        vpn_url = not_get_country_list.get(i) + "\t" + vpn_url;
+//                        Message message = new Message();
+//                        message.what = GOT_VPN_SERVICE;
+//                        message.obj = vpn_url;
+//                        handler.sendMessage(message);
+//                    }
+//
+//                    String route_url = getRouteNodes(not_get_country_list.get(i));
+//                    if (!route_url.isEmpty()) {
+//                        route_url = not_get_country_list.get(i) + "\t" + route_url;
+//                        Message message = new Message();
+//                        message.what = GOT_VPN_ROUTE;
+//                        message.obj = route_url;
+//                        handler.sendMessage(message);
+//                    }
+//                }
 
                 {
                     long now_balance = getBalance();
