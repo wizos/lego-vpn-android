@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: me.shaohui:bottomdialog:1.1.9@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e688fb9fd9fc0a0a0f9a9187e92fa1ac/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e688fb9fd9fc0a0a0f9a9187e92fa1ac/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b4567f7d3ccc9f3c24a5d8225669a47/jetified-bottomdialog-1.1.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b4567f7d3ccc9f3c24a5d8225669a47/jetified-bottomdialog-1.1.9/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.shaohui/bottomdialog/1.1.9/20529f33d6ab151d13624e1ca33cfc889136d234/bottomdialog-1.1.9-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.shaohui/bottomdialog/1.1.9/9be370f61ee7288490139da8a97503e6508110ef/bottomdialog-1.1.9-sources.jar!/" />
     </SOURCES>

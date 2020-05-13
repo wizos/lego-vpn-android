@@ -1,0 +1,13 @@
+# ninja log v5
+15	2675	607792611	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	1f8bae28f92ce94a
+2676	4873	607792613	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	ad12de4c7f88e1e4
+55	2528	609603606	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	ad12de4c7f88e1e4
+49	3537	610756175	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b1f495869941d7dc
+43	2262	610756511	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b1f495869941d7dc
+40	2447	610804031	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b1f495869941d7dc
+2	65	0	clean	3255ce8ee36b67a6
+57	4644	611001659	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	1f8bae28f92ce94a
+4645	7441	611001662	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b1f495869941d7dc
+3	52	0	clean	3255ce8ee36b67a6
+65	3856	611001986	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	1f8bae28f92ce94a
+3856	6698	611001989	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b1f495869941d7dc

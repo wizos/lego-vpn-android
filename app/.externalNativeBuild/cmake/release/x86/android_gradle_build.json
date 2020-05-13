@@ -72,6 +72,14 @@
 			"output" : "D:/lego/lego-vpn-android/app/src/main/cpp/libs/x86/libdht.a",
 			"toolchain" : "688343757"
 		},
+		"init-Release-x86" : 
+		{
+			"abi" : "x86",
+			"artifactName" : "init",
+			"buildType" : "release",
+			"output" : "D:/lego/lego-vpn-android/app/src/main/cpp/libs/x86/libinit.a",
+			"toolchain" : "688343757"
+		},
 		"ip-Release-x86" : 
 		{
 			"abi" : "x86",

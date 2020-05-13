@@ -57,6 +57,11 @@
       "abi": "armeabi-v7a",
       "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libdb.a"
     },
+    "init-Release-armeabi-v7a": {
+      "artifactName": "init",
+      "abi": "armeabi-v7a",
+      "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libinit.a"
+    },
     "ip-Release-armeabi-v7a": {
       "artifactName": "ip",
       "abi": "armeabi-v7a",

@@ -285,8 +285,6 @@ public class LocalVpnService extends VpnService implements Runnable {
                             String host = HttpHostHeaderParser.parseHost(tcpHeader.m_Data, dataOffset, tcpDataSize);
                             if (host != null) {
                                 session.RemoteHost = host;
-                            } else {
-                                System.out.printf("No host name found: %s", session.RemoteHost);
                             }
                         }
 

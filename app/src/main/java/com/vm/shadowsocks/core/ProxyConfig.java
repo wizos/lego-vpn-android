@@ -7,6 +7,7 @@ import com.vm.shadowsocks.tcpip.CommonMethods;
 import com.vm.shadowsocks.tunnel.Config;
 import com.vm.shadowsocks.tunnel.httpconnect.HttpConnectConfig;
 import com.vm.shadowsocks.tunnel.shadowsocks.ShadowsocksConfig;
+import com.vm.shadowsocks.ui.P2pLibManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -18,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -209,9 +211,19 @@ public class ProxyConfig {
         return null;
     }
 
+    boolean isIpString(String arg0){
+        boolean is=true;
+        try {
+            InetAddress ia=InetAddress.getByName("arg0");
+        } catch (UnknownHostException e) {
+            is=false;
+        }
+        return is;
+    }
+
     public boolean needProxy(String host, int ip) {
         if (globalMode) {
-            return true;
+            return false;
         }
         if (host != null) {
             Boolean stateBoolean = getDomainState(host);
@@ -220,13 +232,32 @@ public class ProxyConfig {
             }
         }
 
-        if (isFakeIP(ip))
+        if (isFakeIP(ip)) {
             return true;
-
-        if (m_outside_china_use_proxy && ip != 0) {
-            return !ChinaIpMaskManager.isIPInChina(ip);
         }
-        return false;
+
+        try {
+            if (isIpString(host)) {
+                String country = P2pLibManager.getIpCountry(host);
+                if(country.equals(P2pLibManager.getInstance().local_country)) {
+                    return false;
+                }
+            } else {
+                InetAddress[] inetAddressArr = InetAddress.getAllByName(host);
+                if (inetAddressArr != null && inetAddressArr.length > 0) {
+                    for (int i = 0; i < inetAddressArr.length; i++) {
+                        String country = P2pLibManager.getIpCountry(inetAddressArr[i].getHostAddress());
+                        if(country.equals(P2pLibManager.getInstance().local_country)) {
+                             return false;
+                        }
+                    }
+                }
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 
     public boolean isIsolateHttpHostHeader() {

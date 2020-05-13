@@ -1,0 +1,15 @@
+CMake Warning (dev) at E:\lego-vpn-android\app\CMakeLists.txt:13:
+  Syntax Warning in cmake code at column 39
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at E:\lego-vpn-android\app\CMakeLists.txt:14:
+  Syntax Warning in cmake code at column 46
+
+  Argument not separated from preceding token by whitespace.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+Cmake build type is: Debug
+Cmake build android abi is: arm64-v8a
+Configuring done

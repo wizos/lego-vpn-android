@@ -1,12 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.jakob-grabner:Circle-Progress-View:1.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d13be12e3b0e424b30ebbdd0b87252e9/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d13be12e3b0e424b30ebbdd0b87252e9/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d59203fec5e11bb7193f8079a87f63ca/jetified-Circle-Progress-View-1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d59203fec5e11bb7193f8079a87f63ca/jetified-Circle-Progress-View-1.4/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jakob-grabner/Circle-Progress-View/1.4/5e36e18aa359ad78832f1d279439e6a8256e6e93/Circle-Progress-View-1.4-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jakob-grabner/Circle-Progress-View/1.4/dab6b7afdea2ed64af460100b1ebd89458c47c56/Circle-Progress-View-1.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jakob-grabner/Circle-Progress-View/1.4/687667ef2f8d926a62a03760afd4147d587a4b26/Circle-Progress-View-1.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

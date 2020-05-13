@@ -61,6 +61,11 @@
       "abi": "x86",
       "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libprotobuf.a"
     },
+    "init-Release-x86": {
+      "artifactName": "init",
+      "abi": "x86",
+      "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libinit.a"
+    },
     "uv-Release-x86": {
       "artifactName": "uv",
       "abi": "x86",

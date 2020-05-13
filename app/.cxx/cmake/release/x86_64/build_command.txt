@@ -1,0 +1,20 @@
+Executable : D:\tools\tools\lib\cmake\3.10.2.4988404\bin\cmake.exe
+arguments : 
+-HE:\lego-vpn-android\app
+-DCMAKE_BUILD_TYPE=Release
+-DCMAKE_TOOLCHAIN_FILE=D:\tools\tools\lib\ndk-bundle\build\cmake\android.toolchain.cmake
+-DANDROID_ABI=x86_64
+-DANDROID_NDK=D:\tools\tools\lib\ndk-bundle
+-DANDROID_PLATFORM=android-23
+-DCMAKE_ANDROID_ARCH_ABI=x86_64
+-DCMAKE_ANDROID_NDK=D:\tools\tools\lib\ndk-bundle
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\lego-vpn-android\app\build\intermediates\cmake\release\obj\x86_64
+-DCMAKE_MAKE_PROGRAM=D:\tools\tools\lib\cmake\3.10.2.4988404\bin\ninja.exe
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_SYSTEM_VERSION=23
+-BE:\lego-vpn-android\app\.cxx\cmake\release\x86_64
+-GNinja
+jvmArgs : 
+
+Build command args:

@@ -41,6 +41,11 @@
       "abi": "armeabi-v7a",
       "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libdht.a"
     },
+    "init-Debug-armeabi-v7a": {
+      "artifactName": "init",
+      "abi": "armeabi-v7a",
+      "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libinit.a"
+    },
     "log4cpp-Debug-armeabi-v7a": {
       "artifactName": "log4cpp",
       "abi": "armeabi-v7a",

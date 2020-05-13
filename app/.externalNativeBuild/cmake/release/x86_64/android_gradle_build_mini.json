@@ -51,6 +51,11 @@
       "abi": "x86_64",
       "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86_64\\libtransport.a"
     },
+    "init-Release-x86_64": {
+      "artifactName": "init",
+      "abi": "x86_64",
+      "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86_64\\libinit.a"
+    },
     "common-Release-x86_64": {
       "artifactName": "common",
       "abi": "x86_64",

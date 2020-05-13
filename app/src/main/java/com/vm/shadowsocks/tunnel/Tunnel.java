@@ -7,7 +7,9 @@ import com.vm.shadowsocks.core.ProxyConfig;
 import com.vm.shadowsocks.ui.P2pLibManager;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -65,31 +67,31 @@ public abstract class Tunnel {
             m_DestAddress = destAddress;
             m_InnerChannel.register(m_Selector, SelectionKey.OP_CONNECT, this);//注册连接事件
             // TODO: now just for socks server and select route or vpn server
-
             InetSocketAddress serverEP = m_ServerEP;
-            String res = P2pLibManager.getInstance().GetRemoteServer();
-            if (!res.isEmpty()) {
-                String tmp_split[] = res.split(":");
-                if (tmp_split.length == 2) {
-                    serverEP = new InetSocketAddress(tmp_split[0], Integer.parseInt(tmp_split[1]));
+            if (destAddress.isUnresolved()) {
+                String res = P2pLibManager.getInstance().GetRemoteServer();
+                if (!res.isEmpty()) {
+                    String tmp_split[] = res.split(":");
+                    if (tmp_split.length == 2) {
+                        serverEP = new InetSocketAddress(tmp_split[0], Integer.parseInt(tmp_split[1]));
+                    }
+                }
+                int now_times = connect_times.incrementAndGet();
+                if (now_times > 15) {
+                    String old_ip = P2pLibManager.getInstance().choosed_vpn_ip;
+                    P2pLibManager.getInstance().GetVpnNode();
+                    if (!old_ip.equals(P2pLibManager.getInstance().choosed_vpn_ip)) {
+                        connect_times.set(0);
+                    }
+
+                    if (now_times >= 30) {
+                        P2pLibManager.getInstance().now_status = "ncc";
+                        LocalVpnService.IsRunning = false;
+                        connect_times.set(0);
+                    }
+                    return;
                 }
             }
-            int now_times = connect_times.incrementAndGet();
-            if (now_times > 15) {
-                String old_ip = P2pLibManager.getInstance().choosed_vpn_ip;
-                P2pLibManager.getInstance().GetVpnNode();
-                if (!old_ip.equals(P2pLibManager.getInstance().choosed_vpn_ip)) {
-                    connect_times.set(0);
-                }
-
-                if (now_times >= 30) {
-                    P2pLibManager.getInstance().now_status = "ncc";
-                    LocalVpnService.IsRunning = false;
-                    connect_times.set(0);
-                }
-                return;
-            }
-
             m_InnerChannel.connect(serverEP);//连接目标
         } else {
             throw new Exception("VPN protect socket failed.");

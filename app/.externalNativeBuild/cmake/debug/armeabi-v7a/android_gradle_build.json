@@ -72,6 +72,14 @@
 			"output" : "D:/lego/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libdht.a",
 			"toolchain" : "688343757"
 		},
+		"init-Debug-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "init",
+			"buildType" : "debug",
+			"output" : "D:/lego/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libinit.a",
+			"toolchain" : "688343757"
+		},
 		"ip-Debug-armeabi-v7a" : 
 		{
 			"abi" : "armeabi-v7a",

@@ -779,7 +779,7 @@ public class MainActivity extends FragmentActivity  implements
 
         P2pLibManager.getInstance().Init();
         InitSpinner();
-        ProxyConfig.Instance.globalMode = true;
+        ProxyConfig.Instance.globalMode = false;
         mCircleView = (CircleProgressView) findViewById(R.id.circleView);
         mCircleView.setValue(100);
         mCircleView.setBarColor(getResources().getColor(R.color.disconnect_succ_out));
@@ -1133,8 +1133,9 @@ public class MainActivity extends FragmentActivity  implements
             }
         }
 
-        for (String key : country_vpn_map.keySet()) {
-            if (key == P2pLibManager.getInstance().local_country) {
+        String def_vpn_coutry[] = {"US", "AU", "CA", "FR"};
+        for (String key : def_vpn_coutry) {
+            if (key.equals(P2pLibManager.getInstance().local_country)) {
                 continue;
             }
 
@@ -1153,7 +1154,6 @@ public class MainActivity extends FragmentActivity  implements
 
     private void startVPNService() {
         String route_proxy_url = ChooseRouteProxyUrl(P2pLibManager.getInstance().local_country);
-        System.out.println("get routing node: " + route_proxy_url);
         if (!isValidUrl(route_proxy_url)) {
             Toast.makeText(this, "Waiting Decentralized Routing...", Toast.LENGTH_SHORT).show();
             return;

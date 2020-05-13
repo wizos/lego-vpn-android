@@ -316,6 +316,16 @@ JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_MainActivity_getNewBootstra
     return env->NewStringUTF(res.c_str());
 }
 
+JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getIpCountry(
+        JNIEnv *env,
+        jobject,
+        jstring ip) {
+    jboolean iscopy;
+    const char *char_ip = env->GetStringUTFChars(ip, &iscopy);
+    std::string res = lego::client::VpnClient::Instance()->GetIpCountry(char_ip);
+    return env->NewStringUTF(res.c_str());
+}
+
 #ifdef __cplusplus
 }
 #endif

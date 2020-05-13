@@ -61,6 +61,11 @@
       "abi": "x86_64",
       "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86_64\\libdb.a"
     },
+    "init-Debug-x86_64": {
+      "artifactName": "init",
+      "abi": "x86_64",
+      "output": "D:\\lego\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86_64\\libinit.a"
+    },
     "transport-Debug-x86_64": {
       "artifactName": "transport",
       "abi": "x86_64",
