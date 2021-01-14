@@ -1,7 +1,0 @@
-Executable : D:\tools\tools\lib\cmake\3.10.2.4988404\bin\ninja.exe
-arguments : 
--C
-E:\lego-vpn-android\app\.cxx\cmake\release\arm64-v8a
-native-lib
-jvmArgs : 
-

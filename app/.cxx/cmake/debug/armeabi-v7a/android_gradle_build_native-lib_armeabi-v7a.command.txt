@@ -1,7 +1,7 @@
-Executable : D:\tools\tools\lib\cmake\3.10.2.4988404\bin\ninja.exe
+Executable : /Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
 arguments : 
 -C
-E:\lego-vpn-android\app\.cxx\cmake\debug\armeabi-v7a
+/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a
 native-lib
 jvmArgs : 
 

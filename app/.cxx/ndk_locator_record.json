@@ -1,13 +1,13 @@
 {
-  "ndkFolder": "D:\\tools\\tools\\lib\\ndk-bundle",
+  "ndkFolder": "/Users/admin/Library/Android/sdk/ndk/22.0.7026061",
   "messages": [
     {
       "level": "INFO",
-      "message": "android.ndkVersion from module build.gradle is not set"
+      "message": "android.ndkVersion from module build.gradle is 22.0.7026061"
     },
     {
       "level": "INFO",
-      "message": "ndk.dir in local.properties is D:\\tools\\tools\\lib\\ndk-bundle"
+      "message": "ndk.dir in local.properties is not set"
     },
     {
       "level": "INFO",
@@ -15,23 +15,27 @@
     },
     {
       "level": "INFO",
-      "message": "sdkFolder is D:\\tools\\tools\\lib"
+      "message": "sdkFolder is /Users/admin/Library/Android/sdk"
     },
     {
       "level": "INFO",
-      "message": "NDK side-by-side folder from sdkFolder D:\\tools\\tools\\lib\\ndk does not exist"
+      "message": "Considering /Users/admin/Library/Android/sdk/ndk-bundle in SDK ndk-bundle folder"
     },
     {
       "level": "INFO",
-      "message": "Considering D:\\tools\\tools\\lib\\ndk-bundle by ndk.dir"
+      "message": "Considering /Users/admin/Library/Android/sdk/ndk/22.0.7026061 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Considering D:\\tools\\tools\\lib\\ndk-bundle in SDK ndk-bundle folder"
+      "message": "Considering /Users/admin/Library/Android/sdk/ndk/20.0.5594570 in SDK ndk folder"
     },
     {
       "level": "INFO",
-      "message": "Found requested ndk.dir (D:\\tools\\tools\\lib\\ndk-bundle) which has version 20.0.5594570"
+      "message": "Rejected /Users/admin/Library/Android/sdk/ndk-bundle in SDK ndk-bundle folder because that location has no source.properties"
+    },
+    {
+      "level": "INFO",
+      "message": "Found requested NDK version 22.0.7026061 at /Users/admin/Library/Android/sdk/ndk/22.0.7026061"
     }
   ]
 }

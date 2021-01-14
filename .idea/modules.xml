@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="lego-vpn-android/app" />
-      <module fileurl="file://$PROJECT_DIR$/lego-vpn-android.iml" filepath="$PROJECT_DIR$/lego-vpn-android.iml" group="lego-vpn-android" />
+      <module fileurl="file://$PROJECT_DIR$/lego-vpn-android.iml" filepath="$PROJECT_DIR$/lego-vpn-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/lego-vpn-android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/lego-vpn-android.app.iml" />
     </modules>
   </component>
 </project>
