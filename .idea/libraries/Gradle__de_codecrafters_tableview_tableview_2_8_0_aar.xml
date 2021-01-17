@@ -6,6 +6,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e5cdd70265568023fd453c822dbbfe5f/jetified-tableview-2.8.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e5cdd70265568023fd453c822dbbfe5f/jetified-tableview-2.8.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e5cdd70265568023fd453c822dbbfe5f/jetified-tableview-2.8.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1fd8e498acf6e524c9b262308d1b6469/jetified-tableview-2.8.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1fd8e498acf6e524c9b262308d1b6469/jetified-tableview-2.8.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1fd8e498acf6e524c9b262308d1b6469/jetified-tableview-2.8.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.codecrafters.tableview/tableview/2.8.0/d497a431f3f7cb18419db3c49ad4f2a3635a88e9/tableview-2.8.0-javadoc.jar!/" />

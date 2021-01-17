@@ -1,38 +1,38 @@
 {
   "stringTable": {
-    "0": "/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86",
-    "1": "--target=i686-none-linux-android23 --gcc-toolchain=/Users/admin/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/admin/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -fvisibility=hidden"
+    "0": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86",
+    "1": "--target=i686-none-linux-android23 --gcc-toolchain=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -fvisibility=hidden"
   },
   "buildFiles": [
-    "/Users/admin/Library/Android/sdk/ndk/22.0.7026061/build/cmake/platforms.cmake",
-    "/Users/admin/Desktop/lego-vpn-android/app/CMakeLists.txt",
-    "/Users/admin/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake"
+    "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/platforms.cmake",
+    "/Users/friendwu/Desktop/lego-vpn-android/app/CMakeLists.txt",
+    "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake"
   ],
   "cleanCommands": [
-    "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" clean"
+    "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" clean"
   ],
-  "buildTargetsCommand": "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Debug-x86": {
-      "buildCommand": "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" native-lib",
+      "buildCommand": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" native-lib",
       "buildType": "debug",
-      "toolchain": "4293816134",
+      "toolchain": "1235738125",
       "abi": "x86",
       "artifactName": "native-lib",
       "files": [
         {
-          "src": "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/native-lib.cpp",
+          "src": "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/native-lib.cpp",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         }
       ],
       "headers": [],
-      "output": "/Users/admin/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/x86/libnative-lib.so"
+      "output": "/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/x86/libnative-lib.so"
     }
   },
   "toolchains": {
-    "4293816134": {
-      "cppCompilerExecutable": "/Users/admin/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+    "1235738125": {
+      "cppCompilerExecutable": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
     }
   },
   "cFileExtensions": [],
