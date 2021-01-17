@@ -66,6 +66,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.view.KeyEvent;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdRequest;
+
 public class MainActivity extends FragmentActivity  implements
         View.OnClickListener,
         OnCheckedChangeListener,
@@ -127,6 +133,10 @@ public class MainActivity extends FragmentActivity  implements
     private boolean isExit;
     private WebView pay_view;
     private BottomDialog payview_dialog;
+
+    // 谷歌广告
+    private InterstitialAd mInterstitialAd;
+
 
     private static JSONArray getAllowedCardNetworks() {
             return new JSONArray()
@@ -468,6 +478,7 @@ public class MainActivity extends FragmentActivity  implements
     }
 
     private void initView(final View view) {
+
         transactions_res = getTransactions();
         String[] lines = transactions_res.split(";");
         String[][] DATA_TO_SHOW = new String[lines.length][4];
@@ -777,6 +788,18 @@ public class MainActivity extends FragmentActivity  implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+        /** 谷歌广告 **/
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        /****************/
+
         P2pLibManager.getInstance().Init();
         InitSpinner();
         ProxyConfig.Instance.globalMode = false;
@@ -1067,7 +1090,16 @@ public class MainActivity extends FragmentActivity  implements
         if (LocalVpnService.IsRunning != true) {
             Intent intent = LocalVpnService.prepare(this);
             if (intent == null) {
-                startVPNService();
+                // 显示广告过后在连接
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                    startVPNService();
+                    mInterstitialAd = new InterstitialAd(this);
+                    mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                } else {
+                    Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
             } else {
                 startActivityForResult(intent, START_VPN_SERVICE_REQUEST_CODE);
                 startVPNService();
