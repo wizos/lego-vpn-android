@@ -178,7 +178,6 @@ public class MainActivity extends BaseActivity implements
     private String[] nodesNames;
     private String[] checkOutNodeNames;
     private Vector<Integer> nodesNumbers  = new Vector<Integer>();
-    private boolean mIsConnecting = false;
     private boolean mMainIsVip = true;
     private AdLoader mAdLoader = null;
 
@@ -282,7 +281,6 @@ public class MainActivity extends BaseActivity implements
                 long res = (long)msg.obj;
                 account_balance = res;
                 P2pLibManager.getInstance().now_balance = account_balance;
-
                 setVipStatus();
             }
 
@@ -736,7 +734,6 @@ public class MainActivity extends BaseActivity implements
                     .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                         @Override
                         public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                            System.out.println("load google ads success.");
                             int decode = 128;
                             ColorDrawable colorDrawable = new ColorDrawable(decode);
                             NativeTemplateStyle styles = new
@@ -765,14 +762,12 @@ public class MainActivity extends BaseActivity implements
                             mIvSecurity.setVisibility(View.VISIBLE);
                             mPb.setProgress(0);
                             mCountDownTimer.dispose();
-                            mIsConnecting = false;
                         }
                     })
                     .withAdListener(new AdListener() {
                         @Override
                         public void onAdFailedToLoad(int errorCode) {
                             // 链接失败
-                            System.out.println("load google ads error: " + errorCode);
                             if (mConnectingDialog == null) {
                                 return;
                             }
@@ -787,7 +782,6 @@ public class MainActivity extends BaseActivity implements
                             mIvSecurity.setVisibility(View.VISIBLE);
                             mPb.setProgress(0);
                             mCountDownTimer.dispose();
-                            mIsConnecting = false;
                         }
                     }).withNativeAdOptions(new NativeAdOptions.Builder()
                             // Methods in the NativeAdOptions.Builder class can be
@@ -1019,12 +1013,12 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void toggleConnect() {
-        if (mIsConnecting) {
+        if (LocalVpnService.IsRunning) {
+            LocalVpnService.IsRunning = false;
             return;
         }
 
         checkVipStatus();
-        mIsConnecting = true;
         startVpn(null);
     }
 
@@ -1061,7 +1055,6 @@ public class MainActivity extends BaseActivity implements
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
-                System.out.println("onInitializationComplete");
             }
         });
 
@@ -1075,6 +1068,8 @@ public class MainActivity extends BaseActivity implements
         ProxyConfig.Instance.globalMode = true;
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
+
+
         if (!P2pLibManager.getInstance().InitNetwork(this)) {
             Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
             try {
@@ -1086,10 +1081,10 @@ public class MainActivity extends BaseActivity implements
             return;
         }
 
-        int p2p_socket = getP2PSocket();
-        if (!vpn_service.protect(p2p_socket)) {
-            Log.e(TAG,"protect vpn socket failed");
-        }
+//        int p2p_socket = getP2PSocket();
+//        if (!vpn_service.protect(p2p_socket)) {
+//            Log.e(TAG,"protect vpn socket failed");
+//        }
 
         //Pre-App Proxy
         if (AppProxyManager.isLollipopOrAbove){
@@ -1273,7 +1268,6 @@ public class MainActivity extends BaseActivity implements
             mIvSecurity.setVisibility(View.INVISIBLE);
             mPb.setProgress(0);
             mCountDownTimer.dispose();
-            mIsConnecting = false;
         }
     }
 
@@ -1295,7 +1289,6 @@ public class MainActivity extends BaseActivity implements
 //            Toast.makeText(MainActivity.this, getString(R.string.invalid_country), Toast.LENGTH_SHORT).show();
 //            return;
 //        }
-
         if (LocalVpnService.IsRunning != true) {
             Intent intent = LocalVpnService.prepare(this);
             if (intent == null) {
@@ -1328,7 +1321,6 @@ public class MainActivity extends BaseActivity implements
     private String ChooseRouteProxyUrl(String dest_country) {
         {
             String nodes = getRouteNodes(dest_country);
-            System.out.println("getRouteNodes: " + nodes);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -1399,7 +1391,6 @@ public class MainActivity extends BaseActivity implements
 
     private void startVPNService() {
         String route_proxy_url = ChooseRouteProxyUrl(P2pLibManager.getInstance().local_country);
-        System.out.println("get routing node: " + route_proxy_url);
         if (!isValidUrl(route_proxy_url)) {
             Toast.makeText(this, "Waiting Decentralized Routing...", Toast.LENGTH_SHORT).show();
             return;
@@ -1453,7 +1444,6 @@ public class MainActivity extends BaseActivity implements
             mTvConnectDesc.setVisibility(View.INVISIBLE);
             mLlConnect.setBackgroundResource(R.drawable.selector_un_connect_inner);
             mIvSecurity.setVisibility(View.INVISIBLE);
-            mIsConnecting = false;
         } else {
             // 已连接
             showConnectDialog();
@@ -1478,7 +1468,6 @@ public class MainActivity extends BaseActivity implements
                             mIvSecurity.setVisibility(View.VISIBLE);
                             mPb.setProgress(0);
                             mCountDownTimer.dispose();
-                            mIsConnecting = false;
                         }
                     });
         }

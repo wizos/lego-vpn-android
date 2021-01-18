@@ -243,8 +243,6 @@ public final class P2pLibManager {
             Log.e(TAG,"init p2p network failed!" + res + ", " + local_ip + ":" + kLocalPort);
             return false;
         }
-        Log.d(TAG, "onCreate: start check tx thread. 22222 " + res);
-
         local_country = res_split[0].trim();
         account_id = res_split[1].trim();
         private_key = res_split[2].trim();

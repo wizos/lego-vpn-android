@@ -10,6 +10,7 @@
 #include <map>
 #include <set>
 #include <deque>
+#include <condition_variable>
 
 namespace lego {
 
@@ -171,7 +172,7 @@ public:
             const std::string& old_ip,
             const std::string& ip,
             const std::string& uid);
-	std::string VpnConnected();
+    std::string VpnConnected();
 
 private:
     VpnClient();
@@ -214,6 +215,7 @@ private:
             client::protobuf::BlockMessage& block_msg);
     void SendGetBlockWithGid(const std::string& str, bool is_gid);
     void SendGetAccountAttrUsedBandwidth();
+    void GetTxBlocksFromBftNetwork();
 
     static const uint32_t kDefaultUdpSendBufferSize = 2u * 1024u * 1024u;
     static const uint32_t kDefaultUdpRecvBufferSize = 2u * 1024u * 1024u;
@@ -269,6 +271,7 @@ private:
     bool ip_loaded_{ false };
     std::string vpn_node_info_;
     std::mutex vpn_node_info_mutex_;
+    std::condition_variable vpn_node_info_con_;
 };
 
 }  // namespace client
