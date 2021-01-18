@@ -6,7 +6,33 @@
     android:orientation="vertical"
     android:background="@android:color/white"
     >
-
+    <LinearLayout
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:background="@android:color/black"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/global_mode_check"
+            android:layout_width="2dp"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/connect_succ_in"
+            android:text="@string/global_mode"/>
+        <Button
+            android:id="@+id/dlg_hide_dialog"
+            android:layout_width="20dp"
+            android:layout_height="17dp"
+            android:gravity="center"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/arrow_down"
+            android:focusable="false" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,10 +40,12 @@
         android:layout_marginRight="10dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
@@ -48,15 +76,6 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/paste"
-                android:focusable="false" />
-            <Button
-                android:id="@+id/dlg_hide_dialog"
-                android:layout_width="20dp"
-                android:layout_height="17dp"
-                android:gravity="center"
-                android:layout_marginRight="0dp"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/arrow_down"
                 android:focusable="false" />
 
         </LinearLayout>

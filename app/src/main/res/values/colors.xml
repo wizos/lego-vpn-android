@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#12b5aa</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#12b5aa</color>
+    <color name="colorSubTitle">#9AA2A1</color>
+
+    <color name="bg_btn_pass">#000000</color>
+    <color name="colorCard">#151919</color>
+    <color name="defaultActivityBackground">#fafafa</color>
+    <color name="colorUnConnect">#B9CDCB</color>
+    <color name="colorConnect">#002933</color>
+</resources>

@@ -149,8 +149,6 @@ public class DnsProxy implements Runnable {
             Question question = dnsPacket.Questions[0];
             if (question.Type == 1) {
                 int realIP = getFirstIP(dnsPacket);
-                System.out.println("2 need proxy: ");
-
                 if (ProxyConfig.Instance.needProxy(question.Domain, realIP)) {
                     int fakeIP = getOrCreateFakeIP(question.Domain);
                     tamperDnsResponse(rawPacket, dnsPacket, fakeIP);
@@ -200,9 +198,8 @@ public class DnsProxy implements Runnable {
 
     private boolean interceptDns(IPHeader ipHeader, UDPHeader udpHeader, DnsPacket dnsPacket) {
         Question question = dnsPacket.Questions[0];
+        System.out.println("DNS Qeury " + question.Domain);
         if (question.Type == 1) {
-            System.out.println("3 need proxy: ");
-
             if (ProxyConfig.Instance.needProxy(question.Domain, getIPFromCache(question.Domain))) {
                 int fakeIP = getOrCreateFakeIP(question.Domain);
                 tamperDnsResponse(ipHeader.m_Data, dnsPacket, fakeIP);

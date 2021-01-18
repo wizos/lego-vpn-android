@@ -1,291 +1,847 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <include layout="@layout/title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context="com.vm.shadowsocks.ui.MainActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        >
-
-    </include>
-
-    <RelativeLayout
-        android:paddingTop="0dp"
-        android:layout_width="400dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center|center_horizontal|center_vertical">
-
-        <TextView
-            android:layout_width="400dp"
-            android:layout_height="90dp"
-            android:layout_margin="10dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/country_back"/>
-        <Spinner
-            android:id="@+id/spinner"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="15dp"
-            android:gravity="center|center_horizontal|center_vertical"
-            android:layout_marginTop="22dp" />
-    </RelativeLayout >
+            android:background="@drawable/bg_main_bigmap"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/logo" />
+
+                <LinearLayout
+                    android:id="@+id/ll_settings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tenon VPN"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="v1.0.12"
+                        android:textColor="@color/colorSubTitle"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/selector_ad_count_down"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="shareTenon"
+                        android:src="@drawable/share" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/share"
+                        android:onClick="shareTenon"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_title_pro"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PRO"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:text="@string/pro"
+                    android:textColor="@color/colorSubTitle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/exchange" />
+
+                <TextView
+                    android:id="@+id/tv_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/free"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_title_free"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/community_version"
+                    android:textColor="@color/colorSubTitle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:lines="1"
+                            android:singleLine="true"
+                            android:text="@string/anonymous_account"
+                            android:textColor="@color/colorSubTitle" />
+
+                        <ImageView
+                            android:id="@+id/iv_edit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/edit" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:lines="3"
+                        android:text="s823rjdf9s8hc23289rhvnweua8932s823rjdf9s8hc23289rhvnweua8932rkop"
+                        android:textColor="#434D4C" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/private_key"
+                            android:textColor="@color/colorSubTitle" />
+
+                        <ImageView
+                            android:id="@+id/iv_show_private_key"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/hide" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_private_key"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:lines="3"
+                        android:text="************************************************************************"
+                        android:textColor="#434D4C" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_pro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_left_days"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_weight="1"
+                                android:text="500.03 M"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/balance_lego"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/total_100_ten"
+                            android:textColor="@color/colorPrimary"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_line"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/tv_recharge"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:text="@string/recharge"
+                                    android:textColor="@color/colorPrimary" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/tv_cash"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:gravity="end"
+                                android:text="@string/withdraw"
+                                android:textColor="@color/colorPrimary" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_free"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="FREE!"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="24sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="@string/free1"
+                            android:textColor="#434D4C" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_card"
+                        android:gravity="end|center_vertical"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/free_desc"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/pro" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_connect"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="26dp"
+                    android:background="@drawable/selector_un_connect"
+                    android:gravity="center"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_connect"
+                        android:layout_width="121dp"
+                        android:layout_height="121dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/selector_un_connect_inner"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_connect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/un_connected" />
+
+                        <TextView
+                            android:id="@+id/tv_connect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:singleLine="true"
+                            android:text="@string/un_connect"
+                            android:textColor="@color/colorUnConnect"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_security"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="bottom|center"
+                        android:src="@drawable/ic_security_primary_24dp"
+                        android:visibility="invisible" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_connect_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:text="@string/connect_desc"
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/ll_select_nodes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card1"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:id="@+id/iv_county"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/a"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv_nodes_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="@string/us"
+                        android:textColor="@color/colorSubTitle" />
+
+                    <TextView
+                        android:id="@+id/tv_nodes_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nodes"
+                        android:textColor="#66FFFFFF" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:src="@drawable/up" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_marginTop="1dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/disconnect_succ_in"
-            android:textSize="13sp"
-            android:gravity="center"
-            android:text="@string/smart_route_usefull"                />
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:text="About Tenon VPN"
+        android:textColor="@color/colorPrimary" />
 
-        <Button
-            android:layout_width="111dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/join_us"
-            android:focusable="false"
-            android:gravity="center"
-            android:onClick="JoinUs" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="150dp"
-        android:gravity="center_horizontal|top"
-        >
-
-        <Button
-            android:id="@+id/vip_yes"
-            android:layout_width="81dp"
-            android:layout_height="54dp"
-            android:layout_marginLeft="-54dp"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/vip"
-            android:focusable="false"
-            android:gravity="left"
-            android:visibility="invisible"
-            android:onClick="buyTenon" />
-
-        <Button
-            android:id="@+id/vip_no"
-            android:layout_width="81dp"
-            android:layout_height="54dp"
-            android:layout_marginLeft="-54dp"
-            android:layout_marginTop="200dp"
-            android:background="@drawable/no_vip"
-            android:focusable="false"
-            android:gravity="left"
-            android:onClick="buyTenon"
-            android:visibility="invisible"
-            tools:visibility="invisible" />
-        <at.grabner.circleprogress.CircleProgressView
-            android:id="@+id/circleView"
-            android:layout_marginTop="0dp"
-            android:layout_width="244dp"
-            android:layout_height="244dp"
-            app:cpv_autoTextSize="false"
-            app:cpv_barColor="@color/gray"
-            app:cpv_innerContourSize="0dp"
-            app:cpv_maxValue="100"
-            app:cpv_outerContourSize="0dp"
-            app:cpv_rimColor="@color/disconnect_succ_out"
-            app:cpv_seekMode="true"
-            app:cpv_showUnit="true"
-            app:cpv_spinColor="@color/gray"
-            app:cpv_textColor="@color/gray"
-            app:cpv_textScale="1"
-            app:cpv_unit="%"
-            app:cpv_unitColor="@color/gray"
-            app:cpv_unitScale="1"
-            android:gravity="center_horizontal|center|center_vertical"
-            app:cpv_value="5" />
-        <at.markushi.ui.CircleButton
-            android:layout_marginTop="0dp"
-            android:id="@+id/start_vpn"
-            android:layout_width="244dp"
-            android:layout_height="244dp"
-            android:layout_marginLeft="0dp"
-            android:onClick="startVpn"
-            app:cb_color="#D9D9D9"
-            android:src="@drawable/connect"
-            android:gravity="center_horizontal|center|center_vertical"
-            app:cb_pressedRingWidth="8dip" />
-
-            <TextView
-                android:id="@+id/notice_text"
-                android:layout_width="224dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="230dp"
-                android:textColor="#ff0000"
-                android:textSize="13sp"
-                android:gravity="center_horizontal|center|center_vertical"
-                android:text=""/>
-    </RelativeLayout >
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
-        android:layout_marginTop="-200dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="29dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="120dp"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv31"
-                android:layout_width="wrap_content"
-                android:layout_height="29dp"
-                android:layout_marginTop="0dp"
-                android:textColor="@color/connect_succ_in"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:text="Balance " />
-            <TextView
-                android:id="@+id/balance_lego"
-                android:layout_marginTop="1dp"
-                android:layout_marginLeft="6dp"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:gravity="right"
-                android:text="0 Tenon"
-                android:textSize="13sp"
-                />
-            <TextView
-                android:id="@+id/balance_dollar"
-                android:layout_marginTop="1dp"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_height="30dp"
-                android:gravity="left"
-                android:text="0 $"
-                android:textSize="13sp"
-                android:textColor="#ff0000"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/share_link_text"
-                android:layout_marginTop="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:textSize="14sp"
-                android:layout_marginLeft="0dp"
-                android:textColor="@color/connect_succ_in"
-                android:text="@string/share_vip"
-                android:textStyle="italic"
-                android:onClick="shareVip"
-                />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="94dp"
-            android:gravity="left"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.7"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/connect_succ_in"
-                android:textStyle="bold"
-                android:gravity="left"
-                android:text="@string/balance_string" />
-
-            <TextView
-                android:id="@+id/main_balance_lego"
-                android:layout_marginTop="10dp"
-                android:layout_width="0dp"
-                android:layout_weight="1.2"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_marginLeft="0dp"
-                android:textColor="@color/disconnect_succ_in"
-                android:text="@string/now_wait_to_sync"
-                />
-            <TextView
-                android:id="@+id/main_vip_left_status"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textColor="@color/disconnect_succ_in"
-                android:gravity="right"
-                android:text=""
-                />
-
-
-        </LinearLayout>
-    </FrameLayout>
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="-40dp"
-        android:orientation="horizontal">
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:background="@drawable/btn_bg_normal"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="@string/account_settings_string"
-            android:onClick="showDialog"
-            android:focusable="false" />
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="center"
-            android:background="@drawable/btn_bg_normal"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="@string/upgrade_settings_string"
-            android:onClick="checkVer"
-            android:focusable="false" />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/my_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        tools:context=".MainActivity"
+        tools:showIn="@layout/activity_main" >
+
+        <com.google.android.ads.nativetemplates.TemplateView
+            android:id="@+id/my_template"
+            app:gnt_template_type="@layout/gnt_small_template_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
-</TableLayout>
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/ad_cut" />-->
+<!--    <ScrollView-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:paddingBottom="0dp">-->
+
+<!--        <com.facebook.ads.NativeAdLayout-->
+<!--            android:id="@+id/native_ad_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical" />-->
+<!--    </ScrollView>-->
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        ads:adSize="SMART_BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-1878869478486684/8556297279">-->
+<!--    </com.google.android.gms.ads.AdView>-->
+<!--    <RelativeLayout-->
+<!--        android:paddingTop="0dp"-->
+<!--        android:layout_width="400dp"-->
+<!--        android:layout_height="90dp"-->
+<!--        android:layout_marginTop="10000dp"-->
+<!--        android:visibility="invisible"-->
+<!--        android:gravity="center|center_horizontal|center_vertical">-->
+<!--        <TextView-->
+<!--            android:layout_width="400dp"-->
+<!--            android:layout_height="90dp"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:background="@drawable/country_back"/>-->
+<!--        <Spinner-->
+<!--            android:id="@+id/spinner"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="40dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            android:gravity="center|center_horizontal|center_vertical"-->
+<!--            android:layout_marginTop="22dp" />-->
+<!--    </RelativeLayout >-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginTop="40000dp"-->
+<!--        android:gravity="center"-->
+<!--        android:visibility="invisible"-->
+<!--        android:orientation="horizontal">-->
+<!--        <TextView-->
+<!--            android:layout_marginTop="1dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/disconnect_succ_in"-->
+<!--            android:textSize="13sp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/smart_route_usefull"                />-->
+
+<!--        <Button-->
+<!--            android:layout_width="111dp"-->
+<!--            android:layout_height="64dp"-->
+<!--            android:layout_marginTop="0dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:background="@drawable/join_us"-->
+<!--            android:focusable="false"-->
+<!--            android:gravity="center"-->
+<!--            android:onClick="JoinUs" />-->
+<!--    </LinearLayout>-->
+
+<!--    <RelativeLayout-->
+<!--        android:visibility="invisible"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:paddingTop="0dp"-->
+<!--        android:layout_marginTop="20000dp"-->
+<!--        android:layout_marginBottom="120dp"-->
+<!--        android:gravity="center_horizontal|top"-->
+<!--        >-->
+
+<!--        <Button-->
+<!--            android:id="@+id/vip_yes"-->
+<!--            android:layout_width="81dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:layout_marginLeft="-54dp"-->
+<!--            android:layout_marginTop="200dp"-->
+<!--            android:background="@drawable/vip"-->
+<!--            android:focusable="false"-->
+<!--            android:gravity="left"-->
+<!--            android:visibility="invisible"-->
+<!--            android:onClick="buyTenon" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/vip_no"-->
+<!--            android:layout_width="81dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:layout_marginLeft="-54dp"-->
+<!--            android:layout_marginTop="200dp"-->
+<!--            android:background="@drawable/no_vip"-->
+<!--            android:focusable="false"-->
+<!--            android:gravity="left"-->
+<!--            android:onClick="buyTenon"-->
+<!--            android:visibility="invisible"-->
+<!--            tools:visibility="invisible" />-->
+<!--        <at.grabner.circleprogress.CircleProgressView-->
+<!--            android:id="@+id/circleView"-->
+<!--            android:layout_marginTop="0dp"-->
+<!--            android:layout_width="244dp"-->
+<!--            android:layout_height="244dp"-->
+<!--            app:cpv_autoTextSize="false"-->
+<!--            app:cpv_barColor="@color/gray"-->
+<!--            app:cpv_innerContourSize="0dp"-->
+<!--            app:cpv_maxValue="100"-->
+<!--            app:cpv_outerContourSize="0dp"-->
+<!--            app:cpv_rimColor="@color/disconnect_succ_out"-->
+<!--            app:cpv_seekMode="true"-->
+<!--            app:cpv_showUnit="true"-->
+<!--            app:cpv_spinColor="@color/gray"-->
+<!--            app:cpv_textColor="@color/gray"-->
+<!--            app:cpv_textScale="1"-->
+<!--            app:cpv_unit="%"-->
+<!--            app:cpv_unitColor="@color/gray"-->
+<!--            app:cpv_unitScale="1"-->
+<!--            android:gravity="center_horizontal|center|center_vertical"-->
+<!--            app:cpv_value="5" />-->
+<!--        <at.markushi.ui.CircleButton-->
+<!--            android:layout_marginTop="0dp"-->
+<!--            android:id="@+id/start_vpn"-->
+<!--            android:layout_width="244dp"-->
+<!--            android:layout_height="244dp"-->
+<!--            android:layout_marginLeft="0dp"-->
+<!--            android:onClick="startVpn"-->
+<!--            app:cb_color="#D9D9D9"-->
+<!--            android:src="@drawable/connect"-->
+<!--            android:gravity="center_horizontal|center|center_vertical"-->
+<!--            app:cb_pressedRingWidth="8dip" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/notice_text"-->
+<!--                android:layout_width="224dp"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginTop="230dp"-->
+<!--                android:textColor="#ff0000"-->
+<!--                android:textSize="13sp"-->
+<!--                android:gravity="center_horizontal|center|center_vertical"-->
+<!--                android:text=""/>-->
+<!--    </RelativeLayout >-->
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:paddingBottom="@dimen/activity_vertical_margin"-->
+<!--        android:paddingLeft="@dimen/activity_horizontal_margin"-->
+<!--        android:paddingRight="@dimen/activity_horizontal_margin"-->
+<!--        android:paddingTop="@dimen/activity_vertical_margin"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="invisible"-->
+<!--        android:layout_marginTop="-300dp">-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_marginTop="120dp"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv31"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="29dp"-->
+<!--                android:layout_marginTop="0dp"-->
+<!--                android:textColor="@color/connect_succ_in"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="15sp"-->
+<!--                android:text="Balance " />-->
+<!--            <TextView-->
+<!--                android:id="@+id/balance_lego"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_marginLeft="6dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:gravity="right"-->
+<!--                android:text="0 Tenon"-->
+<!--                android:textSize="13sp"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/balance_dollar"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_marginLeft="6dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:gravity="left"-->
+<!--                android:text="0 $"-->
+<!--                android:textSize="13sp"-->
+<!--                android:textColor="#ff0000"-->
+<!--                />-->
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="invisible"-->
+<!--            android:layout_marginTop="60dp"-->
+<!--            android:layout_marginLeft="16dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/share_link_text"-->
+<!--                android:layout_marginTop="0dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="left"-->
+<!--                android:textSize="14sp"-->
+<!--                android:layout_marginLeft="0dp"-->
+<!--                android:textColor="@color/connect_succ_in"-->
+<!--                android:text="@string/share_vip"-->
+<!--                android:textStyle="italic"-->
+<!--                android:onClick="shareVip"-->
+<!--                />-->
+
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="94dp"-->
+<!--            android:gravity="left"-->
+<!--            android:orientation="horizontal">-->
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="0.7"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textColor="@color/connect_succ_in"-->
+<!--                android:textStyle="bold"-->
+<!--                android:gravity="left"-->
+<!--                android:text="@string/balance_string" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/main_balance_lego"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1.2"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="left"-->
+<!--                android:layout_marginLeft="0dp"-->
+<!--                android:textColor="@color/disconnect_succ_in"-->
+<!--                android:text="@string/now_wait_to_sync"-->
+<!--                />-->
+<!--            <TextView-->
+<!--                android:id="@+id/main_vip_left_status"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/disconnect_succ_in"-->
+<!--                android:gravity="right"-->
+<!--                android:text=""-->
+<!--                />-->
+
+
+<!--        </LinearLayout>-->
+<!--    </FrameLayout>-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginTop="-140dp"-->
+<!--        android:visibility="invisible"-->
+<!--        android:orientation="horizontal">-->
+<!--        <Button-->
+<!--            android:id="@+id/settings"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:background="@drawable/btn_bg_normal"-->
+<!--            android:textColor="#ffffff"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="16sp"-->
+<!--            android:text="@string/account_settings_string"-->
+<!--            android:onClick="showDialog"-->
+<!--            android:focusable="false" />-->
+<!--        <Button-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:background="@drawable/btn_bg_normal"-->
+<!--            android:textColor="#ffffff"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="16sp"-->
+<!--            android:text="@string/upgrade_settings_string"-->
+<!--            android:onClick="checkVer"-->
+
+<!--            android:focusable="false" />-->
+<!--    </LinearLayout>-->
+
+
+</LinearLayout>

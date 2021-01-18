@@ -285,6 +285,8 @@ public class LocalVpnService extends VpnService implements Runnable {
                             String host = HttpHostHeaderParser.parseHost(tcpHeader.m_Data, dataOffset, tcpDataSize);
                             if (host != null) {
                                 session.RemoteHost = host;
+                            } else {
+                                System.out.printf("No host name found: %s", session.RemoteHost);
                             }
                         }
 
@@ -400,9 +402,9 @@ public class LocalVpnService extends VpnService implements Runnable {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         builder.setConfigureIntent(pendingIntent);
 
-        builder.setSession(ProxyConfig.Instance.getSessionName());
+//        builder.setSession(ProxyConfig.Instance.getSessionName());
         ParcelFileDescriptor pfdDescriptor = builder.establish();
-        onStatusChanged(ProxyConfig.Instance.getSessionName() + getString(R.string.vpn_connected_status), true);
+        onStatusChanged(getString(R.string.vpn_connected_status), true);
         return pfdDescriptor;
     }
 

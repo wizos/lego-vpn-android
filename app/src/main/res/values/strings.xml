@@ -47,11 +47,12 @@
     <string name="invalid_country">Agent service is not supported in your country or region.</string>
     <string name="copy_succ">Copy Success.</string>
     <string name="invalid_prikey">Private key invalid.</string>
+    <string name="invalid_account">Account invalid.</string>
     <string name="set_prikey">Private key set success.</string>
     <string name="max_set_prikey">Set up to three private keys.</string>
     <string name="now_wait_to_sync">waiting server...</string>
     <string name="disconnect_vpn_network">failed to connect vpn network.</string>
-    <string name="now_free_to_use"></string>
+    <string name="now_free_to_use">Free</string>
     <string name="layters_over_before">VIP Due in </string>
     <string name="layters_over_after"> days</string>
     <string name="restart_app">reset private key must restart app!</string>
@@ -63,4 +64,82 @@
     <string name="share_button">share</string>
 
     <string name="smart_route_usefull" translatable="false">Tenon p2p network protecting your ip and privacy.</string>
+    <string name="global_mode" translatable="false">Global Mode</string>
+
+
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Welcome !</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">Login failed</string>
+    <string name="pass_ad">Skip Ads In&#160;&#160;</string>
+    <string name="share">Share</string>
+    <string name="pro"></string>
+    <string name="free">Free</string>
+    <string name="anonymous_account">Account</string>
+    <string name="private_key">Private Key</string>
+    <string name="recharge">Charge Flow</string>
+    <string name="withdraw">Sell Flow</string>
+    <string name="un_connect">Connect</string>
+    <string name="us">America</string>
+    <string name="nodes"> nodes</string>
+    <string name="copy_success">Copy Success!</string>
+    <string name="please_input_private_key">Input Private Key</string>
+    <string name="confirm">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="connecting">Linking for you now...</string>
+    <string name="connected">Disconnect</string>
+    <string name="about">About</string>
+    <string name="add_nodes">Join Nodes</string>
+    <string name="add_nodes_desc">Third-party node access, one-click startup and access to the decentralized Tenon VPN network to provide services and routing</string>
+    <string name="disclaimers">Disclaimer</string>
+    <string name="technical_solutions">Technical solutions</string>
+    <string name="cash_flow">Sell Flow</string>
+    <string name="cash_flow_address">Your Tenon Account ID</string>
+    <string name="input_or_pause_address">Type or paste address</string>
+    <string name="number">Count</string>
+    <string name="allow_tenon">Allow </string>
+    <string name="min_number">Min Tenon</string>
+    <string name="extract_all">Get All</string>
+    <string name="withdrawal">Sell Out</string>
+    <string name="withdrawal_notes">Tip: At least 100 Tenon can be mentioned. For security, please keep your private key and don not tell anyone to ensure your account is safe.</string>
+    <string name="history">Last recharge record</string>
+    <string name="in_force">No record</string>
+    <string name="recharge_way_1">Method One</string>
+    <string name="recharge_way_2">Method Two</string>
+    <string name="pay_way">Monthly/quarterly/annual</string>
+    <string name="fast">Fast</string>
+    <string name="recharge_way_3">Method Three</string>
+    <string name="watch_ad">Watch ads to earn Tenon</string>
+    <string name="enter">Enter</string>
+    <string name="recharge_way1_desc">Transfer Tenon directly to your anonymous account</string>
+    <string name="copy">Copy</string>
+    <string name="free1">Free</string>
+    <string name="free_desc">Higher Performance!</string>
+    <string name="connect_desc">P2P networks are protecting your IP and data privacy</string>
+    <string name="total_100_ten">Total≈100 TEN</string>
+    <string name="settings">Settings</string>
+    <string name="select_language">Language</string>
+    <string name="tg_group">TG Group</string>
+    <string name="home_web">Website</string>
+    <string name="email">email</string>
+    <string name="updated_version">Update</string>
+    <string name="updated_info">There is a new version, click to upgrade page.</string>
+    <string name="community_version">Community Version</string>
+    <string name="can_not_get_balance">Unable to obtain balance from tenon chain, switch to the community version temporarily.</string>
+    <string name="is_not_vip">Current Tenon is 0, switch to the community version temporarily.</string>
+    <string name="is_vip">Dear VIP, Switched the best route for you.</string>
+    <string name="tenon_info1">\nTenonVPN is an open source community software.\n</string>
+    <string name="tenon_info2">\n1. Tenon VPN is composed of a large number of decentralized nodes, because there is no centralized server, thus avoiding the authority of centralization, that is, you can access the network without any blocking.\n\n2. Although Tenon VPN is decentralized, its performance is superior to a centralized VPN server because TenonVPN provides an original intelligent route that can find the best communication route through the user\'s current network conditions.\n\n3. Tenon VPN is decentralized. All user data is encrypted by the user\'s private key. At the same time, the addition of the intelligent routing network ensures the client\'s anonymity in the entire decentralized world.\n\n4. With a powerful P2P network and secure encryption technology, Tenvon VPN acts as a routing node through the user\'s home PC, making blocking impossible.\n\n5. Tenon VPN is easy to use, requires no complicated configuration, and can be safely, quickly and reliably entered into the decentralized world with one-click connection.\n</string>
+    <string name="input_valid_account">Please enter the correct account address.</string>
+    <string name="input_valid_tenon">Please enter the correct number of tenon coins.</string>
+    <string name="transaction_error">Transaction Error.</string>
+    <string name="transaction_success">Transaction Success.</string>
+    <string name="get_history">Transaction History.</string>
+    <string name="no_self_account">Please enter the correct number of tenon coins.</string>
+
 </resources>

@@ -8,11 +8,11 @@ import com.vm.shadowsocks.ui.P2pLibManager;
 import java.nio.ByteBuffer;
 import java.nio.channels.Selector;
 
-
 public class ShadowsocksTunnel extends Tunnel {
     private boolean m_TunnelEstablished;
     public ICrypt encryptor = null;
     private String seckey = "";
+    private String header_seckey = "";
 
     public ShadowsocksTunnel(ShadowsocksConfig config, Selector selector) throws Exception {
         super(config.ServerAddress, selector);
@@ -27,6 +27,15 @@ public class ShadowsocksTunnel extends Tunnel {
             i--;
         }
         return num;
+    }
+
+    private byte[] intToBytesLittle(int value) {
+        byte[] src = new byte[4];
+        src[3] = (byte) ((value >> 24) & 0xFF);
+        src[2] = (byte) ((value >> 16) & 0xFF);
+        src[1] = (byte) ((value >> 8) & 0xFF);
+        src[0] = (byte) (value & 0xFF);
+        return src;
     }
 
     @Override
@@ -49,6 +58,7 @@ public class ShadowsocksTunnel extends Tunnel {
         byte[] enc_data = encryptor.encrypt(header);
 
         buffer.clear();
+        buffer.put(intToBytesLittle(P2pLibManager.getInstance().kStreamMagicNum));
         if (P2pLibManager.getInstance().use_smart_route) {
             String ex_route = P2pLibManager.getInstance().GetExRouteNode();
             if (!ex_route.isEmpty()) {
@@ -71,6 +81,19 @@ public class ShadowsocksTunnel extends Tunnel {
         buffer.put((byte) choosed_method_bytes.length);
         buffer.put(choosed_method_bytes);
         buffer.put(enc_data);
+        buffer.flip();
+
+        int randNum = P2pLibManager.getInstance().GetRandNum(P2pLibManager.StreamType.kStreamData);
+        byte[] enc_header = new byte[buffer.limit()];
+        buffer.get(enc_header);
+
+        int randIndex = randNum % P2pLibManager.kCryptoCount;
+        String seckey = randIndex + P2pLibManager.kRandomKey[randIndex];
+        ICrypt encryptor = CryptFactory.get(P2pLibManager.getInstance().choosed_method, seckey);
+        byte[] final_enc_data = encryptor.encrypt(enc_header);
+        buffer.clear();
+        buffer.put(intToBytesLittle(randNum));
+        buffer.put(final_enc_data);
         buffer.flip();
 
         if (write(buffer, true)) {

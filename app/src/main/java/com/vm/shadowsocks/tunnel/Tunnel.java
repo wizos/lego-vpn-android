@@ -14,13 +14,15 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.util.Log;
 
 public abstract class Tunnel {
 
-    final static ByteBuffer GL_BUFFER = ByteBuffer.allocate(20000);
+    final static ByteBuffer GL_BUFFER = ByteBuffer.allocate(200000);
     public static long SessionCount;
 
     protected abstract void onConnected(ByteBuffer buffer) throws Exception;
@@ -40,6 +42,7 @@ public abstract class Tunnel {
     private boolean m_Disposed;
     private InetSocketAddress m_ServerEP;
     protected InetSocketAddress m_DestAddress;
+    private Set<String> m_SeedsSet = new HashSet<String>();
 
     static private AtomicInteger connect_times = new AtomicInteger(1);
 
@@ -47,6 +50,25 @@ public abstract class Tunnel {
         this.m_InnerChannel = innerChannel;
         this.m_Selector = selector;
         SessionCount++;
+        m_SeedsSet.add("42.51.39.113");
+        m_SeedsSet.add("42.51.33.89");
+        m_SeedsSet.add("42.51.41.173");
+        m_SeedsSet.add("113.17.169.103");
+        m_SeedsSet.add("113.17.169.105");
+        m_SeedsSet.add("113.17.169.106");
+        m_SeedsSet.add("113.17.169.93");
+        m_SeedsSet.add("113.17.169.94");
+        m_SeedsSet.add("113.17.169.95");
+        m_SeedsSet.add("216.108.227.52");
+        m_SeedsSet.add("216.108.231.102");
+        m_SeedsSet.add("216.108.231.103");
+        m_SeedsSet.add("216.108.231.105");
+        m_SeedsSet.add("216.108.231.19");
+        m_SeedsSet.add("3.12.73.217");
+        m_SeedsSet.add("3.137.186.226");
+        m_SeedsSet.add("3.22.68.200");
+        m_SeedsSet.add("3.138.121.98");
+        m_SeedsSet.add("18.188.190.127");
     }
 
     public Tunnel(InetSocketAddress serverAddress, Selector selector) throws IOException {
@@ -66,6 +88,10 @@ public abstract class Tunnel {
         if (LocalVpnService.Instance.protect(m_InnerChannel.socket())) {//保护socket不走vpn
             m_DestAddress = destAddress;
             m_InnerChannel.register(m_Selector, SelectionKey.OP_CONNECT, this);//注册连接事件
+            if (m_SeedsSet.contains(destAddress)) {
+                m_InnerChannel.connect(destAddress);
+                return;
+            }
             // TODO: now just for socks server and select route or vpn server
             InetSocketAddress serverEP = m_ServerEP;
             if (destAddress.isUnresolved()) {
@@ -74,19 +100,15 @@ public abstract class Tunnel {
                     String tmp_split[] = res.split(":");
                     if (tmp_split.length == 2) {
                         serverEP = new InetSocketAddress(tmp_split[0], Integer.parseInt(tmp_split[1]));
+                        m_ServerEP = serverEP;
                     }
                 }
                 int now_times = connect_times.incrementAndGet();
                 if (now_times > 15) {
+                    System.out.println("change vpn node");
                     String old_ip = P2pLibManager.getInstance().choosed_vpn_ip;
                     P2pLibManager.getInstance().GetVpnNode();
                     if (!old_ip.equals(P2pLibManager.getInstance().choosed_vpn_ip)) {
-                        connect_times.set(0);
-                    }
-
-                    if (now_times >= 30) {
-                        P2pLibManager.getInstance().now_status = "ncc";
-                        LocalVpnService.IsRunning = false;
                         connect_times.set(0);
                     }
                     return;
@@ -143,11 +165,9 @@ public abstract class Tunnel {
             if (m_InnerChannel.finishConnect()) {//连接成功
                 onConnected(GL_BUFFER);//通知子类TCP已连接，子类可以根据协议实现握手等。
             } else {//连接失败
-                LocalVpnService.Instance.writeLog("Error: connect to %s failed.", m_ServerEP);
                 this.dispose();
             }
         } catch (Exception e) {
-            LocalVpnService.Instance.writeLog("Error: connect to %s failed: %s", m_ServerEP, e);
             this.dispose();
         }
     }
@@ -221,3 +241,4 @@ public abstract class Tunnel {
         }
     }
 }
+

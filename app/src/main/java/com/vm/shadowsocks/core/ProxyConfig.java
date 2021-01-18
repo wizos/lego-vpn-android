@@ -22,7 +22,9 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
@@ -37,11 +39,12 @@ public class ProxyConfig {
     public final static int FAKE_NETWORK_MASK = CommonMethods.ipStringToInt("255.255.0.0");
     public final static int FAKE_NETWORK_IP = CommonMethods.ipStringToInt("172.25.0.0");
 
+    private Set<String> proxyDomainSet = new HashSet<String>();
     ArrayList<IPAddress> m_IpList;
     ArrayList<IPAddress> m_DnsList;
     ArrayList<IPAddress> m_RouteList;
     public ArrayList<Config> m_ProxyList;
-    HashMap<String, Boolean> m_DomainMap;
+//    HashMap<String, Boolean> m_DomainMap;
 
     public boolean globalMode = false;
 
@@ -96,8 +99,7 @@ public class ProxyConfig {
         m_DnsList = new ArrayList<IPAddress>();
         m_RouteList = new ArrayList<IPAddress>();
         m_ProxyList = new ArrayList<Config>();
-        m_DomainMap = new HashMap<String, Boolean>();
-
+//        m_DomainMap = new HashMap<String, Boolean>();
         m_Timer = new Timer();
         m_Timer.schedule(m_Task, 120000, 120000);//每两分钟刷新一次。
     }
@@ -145,11 +147,11 @@ public class ProxyConfig {
     }
 
     public IPAddress getDefaultLocalIP() {
-        if (m_IpList.size() > 0) {
-            return m_IpList.get(0);
-        } else {
-            return new IPAddress("10.8.0.2", 32);
-        }
+//        if (m_IpList.size() > 0) {
+//            return m_IpList.get(0);
+//        } else {
+        return new IPAddress("192.168.0.2", 32);
+//        }
     }
 
     public ArrayList<IPAddress> getDnsList() {
@@ -194,20 +196,20 @@ public class ProxyConfig {
     }
 
     private Boolean getDomainState(String domain) {
-        domain = domain.toLowerCase();
-        while (domain.length() > 0) {
-            Boolean stateBoolean = m_DomainMap.get(domain);
-            if (stateBoolean != null) {
-                return stateBoolean;
-            } else {
-                int start = domain.indexOf('.') + 1;
-                if (start > 0 && start < domain.length()) {
-                    domain = domain.substring(start);
-                } else {
-                    return null;
-                }
-            }
-        }
+//        domain = domain.toLowerCase();
+//        while (domain.length() > 0) {
+//            Boolean stateBoolean = m_DomainMap.get(domain);
+//            if (stateBoolean != null) {
+//                return stateBoolean;
+//            } else {
+//                int start = domain.indexOf('.') + 1;
+//                if (start > 0 && start < domain.length()) {
+//                    domain = domain.substring(start);
+//                } else {
+//                    return null;
+//                }
+//            }
+//        }
         return null;
     }
 
@@ -221,9 +223,40 @@ public class ProxyConfig {
         return is;
     }
 
+    boolean proxyDomain(String host) {
+        if (host.indexOf("google") > 0) {
+            return true;
+        }
+
+        if (host.indexOf("facebook") > 0) {
+            return true;
+        }
+
+        if (host.indexOf("twitter") > 0) {
+            return true;
+        }
+
+        if (host.indexOf("telegram") > 0) {
+            return true;
+        }
+
+        if (host.indexOf("pornhub") > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean needProxy(String host, int ip) {
-        if (globalMode) {
+        if (P2pLibManager.getInstance().IsDirectNode(host)) {
             return false;
+        }
+
+        if (proxyDomain(host)) {
+            return true;
+        }
+
+        if (globalMode) {
+            return true;
         }
         if (host != null) {
             Boolean stateBoolean = getDomainState(host);
@@ -246,11 +279,13 @@ public class ProxyConfig {
                 InetAddress[] inetAddressArr = InetAddress.getAllByName(host);
                 if (inetAddressArr != null && inetAddressArr.length > 0) {
                     for (int i = 0; i < inetAddressArr.length; i++) {
-                        String country = P2pLibManager.getIpCountry(inetAddressArr[i].getHostAddress());
-                        if(country.equals(P2pLibManager.getInstance().local_country)) {
-                             return false;
+                        String country = P2pLibManager.getIpCountry(inetAddressArr[i].getHostAddress()).trim();
+                        if(!country.equals(P2pLibManager.getInstance().local_country)) {
+                            return true;
                         }
                     }
+
+                    return  false;
                 }
             }
         } catch (UnknownHostException e) {
@@ -330,7 +365,7 @@ public class ProxyConfig {
         m_DnsList.clear();
         m_RouteList.clear();
         m_ProxyList.clear();
-        m_DomainMap.clear();
+//        m_DomainMap.clear();
 
         int lineNumber = 0;
         for (String line : lines) {
@@ -395,7 +430,7 @@ public class ProxyConfig {
                 config.ServerAddress = new InetSocketAddress(m.group(1), Integer.parseInt(m.group(2)));
                 if (!m_ProxyList.contains(config)) {
                     m_ProxyList.add(config);
-                    m_DomainMap.put(config.ServerAddress.getHostName(), false);
+//                    m_DomainMap.put(config.ServerAddress.getHostName(), false);
                 }
             }
         }
@@ -413,7 +448,7 @@ public class ProxyConfig {
         }
         if (!m_ProxyList.contains(config)) {
             m_ProxyList.add(config);
-            m_DomainMap.put(config.ServerAddress.getHostName(), false);
+//            m_DomainMap.put(config.ServerAddress.getHostName(), false);
         }
     }
 
@@ -429,7 +464,7 @@ public class ProxyConfig {
             if (domainString.charAt(0) == '.') {
                 domainString = domainString.substring(1);
             }
-            m_DomainMap.put(domainString, state);
+//            m_DomainMap.put(domainString, state);
         }
     }
 

@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="#434D4C"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:background="#434D4C"
         android:gravity="right"
         android:orientation="vertical">
     <Button
@@ -31,6 +32,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center_horizontal"
+        android:background="#434D4C"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,6 +42,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"
             android:gravity="center_horizontal"
+            android:background="#434D4C"
             android:orientation="vertical">
 
             <TextView
@@ -49,8 +52,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.4"
                 android:gravity="left"
-                android:text="There is a new version, click to upgrade page."
-                android:textColor="@color/connect_succ_in"
+                android:text="@string/updated_info"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />
 
             <Button
@@ -62,8 +65,8 @@
                 android:layout_marginTop="5dp"
                 android:focusable="false"
                 android:gravity="center"
-                android:text="upgrade"
-                android:textColor="@color/connect_succ_in"
+                android:text="@string/updated_version"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14dp" />
 
         </LinearLayout>

@@ -14,18 +14,17 @@ public class ChinaIpMaskManager {
     static SparseIntArray MaskDict = new SparseIntArray();
 
     public static boolean isIPInChina(int ip) {
-        return false;
-//        boolean found = false;
-//        for (int i = 0; i < MaskDict.size(); i++) {
-//            int mask = MaskDict.keyAt(i);
-//            int networkIP = ip & mask;
-//            int mask2 = ChinaIpMaskDict.get(networkIP);
-//            if (mask2 == mask) {
-//                found = true;
-//                break;
-//            }
-//        }
-//        return found;
+        boolean found = false;
+        for (int i = 0; i < MaskDict.size(); i++) {
+            int mask = MaskDict.keyAt(i);
+            int networkIP = ip & mask;
+            int mask2 = ChinaIpMaskDict.get(networkIP);
+            if (mask2 == mask) {
+                found = true;
+                break;
+            }
+        }
+        return found;
     }
 
     public static void loadFromFile(InputStream inputStream) {

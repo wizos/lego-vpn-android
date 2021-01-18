@@ -19,7 +19,6 @@ public class RawTunnel extends Tunnel {
     @Override
     protected void onConnected(ByteBuffer buffer) throws Exception {
         onTunnelEstablished();
-        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
     }
 
     @Override
