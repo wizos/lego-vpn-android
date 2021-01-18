@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':nativetemplates'
+project(':nativetemplates').projectDir = new File('googleads-mobile-android-native-templates-master/nativetemplates')

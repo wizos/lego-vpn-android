@@ -1,13 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.markushi:circlebutton:1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e613e175d608fbd95e6bc8708a36c36/jetified-circlebutton-1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e613e175d608fbd95e6bc8708a36c36/jetified-circlebutton-1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2e613e175d608fbd95e6bc8708a36c36/jetified-circlebutton-1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bc8b14b3aee1560bf0207dc39e7004c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bc8b14b3aee1560bf0207dc39e7004c/res" />
     </CLASSES>
-    <JAVADOC>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.markushi/circlebutton/1.1/8db7ec3193bb29297bfdea07f9099ac58133c8a3/circlebutton-1.1-javadoc.jar!/" />
-    </JAVADOC>
+    <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.markushi/circlebutton/1.1/7b6c063310b73b71bdd8dc34b52f188cdf2b6aa/circlebutton-1.1-sources.jar!/" />
     </SOURCES>
