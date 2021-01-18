@@ -110,6 +110,7 @@ target_link_libraries( # Specifies the target library.
         init
         nat_traverse
         transport
+        tnet
         security
         ssl
         crypto
@@ -118,7 +119,6 @@ target_link_libraries( # Specifies the target library.
         ip
         kcp
         contract
-        tnet
         common
         log4cpp
         uv

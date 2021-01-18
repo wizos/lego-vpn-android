@@ -14,4 +14,4 @@
 -- Cmake build android abi is: x86
 -- Configuring done
 -- Generating done
--- Build files have been written to: E:/lego-vpn-android/app/.externalNativeBuild/cmake/debug/x86
+-- Build files have been written to: E:/work/lego-vpn-android/app/.externalNativeBuild/cmake/debug/x86
