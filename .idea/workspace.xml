@@ -7,71 +7,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76eee022-b556-4423-8d37-3652461fdcfc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libblock.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libbroadcast.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libclient.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcommon.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libcontract.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdb.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libdht.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libelection.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libinit.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libip.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/liblimit.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnat_traverse.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libnetwork.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libroot_congress.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsecurity.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libstatistics.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libsync.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libtnet.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libtnet.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libtransport.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/armeabi-v7a/libvss.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libblock.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libbroadcast.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libclient.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcommon.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libcontract.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdb.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libdht.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libelection.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libinit.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libip.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libjson2pb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libjson2pb.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/liblimit.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnat_traverse.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libnetwork.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libroot_congress.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsecurity.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libstatistics.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libsync.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libtnet.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libtnet.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libtransport.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86/libvss.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libblock.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libbroadcast.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libclient.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcommon.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libcontract.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdb.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libdht.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libelection.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libinit.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libip.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libip.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libjson2pb.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libjson2pb.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/liblimit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/liblimit.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnat_traverse.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libnetwork.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libroot_congress.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsecurity.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libstatistics.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libstatistics.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libsync.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libtnet.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libtnet.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libtransport.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libvss.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/x86_64/libvss.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/app/.externalNativeBuild/cmake/debug/arm64-v8a/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbft.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbft.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libblock.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libblock.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbroadcast.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libbroadcast.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libclient.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libclient.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcommon.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcommon.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcontract.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libcontract.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libdht.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libdht.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libelection.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libelection.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libinit.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libinit.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnat_traverse.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnat_traverse.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnetwork.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libnetwork.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libroot_congress.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libroot_congress.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsecurity.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsecurity.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsync.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libsync.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libtnet.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libtnet.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libtransport.a" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/cpp/libs/arm64-v8a/libtransport.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/vm/shadowsocks/ui/P2pLibManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yjsoft/tenonvpn/ui/cash/CashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yjsoft/tenonvpn/ui/cash/CashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/yjsoft/tenonvpn/ui/recharge/RechargeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/yjsoft/tenonvpn/ui/recharge/RechargeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_cash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_cash.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_recharge.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_recharge.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -91,6 +61,12 @@
         <projects_view />
       </state>
     </system>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="E:\work\lego-vpn-android\kestore.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
+    <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

@@ -198,10 +198,9 @@ public final class P2pLibManager {
     }
 
     public boolean InitNetwork(MainActivity main_class) {
-        main_this = main_class;
         String local_ip = getIpAddressString();
+        main_this = main_class;
         String data_path = main_this.getFilesDir().getPath();
-
         copyFilesFassets(main_class, "geo_country.conf", data_path + "/geo_country.conf");
         copyFilesFassets(main_class, "geolite.conf", data_path + "/geolite.conf");
         Log.e("INIT", "get file path:" + data_path);

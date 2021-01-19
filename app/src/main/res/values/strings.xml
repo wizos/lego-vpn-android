@@ -82,7 +82,7 @@
     <string name="free">Free</string>
     <string name="anonymous_account">Account</string>
     <string name="private_key">Private Key</string>
-    <string name="recharge">Charge Flow</string>
+    <string name="recharge">recharge</string>
     <string name="withdraw">Sell Flow</string>
     <string name="un_connect">Connect</string>
     <string name="us">America</string>
@@ -141,5 +141,14 @@
     <string name="transaction_success">Transaction Success.</string>
     <string name="get_history">Transaction History.</string>
     <string name="no_self_account">Please enter the correct number of tenon coins.</string>
+    <string name="datetime">datetime</string>
+    <string name="charge_type">type</string>
+    <string name="charge_amount">amount</string>
+    <string name="balance">balance</string>
+    <string name="pay_for_vpn">paid</string>
+    <string name="transfer_out">transfer out</string>
+    <string name="transfer_in">transfer in</string>
+    <string name="share_reward">share reward</string>
+    <string name="watch_ad_reward">ad reward</string>
 
 </resources>

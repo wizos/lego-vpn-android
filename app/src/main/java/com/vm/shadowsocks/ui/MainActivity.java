@@ -933,6 +933,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onClick(View v) {
+        System.out.println("TTTTTTTTTTTTTTTTTT onClick called: " + v.getId());
         switch (v.getId()) {
             case R.id.iv_show_private_key:
                 togglePrivateKey();
@@ -968,6 +969,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void launchRecharge() {
+        System.out.println("TTTTTTTTTTTTTTTTTTTTT launchRecharge called ");
         startActivity(new Intent(this, RechargeActivity.class));
     }
 
@@ -1063,13 +1065,13 @@ public class MainActivity extends BaseActivity implements
 
         TemplateView template = findViewById(R.id.my_template);
         template.setVisibility(View.INVISIBLE);
-        P2pLibManager.getInstance().Init();
+
         InitSpinner();
         ProxyConfig.Instance.globalMode = true;
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
 
-
+        P2pLibManager.getInstance().Init();
         if (!P2pLibManager.getInstance().InitNetwork(this)) {
             Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
             try {
@@ -1095,7 +1097,10 @@ public class MainActivity extends BaseActivity implements
         operatingAnim.setInterpolator(lin);
         ProxyConfig.Instance.globalMode = P2pLibManager.getInstance().GetGlobalMode();
         Log.e(TAG, "get local country: " + P2pLibManager.getInstance().local_country);
-        createAccount();
+        CheckVip();
+        if (P2pLibManager.getInstance().now_balance == -1) {
+            createAccount();
+        }
         mTvAccount.setText(P2pLibManager.getInstance().account_id);
         setVipStatus();
         Thread t1 = new Thread(check_tx,"check tx");
@@ -1191,6 +1196,25 @@ public class MainActivity extends BaseActivity implements
 //                });
 //            }
 //        }) .setLayoutRes(R.layout.outof_bandwidth).setDimAmount(0.1f).setCancelOutside(false).setTag("outbandwidthDialog");
+    }
+
+    void CheckVip() {
+        long now_balance = getBalance();
+        P2pLibManager.getInstance().SetBalance(now_balance);
+        String res = P2pLibManager.checkVip();
+        String[] items = res.split(",");
+        if (items.length == 2) {
+            long tm = Long.parseLong(items[0]);
+            long amount = Long.parseLong(items[1]);
+            P2pLibManager.getInstance().payfor_timestamp = tm;
+            P2pLibManager.getInstance().payfor_amount = amount;
+        }
+
+        account_balance = now_balance;
+        P2pLibManager.getInstance().now_balance = account_balance;
+        setVipStatus();
+
+        System.out.println("get now balance: " + now_balance + ", get vip info: " + res);
     }
 
     String getVersionName() {

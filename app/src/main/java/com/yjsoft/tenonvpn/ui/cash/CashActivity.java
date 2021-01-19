@@ -93,12 +93,12 @@ public class CashActivity extends BaseActivity {
 
         final TableColumnWeightModel tableColumnWeightModel = new TableColumnWeightModel(4);
         tableColumnWeightModel.setColumnWeight(0, 35);
-        tableColumnWeightModel.setColumnWeight(1, 15);
-        tableColumnWeightModel.setColumnWeight(2, 30);
+        tableColumnWeightModel.setColumnWeight(1, 25);
+        tableColumnWeightModel.setColumnWeight(2, 20);
         tableColumnWeightModel.setColumnWeight(3, 20);
         tableView.setColumnModel(tableColumnWeightModel);
 
-        String[] data_header ={"datetime", "type", "account", "amount"};
+        String[] data_header ={getString(R.string.datetime), getString(R.string.charge_type), getString(R.string.charge_amount), getString(R.string.balance)};
         final SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(CashActivity.this, data_header);
         simpleTableHeaderAdapter.setTextColor(ContextCompat.getColor(CashActivity.this, R.color.white));
         simpleTableHeaderAdapter.setTextSize(14);
@@ -113,8 +113,32 @@ public class CashActivity extends BaseActivity {
             }
 
             DATA_TO_SHOW[i][0] = items[0];
-            DATA_TO_SHOW[i][1] = items[1];
-            DATA_TO_SHOW[i][2] = items[2].substring(0, 5).toUpperCase() + "..." + items[2].substring(items[2].length() - 5).toUpperCase();
+
+            if (items[1].equals("1")) {
+                DATA_TO_SHOW[i][1] = getString(R.string.pay_for_vpn);
+            }
+
+            if (items[1].equals("2")) {
+                DATA_TO_SHOW[i][1] = getString(R.string.transfer_out);
+            }
+
+            if (items[1].equals("3")) {
+                DATA_TO_SHOW[i][1] = getString(R.string.recharge);
+            }
+
+            if (items[1].equals("4")) {
+                DATA_TO_SHOW[i][1] = getString(R.string.transfer_in);
+            }
+
+            if (items[1].equals("5")) {
+                DATA_TO_SHOW[i][1] = getString(R.string.share_reward);
+            }
+
+            if (items[1].equals("6")) {
+                DATA_TO_SHOW[i][1] = getString(R.string.watch_ad_reward);
+            }
+
+            DATA_TO_SHOW[i][2] = items[2];
             DATA_TO_SHOW[i][3] = items[3];
         }
 

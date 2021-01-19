@@ -132,5 +132,14 @@
     <string name="transaction_success">交易成功.</string>
     <string name="get_history">交易历史</string>
     <string name="no_self_account">不能转到.</string>
+    <string name="datetime">交易时间</string>
+    <string name="charge_type">类型</string>
+    <string name="charge_amount">交易额</string>
+    <string name="balance">余额</string>
+    <string name="pay_for_vpn">付款</string>
+    <string name="transfer_out">转出</string>
+    <string name="transfer_in">转入</string>
+    <string name="share_reward">分享奖励</string>
+    <string name="watch_ad_reward">广告奖励</string>
 
 </resources>
