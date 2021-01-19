@@ -47,7 +47,7 @@ public class CashActivity extends BaseActivity {
         }
 
         Integer count_tenon = Math.toIntExact(Long.parseLong(cash_count_str));
-        if (count_tenon <= 100 ||count_tenon > P2pLibManager.getInstance().now_balance) {
+        if (count_tenon < 100 ||count_tenon > P2pLibManager.getInstance().now_balance) {
             Toast.makeText(this, getString(R.string.input_valid_tenon), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -74,7 +74,7 @@ public class CashActivity extends BaseActivity {
 
         String gid = new String();
         String res = com.vm.shadowsocks.ui.MainActivity.transaction(account, count_tenon, gid);
-        if (res != "OK") {
+        if (res == "ERROR") {
             Toast.makeText(this, getString(R.string.transaction_error), Toast.LENGTH_SHORT).show();
             return;
         }

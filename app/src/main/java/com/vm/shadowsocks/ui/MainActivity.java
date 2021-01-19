@@ -933,7 +933,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onClick(View v) {
-        System.out.println("TTTTTTTTTTTTTTTTTT onClick called: " + v.getId());
         switch (v.getId()) {
             case R.id.iv_show_private_key:
                 togglePrivateKey();
@@ -969,7 +968,6 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void launchRecharge() {
-        System.out.println("TTTTTTTTTTTTTTTTTTTTT launchRecharge called ");
         startActivity(new Intent(this, RechargeActivity.class));
     }
 
@@ -1280,7 +1278,24 @@ public class MainActivity extends BaseActivity implements
                 vpn_service.protect(Integer.parseInt(fd_res[i]));
             }
 
-            InitGoogleAds(this);
+            if (mMainIsVip) {
+                if (mConnectingDialog == null) {
+                    return;
+                }
+                mConnectingDialog.dismiss();
+                mIsConnect = true;
+                mFlConnect.setBackgroundResource(R.drawable.selector_connect);
+                mIvConnect.setImageResource(R.drawable.connected);
+                mTvConnect.setText(R.string.connected);
+                mTvConnect.setTextColor(getResources().getColor(R.color.colorConnect));
+                mTvConnectDesc.setVisibility(View.VISIBLE);
+                mLlConnect.setBackgroundResource(R.drawable.selector_connect_inner);
+                mIvSecurity.setVisibility(View.VISIBLE);
+                mPb.setProgress(0);
+                mCountDownTimer.dispose();
+            } else {
+                InitGoogleAds(this);
+            }
         } else {
             mIsConnect = false;
             mFlConnect.setBackgroundResource(R.drawable.selector_un_connect);
