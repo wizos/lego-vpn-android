@@ -54,7 +54,12 @@
             android:textSize="40sp" />
 
     </LinearLayout>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/recharge_notes"
+        android:textColor="@color/colorPrimary" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -119,15 +124,15 @@
 
                 <Button
                     android:id="@+id/copy_account"
-                    android:layout_width="72dp"
-                    android:layout_height="40dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/selector_btn"
+                    android:background="@drawable/select_bg"
                     android:gravity="center"
                     android:text="@string/copy"
                     android:onClick="copyAccount"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -151,26 +156,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="@string/pay_way"
+                    android:text="@string/pay_way_month"
                     android:textColor="@color/colorSubTitle" />
-
                 <Button
-                    android:id="@+id/btn_pass"
-                    android:layout_width="72dp"
-                    android:layout_height="40dp"
+                    android:id="@+id/btn_month_paypal"
+                    android:layout_width="76dp"
+                    android:layout_height="23dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/selector_btn"
+                    android:background="@drawable/paypay"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/btn_month_googlepay"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/select_bg"
                     android:gravity="center"
                     android:text="@string/fast"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_card"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -187,19 +202,110 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
+                    android:text="@string/pay_way_quarter"
+                    android:textColor="@color/colorSubTitle" />
+                <Button
+                    android:id="@+id/btn_quarter_paypal"
+                    android:layout_width="76dp"
+                    android:layout_height="23dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/paypay"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/btn_quarter_googlepay"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/select_bg"
+                    android:gravity="center"
+                    android:text="@string/fast"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recharge_way_4"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/pay_way_annual"
+                    android:textColor="@color/colorSubTitle" />
+                <Button
+                    android:id="@+id/btn_year_paypal"
+                    android:layout_width="76dp"
+                    android:layout_height="23dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/paypay"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+                <Button
+                    android:id="@+id/btn_year_googlepay"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/select_bg"
+                    android:gravity="center"
+                    android:text="@string/fast"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/bg_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recharge_way_5"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
                     android:text="@string/watch_ad"
                     android:textColor="@color/colorSubTitle" />
 
                 <Button
                     android:id="@+id/btn_watch_ad"
-                    android:layout_width="72dp"
-                    android:layout_height="40dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/selector_btn"
+                    android:background="@drawable/select_bg"
                     android:gravity="center"
                     android:text="@string/enter"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
