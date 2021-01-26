@@ -26,6 +26,7 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.vm.shadowsocks.R;
 import com.yjsoft.tenonvpn.BaseActivity;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -48,6 +49,7 @@ public class SplashActivity extends BaseActivity {
     private int mAdPassSeconds = 5000;
     private RewardedAd rewardedAd;
 
+    private int mRewardCount = 0;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -111,7 +113,6 @@ public class SplashActivity extends BaseActivity {
 
         P2pLibManager.getInstance().now_balance = now_balance;
         P2pLibManager.getInstance().PayforVpn();
-        System.out.println("splash CheckVip: " + res + ", balance: " + now_balance);
     }
 
     private void initView() {
@@ -135,19 +136,24 @@ public class SplashActivity extends BaseActivity {
                             @Override
                             public void onRewardedAdOpened() {
                                 // Ad opened.
-                                System.out.println("onRewardedAdOpened");
+                                P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
                             }
 
                             @Override
                             public void onRewardedAdClosed() {
                                 // Ad closed.
-                                System.out.println("onRewardedAdClosed");
+                                P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
                                 launchMain();
                             }
 
                             @Override
                             public void onUserEarnedReward(@NonNull RewardItem reward) {
                                 // User earned reward.
+                                P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                                mRewardCount = reward.getAmount();
+                                if (mRewardCount > 0) {
+                                    Toast.makeText(SplashActivity.this, getString(R.string.get_reward) + mRewardCount + " Tenon", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override

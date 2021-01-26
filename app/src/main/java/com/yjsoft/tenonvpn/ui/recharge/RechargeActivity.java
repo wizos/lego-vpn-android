@@ -9,12 +9,15 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.vm.shadowsocks.ui.MainActivity;
 import com.vm.shadowsocks.ui.P2pLibManager;
 import com.yjsoft.tenonvpn.BaseActivity;
 import com.vm.shadowsocks.R;
@@ -36,18 +40,27 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import de.codecrafters.tableview.toolkit.TableDataRowBackgroundProviders;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class RechargeActivity extends BaseActivity {
     String for_gid_random_str = "bS9DUFMwBwYFZ4EMAQEwgYgGCCsGAQUFBwEBBHwwejAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMFIGCCsGAQUFBzAChkZodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRTSEEyRXh0ZW5kZWRWYWxpZGF0aW9uU2VydmVyQ0EuY3J0MAwGA1UdEwEB / wQCMAAwggF / BgorBgEEAdZ5AgQCBIIBbwSCAWsB";
     private CheckTransactions check_tx = new CheckTransactions();
     private static final int UpdateTransactionView = 1;
     private String prev_transactions = "";
+    private androidx.appcompat.app.AlertDialog mWaitingAdDialog = null;
+    private ProgressBar mPb;
+    private Disposable mCountDownTimer;
+
 
     //配置何种支付环境，一般沙盒，正式
     private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
@@ -256,7 +269,8 @@ public class RechargeActivity extends BaseActivity {
     }
 
     private void launchSplash() {
-        startActivity(new Intent(this, SplashActivity.class));
+        P2pLibManager.getInstance().showAdCalled = true;
+        showWaitingAdDialog();
     }
 
     private void shareToReward() {
@@ -265,6 +279,48 @@ public class RechargeActivity extends BaseActivity {
         sendIntent.putExtra(Intent.EXTRA_TEXT, P2pLibManager.getInstance().share_ip + "?id=" + P2pLibManager.getInstance().account_id);
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share TenonVPN"));
+    }
+
+    public void hideWaitingAdDialog() {
+        if (mWaitingAdDialog != null) {
+            mWaitingAdDialog.dismiss();
+            mWaitingAdDialog = null;
+        }
+    }
+
+    public void joinNode(View view) {
+        Uri uri = Uri.parse("https://github.com/tenondvpn/tenonvpn-join");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+    public void showWaitingAdDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_connecting, null, false);
+        TextView mTvConnectingDesc = view.findViewById(R.id.tv_connecting_desc);
+        mTvConnectingDesc.setText("loading ad...");
+        mPb = view.findViewById(R.id.progress_bar_h);
+        mWaitingAdDialog = new androidx.appcompat.app.AlertDialog.Builder(this, R.style.TransparentDialog)
+                .setCancelable(false)
+                .setView(view).show();
+        P2pLibManager.getInstance().showAdCalled = false;
+        mCountDownTimer = Observable
+                .interval(0, 1, TimeUnit.MILLISECONDS)
+                .take(10000)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
+                    mPb.setProgress((int) ((aLong * 20) / 1000));
+                    if (!P2pLibManager.getInstance().showAdCalled) {
+                        MainActivity.mainActivityThis.ShowAd(true);
+                    }
+
+                    if (aLong == 9000 || P2pLibManager.getInstance().showAdCalled) {
+                        mPb.setProgress(0);
+                        mWaitingAdDialog.dismiss();
+                        mCountDownTimer.dispose();
+                    }
+                });
     }
 
     private Handler handler = new Handler(){
@@ -282,6 +338,7 @@ public class RechargeActivity extends BaseActivity {
                 Message message = new Message();
                 message.what = UpdateTransactionView;
                 handler.sendMessage(message);
+
                 try {
                     Thread.sleep(3000);
                 } catch(InterruptedException e) {

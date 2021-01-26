@@ -40,6 +40,8 @@ public final class P2pLibManager {
     public long payfor_amount = 0;
     public String now_status = "ok";
     public long vip_left_days = -1;
+    public long prev_showed_ad_tm = 0;
+    public boolean showAdCalled = false;
 
     private SplashActivity main_this;
 

@@ -114,13 +114,18 @@
     <string name="recharge_way_4">Method 4</string>
     <string name="recharge_way_5">Method 5</string>
     <string name="recharge_way_6">Method 6</string>
+    <string name="recharge_way_7">Method 7</string>
+    <string name="get_reward">Watch ad earned coins:</string>
+
     <string name="pay_way_month">Monthly\n$9</string>
     <string name="pay_way_quarter">Quarterly\n$21/-20%</string>
     <string name="pay_way_annual">Annual\n$62/-40%</string>
     <string name="fast">GooglePay</string>
     <string name="watch_ad">Watch ads to earn Tenon</string>
+    <string name="mining">Mining</string>
     <string name="share_to_reward">Share to earn Tenon</string>
     <string name="enter">Enter</string>
+    <string name="join_node">Join</string>
     <string name="recharge_way1_desc">Transfer Tenon directly to your anonymous account</string>
     <string name="copy">Copy</string>
     <string name="free1">Free</string>

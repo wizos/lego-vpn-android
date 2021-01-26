@@ -1,11 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.wrapp.floatlabelededittext:library:0.0.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d55238695bd346ad535e42975a83aac/jetified-library-0.0.6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9d55238695bd346ad535e42975a83aac/jetified-library-0.0.6/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7561e8e5eb5de1b2210e688496bb166a/jetified-library-0.0.6/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7561e8e5eb5de1b2210e688496bb166a/jetified-library-0.0.6/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7561e8e5eb5de1b2210e688496bb166a/jetified-library-0.0.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7561e8e5eb5de1b2210e688496bb166a/jetified-library-0.0.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7561e8e5eb5de1b2210e688496bb166a/jetified-library-0.0.6/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wrapp.floatlabelededittext/library/0.0.6/e0e950e5514a53312b03c453b1308a87b5bb410/library-0.0.6-javadoc.jar!/" />

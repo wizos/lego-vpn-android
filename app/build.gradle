@@ -13,7 +13,7 @@ buildscript {
 //        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:3.6.4'
     }
 }
 
@@ -86,6 +86,6 @@ dependencies {
     implementation project(':nativetemplates')
     implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
     implementation 'com.android.billingclient:billing:3.0.2'
-    implementation 'com.google.android.gms:play-services-ads:19.6.0'
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
 }
 

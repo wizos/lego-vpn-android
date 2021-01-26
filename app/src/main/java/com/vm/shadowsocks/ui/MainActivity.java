@@ -3,6 +3,7 @@ package com.vm.shadowsocks.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
@@ -107,6 +109,7 @@ import io.reactivex.schedulers.Schedulers;
 import me.shaohui.bottomdialog.BottomDialog;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
 import de.codecrafters.tableview.TableView;
@@ -134,6 +137,7 @@ public class MainActivity extends BaseActivity implements
         System.loadLibrary("native-lib");
     }
 
+    public static MainActivity mainActivityThis = null;
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String CONFIG_URL_KEY = "CONFIG_URL_KEY";
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
@@ -213,6 +217,8 @@ public class MainActivity extends BaseActivity implements
     private RewardedAd rewardedAd;
     private boolean bLoadingAds = false;
     private AdView mAdView;
+    private ForegroundCallbacks foregroundCallbacks = null;
+    public int mRewardCount = 0;
 
     private int[] county = {R.drawable.us
             , R.drawable.cn
@@ -312,8 +318,17 @@ public class MainActivity extends BaseActivity implements
 
             if (msg.what == GOT_BALANCE) {
                 long res = (long) msg.obj;
-                P2pLibManager.getInstance().now_balance = res;
-                setVipStatus();
+                if (P2pLibManager.getInstance().now_balance != res) {
+                    P2pLibManager.getInstance().now_balance = res;
+                    setVipStatus();
+                }
+
+                if (mRewardCount > 0) {
+                    Toast.makeText(MainActivity.this, getString(R.string.get_reward) + mRewardCount + " Tenon", Toast.LENGTH_SHORT).show();
+                    mRewardCount = 0;
+                }
+
+                ShowAd(false);
             }
 
 //            if (msg.what == GOT_INVALID_SERVER_STATUS) {
@@ -760,7 +775,7 @@ public class MainActivity extends BaseActivity implements
 
     protected void InitGoogleAds(Context context) {
         if (mAdLoader == null) {
-            mAdLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/2247696110")
+            mAdLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/6300978111")
                     .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
                         @Override
                         public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
@@ -930,6 +945,11 @@ public class MainActivity extends BaseActivity implements
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+//        LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.my_layout);
+//        ViewGroup.LayoutParams lp;
+//        lp = mLinearLayout.getLayoutParams();
+//        lp.height = 200;
+//        mLinearLayout.setLayoutParams(lp);
     }
 
     private void showSelectNodesDialog() {
@@ -1060,50 +1080,77 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onRewardedAdFailedToLoad(LoadAdError adError) {
                 // Ad failed to load.
+                createAndLoadRewardedAd();
+                System.out.println("failed to load ad.");
             }
         };
         rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
         return rewardedAd;
     }
 
+    public void ShowAd(boolean directShow) {
+        if (!directShow) {
+            if (!foregroundCallbacks.isForeground()) {
+                return;
+            }
+
+            long now_tm = Calendar.getInstance().getTimeInMillis();
+            if (now_tm - P2pLibManager.getInstance().prev_showed_ad_tm < 5 * 60 * 1000) {
+                return;
+            }
+        }
+
+        if (rewardedAd.isLoaded()) {
+            bLoadingAds = true;
+            Activity activityContext = MainActivity.this;
+            RewardedAdCallback adCallback = new RewardedAdCallback() {
+                @Override
+                public void onRewardedAdOpened() {
+                    // Ad opened.
+                    System.out.println("onRewardedAdOpened");
+                    if (directShow) {
+                        P2pLibManager.getInstance().showAdCalled = true;
+                    }
+                }
+
+                @Override
+                public void onRewardedAdClosed() {
+                    // Ad closed.
+                    System.out.println("onRewardedAdClosed");
+                    rewardedAd = createAndLoadRewardedAd();
+                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                }
+
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem reward) {
+                    // User earned reward.
+                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                    mRewardCount = reward.getAmount();
+                    long now_balance = P2pLibManager.getBalance();
+                    P2pLibManager.getInstance().SetBalance(now_balance);
+                    Message message = new Message();
+                    message.what = GOT_BALANCE;
+                    message.obj = now_balance;
+                    handler.sendMessage(message);
+
+                }
+
+                @Override
+                public void onRewardedAdFailedToShow(AdError adError) {
+                    // Ad failed to display.
+                }
+            };
+            rewardedAd.show(activityContext, adCallback);
+        }
+    }
     private void toggleConnect() {
+        System.out.println("toggleConnect");
         if (LocalVpnService.IsRunning) {
             bLoadingAds = false;
             LocalVpnService.IsRunning = false;
         } else {
-            if (rewardedAd.isLoaded()) {
-                bLoadingAds = true;
-                Activity activityContext = MainActivity.this;
-                RewardedAdCallback adCallback = new RewardedAdCallback() {
-                    @Override
-                    public void onRewardedAdOpened() {
-                        // Ad opened.
-                        System.out.println("onRewardedAdOpened");
-                    }
-
-                    @Override
-                    public void onRewardedAdClosed() {
-                        // Ad closed.
-                        System.out.println("onRewardedAdClosed");
-                        rewardedAd = createAndLoadRewardedAd();
-                    }
-
-                    @Override
-                    public void onUserEarnedReward(@NonNull RewardItem reward) {
-                        // User earned reward.
-                    }
-
-                    @Override
-                    public void onRewardedAdFailedToShow(AdError adError) {
-                        // Ad failed to display.
-                    }
-                };
-                rewardedAd.show(activityContext, adCallback);
-                checkVipStatus();
-                startVpn(null);
-            } else {
-                Log.d("TAG", "The rewarded ad wasn't loaded yet.");
-            }
+            checkVipStatus();
+            startVpn(null);
         }
     }
 
@@ -1130,10 +1177,12 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivityThis = MainActivity.this;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT); // 禁用横屏
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
@@ -1147,6 +1196,7 @@ public class MainActivity extends BaseActivity implements
         init();
         initView();
         setVipStatus();
+        foregroundCallbacks = ForegroundCallbacks.get(this.getApplication());
 
         TemplateView template = findViewById(R.id.my_template);
         template.setVisibility(View.INVISIBLE);
@@ -1344,7 +1394,13 @@ public class MainActivity extends BaseActivity implements
                 vpn_service.protect(Integer.parseInt(fd_res[i]));
             }
 
-            if (mMainIsVip) {
+            long now_tm = Calendar.getInstance().getTimeInMillis();
+            boolean adWathed = false;
+            if (now_tm - P2pLibManager.getInstance().prev_showed_ad_tm < 5 * 60 * 1000) {
+                adWathed = true;
+            }
+
+            if (mMainIsVip || adWathed) {
                 if (mConnectingDialog == null) {
                     return;
                 }
@@ -1360,7 +1416,8 @@ public class MainActivity extends BaseActivity implements
                 mPb.setProgress(0);
                 mCountDownTimer.dispose();
             } else {
-                InitGoogleAds(this);
+                ShowAd(false);
+                System.out.println("connect and now show ad.");
             }
         } else {
             mIsConnect = false;
@@ -1662,14 +1719,11 @@ public class MainActivity extends BaseActivity implements
             while (true) {
                 {
                     long now_balance = P2pLibManager.getBalance();
-                    System.out.println("get balance: " + now_balance);
-                    if (now_balance != P2pLibManager.getInstance().now_balance) {
-                        P2pLibManager.getInstance().SetBalance(now_balance);
-                        Message message = new Message();
-                        message.what = GOT_BALANCE;
-                        message.obj = now_balance;
-                        handler.sendMessage(message);
-                    }
+                    P2pLibManager.getInstance().SetBalance(now_balance);
+                    Message message = new Message();
+                    message.what = GOT_BALANCE;
+                    message.obj = now_balance;
+                    handler.sendMessage(message);
                 }
 
                 {
@@ -1687,6 +1741,7 @@ public class MainActivity extends BaseActivity implements
 
                 String new_bootstrap = P2pLibManager.getNewBootstrap();
                 P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
+
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
