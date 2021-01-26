@@ -1,6 +1,7 @@
 package com.vm.shadowsocks.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -45,14 +46,22 @@ import android.os.Message;
 
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -89,16 +98,22 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 import android.widget.Spinner;
+
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.shaohui.bottomdialog.BottomDialog;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
+
 import androidx.core.content.ContextCompat;
+
 import java.lang.String;
 import java.util.concurrent.TimeUnit;
 
@@ -107,6 +122,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.view.KeyEvent;
 
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
 public class MainActivity extends BaseActivity implements
         View.OnClickListener,
         OnCheckedChangeListener,
@@ -114,6 +133,7 @@ public class MainActivity extends BaseActivity implements
     static {
         System.loadLibrary("native-lib");
     }
+
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String CONFIG_URL_KEY = "CONFIG_URL_KEY";
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
@@ -187,9 +207,12 @@ public class MainActivity extends BaseActivity implements
     private String mNodesShortName = "US";
     private String[] nodesNames;
     private String[] checkOutNodeNames;
-    private Vector<Integer> nodesNumbers  = new Vector<Integer>();
+    private Vector<Integer> nodesNumbers = new Vector<Integer>();
     private boolean mMainIsVip = true;
     private AdLoader mAdLoader = null;
+    private RewardedAd rewardedAd;
+    private boolean bLoadingAds = false;
+    private AdView mAdView;
 
     private int[] county = {R.drawable.us
             , R.drawable.cn
@@ -206,10 +229,10 @@ public class MainActivity extends BaseActivity implements
             , R.drawable.hk
             , R.drawable.in
             , R.drawable.ru
-            };
+    };
 
     private static JSONArray getAllowedCardNetworks() {
-            return new JSONArray()
+        return new JSONArray()
                 .put("AMEX")
                 .put("DISCOVER")
                 .put("INTERAC")
@@ -224,16 +247,16 @@ public class MainActivity extends BaseActivity implements
                 .put("CRYPTOGRAM_3DS");
     }
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == COMPLETED) {
-                String res = (String)msg.obj;
+                String res = (String) msg.obj;
                 String[] split = res.split("\t");
                 if (split.length == 5) {
-                    TextView leftDays = (TextView)findViewById(R.id.tv_left_days);
+                    TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
                     leftDays.setText(P2pLibManager.getInstance().vip_left_days + res);
-                    TextView balance = (TextView)findViewById(R.id.balance_lego);
+                    TextView balance = (TextView) findViewById(R.id.balance_lego);
                     balance.setText(split[1] + " Ten");
 //                    TextView balance_d = (TextView)findViewById(R.id.balance_dollar);
 //                    balance_d.setText(String.format("%.2f", Integer.parseInt(split[1]) * 0.002) + "$");
@@ -244,7 +267,7 @@ public class MainActivity extends BaseActivity implements
             }
 
             if (msg.what == GOT_VPN_SERVICE) {
-                String res = (String)msg.obj;
+                String res = (String) msg.obj;
                 String[] c_split = res.split("\t");
                 String country = c_split[0];
                 String[] split = c_split[1].split(",");
@@ -262,7 +285,7 @@ public class MainActivity extends BaseActivity implements
             }
 
             if (msg.what == GOT_VPN_ROUTE) {
-                String res = (String)msg.obj;
+                String res = (String) msg.obj;
                 String[] c_split = res.split("\t");
                 String country = c_split[0];
                 String[] split = c_split[1].split(",");
@@ -280,7 +303,7 @@ public class MainActivity extends BaseActivity implements
             }
 
             if (msg.what == GOT_TANSACTIONS) {
-                String res = (String)msg.obj;
+                String res = (String) msg.obj;
                 if (res.isEmpty()) {
                     return;
                 }
@@ -288,7 +311,7 @@ public class MainActivity extends BaseActivity implements
             }
 
             if (msg.what == GOT_BALANCE) {
-                long res = (long)msg.obj;
+                long res = (long) msg.obj;
                 P2pLibManager.getInstance().now_balance = res;
                 setVipStatus();
             }
@@ -354,8 +377,7 @@ public class MainActivity extends BaseActivity implements
         startActivity(intent);
     }
 
-    public void buyTenon(View view)
-    {
+    public void buyTenon(View view) {
         String url = P2pLibManager.getInstance().buy_tenon_ip + "/chongzhi/" + P2pLibManager.getInstance().account_id;
         if (url.isEmpty() || url.startsWith("file")) {
             Toast.makeText(this, getString(R.string.select_a_website_string), Toast.LENGTH_SHORT).show();
@@ -477,18 +499,18 @@ public class MainActivity extends BaseActivity implements
     void setVipStatus() {
         P2pLibManager.getInstance().PayforVpn();
         if (P2pLibManager.getInstance().vip_left_days >= 0) {
-            TextView leftDays = (TextView)findViewById(R.id.tv_left_days);
+            TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
             leftDays.setText(P2pLibManager.getInstance().vip_left_days + getString(R.string.layters_over_after));
-            TextView balance = (TextView)findViewById(R.id.balance_lego);
+            TextView balance = (TextView) findViewById(R.id.balance_lego);
             if (P2pLibManager.getInstance().now_balance >= 0) {
                 balance.setText(P2pLibManager.getInstance().now_balance + " Ten");
             } else {
                 balance.setText("0 Ten");
             }
         } else {
-            TextView leftDays = (TextView)findViewById(R.id.tv_left_days);
+            TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
             leftDays.setText("- - " + getString(R.string.layters_over_after));
-            TextView balance = (TextView)findViewById(R.id.balance_lego);
+            TextView balance = (TextView) findViewById(R.id.balance_lego);
             balance.setText("- - Ten");
         }
     }
@@ -640,7 +662,7 @@ public class MainActivity extends BaseActivity implements
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        isExit= false;
+                        isExit = false;
                     }
                 }, 2000);
             }
@@ -697,10 +719,10 @@ public class MainActivity extends BaseActivity implements
         country_to_short.put("Russia", "RU");
         country_to_short.put("China", "CN");
 
-        for (String value: country_to_short.values()) {
+        for (String value : country_to_short.values()) {
             vpn_country_list.add(value);
         }
-        spinnerTitles = new String[]{"America", "Singapore", "Brazil","Germany", "Netherlands","France","Korea", "Japan", "Canada","Australia","Hong Kong", "India", "England", "Russia", "China"};
+        spinnerTitles = new String[]{"America", "Singapore", "Brazil", "Germany", "Netherlands", "France", "Korea", "Japan", "Canada", "Australia", "Hong Kong", "India", "England", "Russia", "China"};
         spinnerImages = new int[]{
                 R.drawable.us
                 , R.drawable.sg
@@ -750,8 +772,8 @@ public class MainActivity extends BaseActivity implements
                             template.setVisibility(View.VISIBLE);
                             ViewGroup.LayoutParams lp;
                             LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.my_layout);
-                            lp= mLinearLayout.getLayoutParams();
-                            lp.height=200;
+                            lp = mLinearLayout.getLayoutParams();
+                            lp.height = 200;
                             mLinearLayout.setLayoutParams(lp);
                             template.setStyles(styles);
                             template.setNativeAd(unifiedNativeAd);
@@ -801,22 +823,22 @@ public class MainActivity extends BaseActivity implements
         mAdLoader.loadAds(new AdRequest.Builder().build(), 3);
     }
 
-   ///////////////////////////
-   private void init() {
-       for (int i = 0 ; i < 255; ++i) {
-           nodesNumbers.add((int)(Math.random() * 200) + 50);
-       }
+    ///////////////////////////
+    private void init() {
+        for (int i = 0; i < 255; ++i) {
+            nodesNumbers.add((int) (Math.random() * 200) + 50);
+        }
 
-       nodesNames = getResources().getStringArray(R.array.county);
-       Vector<String> tmpCheckOutNodeNames = new Vector<String>();
-       int index = 0;
-       for (String item : nodesNames) {
-           String[] split = item.split(",");
-           tmpCheckOutNodeNames.add(split[0] + " (" + nodesNumbers.get(index++) + getString(R.string.nodes) + ")");
-       }
+        nodesNames = getResources().getStringArray(R.array.county);
+        Vector<String> tmpCheckOutNodeNames = new Vector<String>();
+        int index = 0;
+        for (String item : nodesNames) {
+            String[] split = item.split(",");
+            tmpCheckOutNodeNames.add(split[0] + " (" + nodesNumbers.get(index++) + getString(R.string.nodes) + ")");
+        }
 
-       checkOutNodeNames = tmpCheckOutNodeNames.toArray(new String[tmpCheckOutNodeNames.size()]);
-   }
+        checkOutNodeNames = tmpCheckOutNodeNames.toArray(new String[tmpCheckOutNodeNames.size()]);
+    }
 
     private void changeMainToFree() {
         findViewById(R.id.ll_free).setVisibility(View.VISIBLE);
@@ -900,6 +922,14 @@ public class MainActivity extends BaseActivity implements
                 return true;
             }
         });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
     }
 
     private void showSelectNodesDialog() {
@@ -1017,15 +1047,64 @@ public class MainActivity extends BaseActivity implements
 
         return 0;
     }
+    public RewardedAd createAndLoadRewardedAd() {
+        RewardedAd rewardedAd = new RewardedAd(this,
+                "ca-app-pub-3940256099942544/5224354917");
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(LoadAdError adError) {
+                // Ad failed to load.
+            }
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
+    }
 
     private void toggleConnect() {
         if (LocalVpnService.IsRunning) {
+            bLoadingAds = false;
             LocalVpnService.IsRunning = false;
-            return;
-        }
+        } else {
+            if (rewardedAd.isLoaded()) {
+                bLoadingAds = true;
+                Activity activityContext = MainActivity.this;
+                RewardedAdCallback adCallback = new RewardedAdCallback() {
+                    @Override
+                    public void onRewardedAdOpened() {
+                        // Ad opened.
+                        System.out.println("onRewardedAdOpened");
+                    }
 
-        checkVipStatus();
-        startVpn(null);
+                    @Override
+                    public void onRewardedAdClosed() {
+                        // Ad closed.
+                        System.out.println("onRewardedAdClosed");
+                        rewardedAd = createAndLoadRewardedAd();
+                    }
+
+                    @Override
+                    public void onUserEarnedReward(@NonNull RewardItem reward) {
+                        // User earned reward.
+                    }
+
+                    @Override
+                    public void onRewardedAdFailedToShow(AdError adError) {
+                        // Ad failed to display.
+                    }
+                };
+                rewardedAd.show(activityContext, adCallback);
+                checkVipStatus();
+                startVpn(null);
+            } else {
+                Log.d("TAG", "The rewarded ad wasn't loaded yet.");
+            }
+        }
     }
 
     private void showConnectDialog() {
@@ -1063,6 +1142,8 @@ public class MainActivity extends BaseActivity implements
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        rewardedAd = createAndLoadRewardedAd();
+
         init();
         initView();
         setVipStatus();
@@ -1093,7 +1174,7 @@ public class MainActivity extends BaseActivity implements
 //        }
 
         //Pre-App Proxy
-        if (AppProxyManager.isLollipopOrAbove){
+        if (AppProxyManager.isLollipopOrAbove) {
             new AppProxyManager(this);
         }
         operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
@@ -1105,7 +1186,7 @@ public class MainActivity extends BaseActivity implements
             P2pLibManager.createAccount();
         }
         mTvAccount.setText(P2pLibManager.getInstance().account_id);
-        Thread t1 = new Thread(check_tx,"check tx");
+        Thread t1 = new Thread(check_tx, "check tx");
         t1.start();
         Log.e("init", "init OK");
 //        bottom_dialog = BottomDialog.create(getSupportFragmentManager())
@@ -1325,6 +1406,7 @@ public class MainActivity extends BaseActivity implements
             LocalVpnService.IsRunning = false;
         }
     }
+
     @Override
     public void onCheckedChanged(CompoundButton checkBox, boolean isChecked) {
 //        switch (checkBox.getId()) {
@@ -1359,7 +1441,7 @@ public class MainActivity extends BaseActivity implements
             String nodes = P2pLibManager.getRouteNodes(now_choosed_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
-                int rand_num = (int)(Math.random() * node_list.length);
+                int rand_num = (int) (Math.random() * node_list.length);
                 String[] item_split = node_list[rand_num].split(":");
                 if (item_split.length >= 6) {
                     return "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[2];
@@ -1386,7 +1468,7 @@ public class MainActivity extends BaseActivity implements
             String nodes = P2pLibManager.getVpnNodes(now_choosed_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
-                int rand_num = (int)(Math.random() * node_list.length);
+                int rand_num = (int) (Math.random() * node_list.length);
                 String[] item_split = node_list[rand_num].split(":");
                 if (item_split.length >= 6) {
                     return node_list[rand_num];
@@ -1403,7 +1485,7 @@ public class MainActivity extends BaseActivity implements
             String nodes = P2pLibManager.getVpnNodes(key);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
-                int rand_num = (int)(Math.random() * node_list.length);
+                int rand_num = (int) (Math.random() * node_list.length);
                 String[] item_split = node_list[rand_num].split(":");
                 if (item_split.length >= 6) {
                     return node_list[rand_num];
@@ -1437,7 +1519,7 @@ public class MainActivity extends BaseActivity implements
 
 
         boolean res = P2pLibManager.getInstance().GetVpnNode();
-        if(!res) {
+        if (!res) {
             Toast.makeText(this, "Waiting Decentralized Vpn Server...", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -1446,7 +1528,7 @@ public class MainActivity extends BaseActivity implements
             //Toast.makeText(this, " to " + direct_vpn_proxy_url +  " use " + route_proxy_url, Toast.LENGTH_SHORT).show();
             choosed_vpn_url = vpn_proxy_url;
             LocalVpnService.ProxyUrl = route_proxy_url;
-            Log.e(TAG, P2pLibManager.getInstance().choosed_country + ":" + P2pLibManager.getInstance().local_country + " to " + vpn_proxy_url +  " use " + route_proxy_url);
+            Log.e(TAG, P2pLibManager.getInstance().choosed_country + ":" + P2pLibManager.getInstance().local_country + " to " + vpn_proxy_url + " use " + route_proxy_url);
         } else {
             //Toast.makeText(this, "local " + P2pLibManager.getInstance().local_country + " direct to " + now_choosed_country + ", " + direct_vpn_proxy_url, Toast.LENGTH_SHORT).show();
             choosed_vpn_url = vpn_proxy_url;
@@ -1571,8 +1653,9 @@ public class MainActivity extends BaseActivity implements
         public List<String> gid_list = new ArrayList<String>();
         private ArrayList<String> not_get_country_list = new ArrayList<String>();
         private int bandwidth_used = 0;
+
         public void run() {
-            for (String value: country_to_short.values()) {
+            for (String value : country_to_short.values()) {
                 not_get_country_list.add(value);
             }
 
@@ -1606,7 +1689,7 @@ public class MainActivity extends BaseActivity implements
                 P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
                 try {
                     Thread.sleep(2000);
-                } catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }

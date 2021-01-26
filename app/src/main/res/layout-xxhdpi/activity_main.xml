@@ -505,39 +505,53 @@
                         android:src="@drawable/up" />
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="90dp"
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:text="@string/about_tenonvpn"
+                android:textColor="@color/colorPrimary" />
 
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/my_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                tools:context=".MainActivity"
+                tools:showIn="@layout/activity_main"
+                android:orientation="vertical">
+
+                <com.google.android.ads.nativetemplates.TemplateView
+                    android:id="@+id/my_template"
+                    app:gnt_template_type="@layout/gnt_small_template_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp" />
+
+                <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="SMART_BANNER"
+                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+                </com.google.android.gms.ads.AdView>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <TextView
-        android:id="@+id/tv_about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        android:padding="8dp"
-        android:text="@string/about_tenonvpn"
-        android:textColor="@color/colorPrimary" />
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/my_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="0dp"
-        tools:context=".MainActivity"
-        tools:showIn="@layout/activity_main" >
-
-        <com.google.android.ads.nativetemplates.TemplateView
-            android:id="@+id/my_template"
-            app:gnt_template_type="@layout/gnt_small_template_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
 <!--    <ImageView-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content"-->
