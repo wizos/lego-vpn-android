@@ -160,18 +160,20 @@
                     android:textColor="@color/colorSubTitle" />
                 <Button
                     android:id="@+id/btn_month_paypal"
-                    android:layout_width="76dp"
-                    android:layout_height="23dp"
+                    android:text="paypal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/paypay"
+                    android:background="@drawable/select_bg"
                     android:gravity="center"
-                    android:text=""
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:onClick="onClickPaypalMonth" />
                 <Button
                     android:id="@+id/btn_month_googlepay"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="55dp"
+                    android:layout_width="75dp"
                     android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
                     android:background="@drawable/select_bg"
@@ -206,18 +208,20 @@
                     android:textColor="@color/colorSubTitle" />
                 <Button
                     android:id="@+id/btn_quarter_paypal"
-                    android:layout_width="76dp"
-                    android:layout_height="23dp"
+                    android:text="paypal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/paypay"
+                    android:background="@drawable/select_bg"
                     android:gravity="center"
-                    android:text=""
+                    android:onClick="onClickPaypalQuarter"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp" />
                 <Button
                     android:id="@+id/btn_quarter_googlepay"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="55dp"
+                    android:layout_width="75dp"
                     android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
                     android:background="@drawable/select_bg"
@@ -252,18 +256,20 @@
                     android:textColor="@color/colorSubTitle" />
                 <Button
                     android:id="@+id/btn_year_paypal"
-                    android:layout_width="76dp"
-                    android:layout_height="23dp"
+                    android:text="paypal"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
-                    android:background="@drawable/paypay"
+                    android:background="@drawable/select_bg"
                     android:gravity="center"
-                    android:text=""
+                    android:onClick="onClickPaypalYear"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp" />
                 <Button
                     android:id="@+id/btn_year_googlepay"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="55dp"
+                    android:layout_width="75dp"
                     android:layout_height="25dp"
                     android:layout_gravity="bottom|right"
                     android:background="@drawable/select_bg"
@@ -309,10 +315,48 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_card"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recharge_way_6"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/share_to_reward"
+                    android:textColor="@color/colorSubTitle" />
+
+                <Button
+                    android:id="@+id/btn_share_reward"
+                    android:layout_width="55dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@drawable/select_bg"
+                    android:gravity="center"
+                    android:text="@string/share"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
                 android:text="@string/history"
                 android:textColor="@color/colorPrimary" />
             <LinearLayout

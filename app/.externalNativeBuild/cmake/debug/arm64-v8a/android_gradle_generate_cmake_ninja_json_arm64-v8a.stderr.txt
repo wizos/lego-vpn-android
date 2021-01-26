@@ -14,3 +14,8 @@ CMake Warning (dev) in CMakeLists.txt:
   Argument not separated from preceding token by whitespace.
 This warning is for project developers.  Use -Wno-dev to suppress it.
 
+CMake Error at CMakeLists.txt:104 (target_link_libraries):
+  Cannot specify link libraries for target "cpp-cla" which is not built by
+  this project.
+
+

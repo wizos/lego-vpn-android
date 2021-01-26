@@ -1,19 +1,19 @@
-Executable : /Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake
+Executable : D:\tools\tools\lib\cmake\3.10.2.4988404\bin\cmake.exe
 arguments : 
--H/Users/friendwu/Desktop/lego-vpn-android/app
+-HE:\work\lego-vpn-android\app
 -DCMAKE_BUILD_TYPE=Debug
--DCMAKE_TOOLCHAIN_FILE=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake
+-DCMAKE_TOOLCHAIN_FILE=D:\tools\tools\lib\ndk-bundle\build\cmake\android.toolchain.cmake
 -DANDROID_ABI=x86
--DANDROID_NDK=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061
+-DANDROID_NDK=D:\tools\tools\lib\ndk-bundle
 -DANDROID_PLATFORM=android-23
 -DCMAKE_ANDROID_ARCH_ABI=x86
--DCMAKE_ANDROID_NDK=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061
+-DCMAKE_ANDROID_NDK=D:\tools\tools\lib\ndk-bundle
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/x86
--DCMAKE_MAKE_PROGRAM=/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\work\lego-vpn-android\app\build\intermediates\cmake\debug\obj\x86
+-DCMAKE_MAKE_PROGRAM=D:\tools\tools\lib\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_SYSTEM_VERSION=23
--B/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86
+-BE:\work\lego-vpn-android\app\.cxx\cmake\debug\x86
 -GNinja
 jvmArgs : 
 

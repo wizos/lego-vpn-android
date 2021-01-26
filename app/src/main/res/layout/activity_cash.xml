@@ -54,6 +54,12 @@
             android:textSize="40sp" />
 
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/withdrawal_notes"
+        android:textColor="@color/colorPrimary" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -168,12 +174,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/withdrawal_notes"
-                android:textColor="@color/colorPrimary" />
 
 
             <TextView

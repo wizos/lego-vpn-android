@@ -1,22 +1,41 @@
 package com.yjsoft.tenonvpn.ui.recharge;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import android.app.ListActivity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.vm.shadowsocks.ui.P2pLibManager;
 import com.yjsoft.tenonvpn.BaseActivity;
 import com.vm.shadowsocks.R;
-import com.yjsoft.tenonvpn.SplashActivity;
-import com.yjsoft.tenonvpn.ui.cash.CashActivity;
+import com.vm.shadowsocks.ui.SplashActivity;
+import com.yjsoft.tenonvpn.util.SpUtil;
+
+import org.json.JSONException;
+
+import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Vector;
 
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
@@ -25,11 +44,35 @@ import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import de.codecrafters.tableview.toolkit.TableDataRowBackgroundProviders;
 
 public class RechargeActivity extends BaseActivity {
+    String for_gid_random_str = "bS9DUFMwBwYFZ4EMAQEwgYgGCCsGAQUFBwEBBHwwejAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMFIGCCsGAQUFBzAChkZodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRTSEEyRXh0ZW5kZWRWYWxpZGF0aW9uU2VydmVyQ0EuY3J0MAwGA1UdEwEB / wQCMAAwggF / BgorBgEEAdZ5AgQCBIIBbwSCAWsB";
+    private CheckTransactions check_tx = new CheckTransactions();
+    private static final int UpdateTransactionView = 1;
+    private String prev_transactions = "";
+
+    //配置何种支付环境，一般沙盒，正式
+    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
+    private static final String DEFAULT_CURRENCY = "USD";
+    //你所注册的APP Id
+    private static final String CONFIG_CLIENT_ID = "AbuMevFqcAj-LapIFs9jgLPGDfbyRkjhK2ie3XY6FEUB2TrziZGg8ERteGcYwSzl-0Ch7D4dnbtfVh5z";
+    private static final int REQUEST_CODE_PAYMENT = 1;
+    private static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
+    private static final int REQUEST_CODE_PROFILE_SHARING = 3;
+    private static PayPalConfiguration paypalConfig = new PayPalConfiguration().environment(CONFIG_ENVIRONMENT)
+            .clientId(CONFIG_CLIENT_ID);
+
+    //以下配置是授权支付的时候用到的
+//.merchantName("Example Merchant")
+// .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
+//.merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, paypalConfig);
+        startService(intent);
+
         initView(getWindow().getDecorView());
     }
 
@@ -38,42 +81,78 @@ public class RechargeActivity extends BaseActivity {
         accountId.setText(P2pLibManager.getInstance().account_id);
         findViewById(R.id.iv_back).setOnClickListener(v -> finish());
         findViewById(R.id.btn_watch_ad).setOnClickListener(v -> launchSplash());
+        findViewById(R.id.btn_share_reward).setOnClickListener(v -> shareToReward());
+        UpdateTableView();
 
+        Thread t1 = new Thread(check_tx,"check tx");
+        t1.start();
+    }
 
-        TableView<String[]> tableView = (TableView<String[]>) view.findViewById(R.id.rechargeTableView);
+    private void UpdateTableView() {
+        String transactions_res = com.vm.shadowsocks.ui.P2pLibManager.getTransactions();
+        if (transactions_res.equals(prev_transactions)) {
+            return;
+        }
 
+        prev_transactions = transactions_res;
+        TableView<String[]> tableView = (TableView<String[]>) getWindow().getDecorView().findViewById(R.id.rechargeTableView);
         final int rowColorEven = ContextCompat.getColor(RechargeActivity.this, R.color.env);
         final int rowColorOdd = ContextCompat.getColor(RechargeActivity.this, R.color.odd);
         tableView.setDataRowBackgroundProvider(TableDataRowBackgroundProviders.alternatingRowColors(rowColorEven, rowColorOdd));
-
         final TableColumnWeightModel tableColumnWeightModel = new TableColumnWeightModel(4);
         tableColumnWeightModel.setColumnWeight(0, 35);
         tableColumnWeightModel.setColumnWeight(1, 25);
         tableColumnWeightModel.setColumnWeight(2, 20);
         tableColumnWeightModel.setColumnWeight(3, 20);
         tableView.setColumnModel(tableColumnWeightModel);
-
         String[] data_header ={getString(R.string.datetime), getString(R.string.charge_type), getString(R.string.charge_amount), getString(R.string.balance)};
         final SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(RechargeActivity.this, data_header);
         simpleTableHeaderAdapter.setTextColor(ContextCompat.getColor(RechargeActivity.this, R.color.white));
         simpleTableHeaderAdapter.setTextSize(14);
         tableView.setHeaderAdapter(simpleTableHeaderAdapter);
-        String transactions_res = com.vm.shadowsocks.ui.MainActivity.getTransactions();
         String[] lines = transactions_res.split(";");
         String[][] DATA_TO_SHOW = new String[lines.length][4];
-        for (int i = 0; i < lines.length; ++i) {
+        int index = 0;
+        String latestHistory = SpUtil.getInstance(this).getString(SpUtil.LATESTPAYHISTORY);
+        if (!latestHistory.isEmpty()) {
+            String[] split_item = latestHistory.split("_");
+            if (split_item.length == 3) {
+                boolean find = false;
+                for (int i = 0; i < lines.length; ++i) {
+                    String[] items = lines[i].split(",");
+                    if (items.length != 7) {
+                        continue;
+                    }
+
+                    if (items[4].equals(split_item[0])) {
+                        find = true;
+                        break;
+                    }
+                }
+
+                if (!find) {
+                    DATA_TO_SHOW[index][0] = split_item[1];
+                    DATA_TO_SHOW[index][1] = getString(R.string.pay_for_vpn);
+                    DATA_TO_SHOW[index][2] = split_item[2];
+                    DATA_TO_SHOW[index][3] = "verifying...";
+                    ++index;
+                }
+            }
+        }
+
+        for (int i = 0; i < lines.length && index < lines.length; ++i) {
             String[] items = lines[i].split(",");
-            if (items.length != 4) {
+            if (items.length != 7) {
                 continue;
             }
 
-            DATA_TO_SHOW[i][0] = items[0];
+            DATA_TO_SHOW[index][0] = items[0];
             if (items[1].equals("1")) {
-                DATA_TO_SHOW[i][1] = getString(R.string.pay_for_vpn);
+                DATA_TO_SHOW[index][1] = getString(R.string.pay_for_vpn);
             }
 
             if (items[1].equals("2")) {
-                DATA_TO_SHOW[i][1] = getString(R.string.transfer_out);
+                DATA_TO_SHOW[index][1] = getString(R.string.transfer_out);
             }
 
             if (items[1].equals("3")) {
@@ -81,19 +160,20 @@ public class RechargeActivity extends BaseActivity {
             }
 
             if (items[1].equals("4")) {
-                DATA_TO_SHOW[i][1] = getString(R.string.transfer_in);
+                DATA_TO_SHOW[index][1] = getString(R.string.transfer_in);
             }
 
             if (items[1].equals("5")) {
-                DATA_TO_SHOW[i][1] = getString(R.string.share_reward);
+                DATA_TO_SHOW[index][1] = getString(R.string.share_reward);
             }
 
             if (items[1].equals("6")) {
-                DATA_TO_SHOW[i][1] = getString(R.string.watch_ad_reward);
+                DATA_TO_SHOW[index][1] = getString(R.string.watch_ad_reward);
             }
 
-            DATA_TO_SHOW[i][2] = items[2];
-            DATA_TO_SHOW[i][3] = items[3];
+            DATA_TO_SHOW[index][2] = items[2];
+            DATA_TO_SHOW[index][3] = items[3];
+            ++index;
         }
 
         if (!transactions_res.isEmpty()) {
@@ -104,6 +184,64 @@ public class RechargeActivity extends BaseActivity {
         }
     }
 
+    public void onClickPaypalMonth(View v) {
+        PayPalPayment payment = new PayPalPayment(new BigDecimal("9"), "USD", P2pLibManager.getInstance().account_id,
+                PayPalPayment.PAYMENT_INTENT_SALE);
+        Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+    }
+
+    public void onClickPaypalQuarter(View v) {
+        PayPalPayment payment = new PayPalPayment(new BigDecimal("21"), "USD", P2pLibManager.getInstance().account_id,
+                PayPalPayment.PAYMENT_INTENT_SALE);
+        Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+    }
+
+    public void onClickPaypalYear(View v) {
+        PayPalPayment payment = new PayPalPayment(new BigDecimal("62"), "USD", P2pLibManager.getInstance().account_id,
+                PayPalPayment.PAYMENT_INTENT_SALE);
+        Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data == null) {
+            return;
+        }
+
+        PaymentConfirmation confirm = data
+                .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+
+        String paymentId;
+        try {
+            paymentId = confirm.toJSONObject().getJSONObject("response")
+                    .getString("id");
+            String payment_client = confirm.getPayment().toJSONObject()
+                    .toString();
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            String text = for_gid_random_str + paymentId;
+            byte[] hash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+            SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+            sdf.applyPattern("MM-dd HH:mm");
+            String last_histor = hash + "_" + sdf.toString() + "_" + confirm.getPayment().toJSONObject().getString("amount");
+            SpUtil.getInstance(this).putString(SpUtil.LATESTPAYHISTORY, last_histor);
+            Log.e("PAYPAL", "gid: " + hash + ", paymentId: " + paymentId + ", payment_json: "+ payment_client);
+            // TODO ：把paymentId和payment_json传递给自己的服务器以确认你的款项是否收到或者收全
+            // TODO ：得到服务器返回的结果，你就可以跳转成功页面或者做相应的处理了
+        } catch (JSONException | NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     public void copyAccount(View view) {
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData mClipData = ClipData.newPlainText("Label", P2pLibManager.getInstance().account_id);
@@ -111,7 +249,45 @@ public class RechargeActivity extends BaseActivity {
         Toast.makeText(this, getString(R.string.copy_succ), Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
+    }
+
     private void launchSplash() {
         startActivity(new Intent(this, SplashActivity.class));
+    }
+
+    private void shareToReward() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, P2pLibManager.getInstance().share_ip + "?id=" + P2pLibManager.getInstance().account_id);
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, "Share TenonVPN"));
+    }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == UpdateTransactionView) {
+                UpdateTableView();
+            }
+        }
+    };
+
+    public class CheckTransactions extends ListActivity implements Runnable {
+        public void run() {
+            while (true) {
+                Message message = new Message();
+                message.what = UpdateTransactionView;
+                handler.sendMessage(message);
+                try {
+                    Thread.sleep(3000);
+                } catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

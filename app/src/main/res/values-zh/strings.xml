@@ -54,7 +54,6 @@
     <string name="share_content">去中心化VPN，安全可靠高速。</string>
     <string name="latest_version">已经是最新版本</string>
     <string name="share_button">分享</string>
-    <string name="global_mode" translatable="false">全局代理</string>
 
     <string name="smart_route_usefull" translatable="false">Tenon p2p 网络正在保护你的IP和隐私</string>
     <string name="title_activity_login">登陆</string>
@@ -105,11 +104,13 @@
     <string name="recharge_way_3">方式 3</string>
     <string name="recharge_way_4">方式 4</string>
     <string name="recharge_way_5">方式 5</string>
-    <string name="pay_way_month">包月\n60元</string>
-    <string name="pay_way_quarter">包季\n144元/8折</string>
-    <string name="pay_way_annual">包年\n432元/6折</string>
-    <string name="fast">快速</string>
+    <string name="recharge_way_6">方式 6</string>
+    <string name="pay_way_month">包月\n9美元</string>
+    <string name="pay_way_quarter">包季\n21美元/8折</string>
+    <string name="pay_way_annual">包年\n62美元/6折</string>
+    <string name="fast">谷歌支付</string>
     <string name="watch_ad">观看广告获得Tenon</string>
+    <string name="share_to_reward">分享获取Tenon</string>
     <string name="enter">进入</string>
     <string name="recharge_way1_desc">直接将Tenon转入您的匿名账户</string>
     <string name="copy">复制</string>
@@ -119,6 +120,9 @@
     <string name="total_100_ten">总值≈100 TEN</string>
     <string name="settings">设置</string>
     <string name="select_language">选择语言</string>
+    <string name="select_smart_agent">代理模式</string>
+    <string name="smart_agent">智能分流</string>
+    <string name="global_mode">全局模式</string>
     <string name="tg_group">TG群</string>
     <string name="home_web">官网</string>
     <string name="email">邮箱</string>
@@ -146,5 +150,6 @@
     <string name="transfer_in">转入</string>
     <string name="share_reward">分享奖励</string>
     <string name="watch_ad_reward">广告奖励</string>
+    <string name="about_tenonvpn">关于                                                                                                             TenonVPN</string>
 
 </resources>

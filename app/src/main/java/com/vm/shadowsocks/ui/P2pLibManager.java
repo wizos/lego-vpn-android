@@ -3,9 +3,7 @@ package com.vm.shadowsocks.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.vm.shadowsocks.R;
 import com.vm.shadowsocks.tunnel.shadowsocks.CryptFactory;
 import com.vm.shadowsocks.tunnel.shadowsocks.ICrypt;
 
@@ -43,7 +41,7 @@ public final class P2pLibManager {
     public String now_status = "ok";
     public long vip_left_days = -1;
 
-    private MainActivity main_this;
+    private SplashActivity main_this;
 
     private String countries[] = {"US", "SG", "BR","DE","FR","KR", "JP", "CA","AU","HK", "IN", "GB","CN"};
     private String def_vpn_coutry[] = {"US", "IN", "GB"};
@@ -146,6 +144,7 @@ public final class P2pLibManager {
 
         InitHeaderEncrypt();
         InitPayforAccounts();
+        GetVipStatus();
     }
 
     public boolean IsDirectNode(String ip) {
@@ -197,7 +196,7 @@ public final class P2pLibManager {
         }
     }
 
-    public boolean InitNetwork(MainActivity main_class) {
+    public boolean InitNetwork(SplashActivity main_class) {
         String local_ip = getIpAddressString();
         main_this = main_class;
         String data_path = main_this.getFilesDir().getPath();
@@ -460,6 +459,7 @@ public final class P2pLibManager {
         if (items.length == 2) {
             payfor_timestamp = Long.parseLong(items[0]);
             payfor_amount = Long.parseLong(items[1]);
+            SaveVipStatus();
         }
     }
 
@@ -634,6 +634,32 @@ public final class P2pLibManager {
         for (String acc : payfor_vpn_accounts) {
             payfor_vpn_accounts_arr.add(acc);
         }
+    }
+
+    public Boolean GetVipStatus() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String vip_status = sharedPreferences.getString("vip_status","");
+            String[] items = vip_status.split("_");
+            payfor_timestamp = Long.parseLong(items[0]);
+            payfor_amount = Long.parseLong(items[1]);
+        } catch (Exception e) {
+        }
+
+        return false;
+    }
+
+    public boolean SaveVipStatus() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            String vip_status = payfor_timestamp + "_" + payfor_amount;
+            editor.putString("vip_status", vip_status);
+            editor.commit();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     public Boolean GetGlobalMode() {
@@ -848,8 +874,8 @@ public final class P2pLibManager {
     }
 
     public native String initP2PNetwork(String ip, int port, String bootstarp, String file_path, String version, String pri_key);
-    public native String getVpnNodes(String country);
-    public native String getRouteNodes(String country);
+    public static native String getVpnNodes(String country);
+    public static native String getRouteNodes(String country);
     public static native String getPublicKey();
     public static native String payforVpn(String to, long tenon, String gid);
     public static native String checkVip();
@@ -860,4 +886,12 @@ public final class P2pLibManager {
     public static native short updateVpnPort(String dht_key);
     public static native String updateUseVpnNode(String old_ip, String ip, String uid);
     public static native String vpnConnected();
+    public static native int getP2PSocket();
+    public static native String createAccount();
+    public static native String getTransactions();
+    public static native long getBalance();
+    public static native String checkVersion();
+    public static native void p2pDestroy();
+    public static native String getNewBootstrap();
+    public static native String transaction(String to, long tenon, String gid);
 }

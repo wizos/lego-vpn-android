@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 public class SpUtil {
     public static final String LANGUAGE = "language";
+    public static final String SMARTMODE = "smart_mode";
+    public static final String LATESTPAYHISTORY = "latest_pay_history";
     private static final String SP_NAME = "poemTripSpref";
     private static SpUtil spUtil;
     private static SharedPreferences hmSpref;

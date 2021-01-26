@@ -53,6 +53,11 @@ import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.vm.shadowsocks.R;
 import com.vm.shadowsocks.core.AppProxyManager;
 import com.vm.shadowsocks.core.LocalVpnService;
@@ -63,7 +68,12 @@ import com.yjsoft.tenonvpn.ui.cash.CashActivity;
 import com.yjsoft.tenonvpn.ui.recharge.RechargeActivity;
 import com.yjsoft.tenonvpn.ui.settings.SettingsActivity;
 
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.List;
@@ -74,6 +84,7 @@ import java.util.HashMap;
 import at.grabner.circleprogress.CircleProgressView;
 import at.markushi.ui.CircleButton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -144,7 +155,6 @@ public class MainActivity extends BaseActivity implements
     private BottomDialog outof_bandwidth_dialog;
 
     private String transactions_res = new String("");
-    private long account_balance = -1;
     public static String choosed_vpn_url = "";
     private final int kDefaultVpnServerPort = 9033;
     private WebView wv_produce;
@@ -279,8 +289,7 @@ public class MainActivity extends BaseActivity implements
 
             if (msg.what == GOT_BALANCE) {
                 long res = (long)msg.obj;
-                account_balance = res;
-                P2pLibManager.getInstance().now_balance = account_balance;
+                P2pLibManager.getInstance().now_balance = res;
                 setVipStatus();
             }
 
@@ -412,8 +421,6 @@ public class MainActivity extends BaseActivity implements
 //        TextView notice_txt = (TextView)findViewById(R.id.notice_text);
 //        notice_txt.setText("");
         check_vip_times = 0;
-        account_balance = 0;
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.restart_app));
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
@@ -421,7 +428,7 @@ public class MainActivity extends BaseActivity implements
             public void onClick(DialogInterface dialog, int which) {
                 LocalVpnService.IsRunning = false;
                 LocalVpnService.removeOnStatusChangedListener(MainActivity.this);
-                p2pDestroy();
+                P2pLibManager.p2pDestroy();
                 MainActivity.this.finish();
             }
         });
@@ -468,6 +475,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     void setVipStatus() {
+        P2pLibManager.getInstance().PayforVpn();
         if (P2pLibManager.getInstance().vip_left_days >= 0) {
             TextView leftDays = (TextView)findViewById(R.id.tv_left_days);
             leftDays.setText(P2pLibManager.getInstance().vip_left_days + getString(R.string.layters_over_after));
@@ -623,7 +631,7 @@ public class MainActivity extends BaseActivity implements
             if (isExit) {
                 LocalVpnService.IsRunning = false;
                 LocalVpnService.removeOnStatusChangedListener(this);
-                p2pDestroy();
+                P2pLibManager.p2pDestroy();
                 this.finish();
                 System.exit(0);
             } else {
@@ -815,7 +823,6 @@ public class MainActivity extends BaseActivity implements
         findViewById(R.id.ll_title_free).setVisibility(View.VISIBLE);
         findViewById(R.id.ll_pro).setVisibility(View.GONE);
         findViewById(R.id.ll_title_pro).setVisibility(View.GONE);
-        LocalVpnService.IsRunning = false;
         mMainIsVip = false;
     }
 
@@ -824,7 +831,6 @@ public class MainActivity extends BaseActivity implements
         findViewById(R.id.ll_title_free).setVisibility(View.GONE);
         findViewById(R.id.ll_pro).setVisibility(View.VISIBLE);
         findViewById(R.id.ll_title_pro).setVisibility(View.VISIBLE);
-        LocalVpnService.IsRunning = false;
         mMainIsVip = true;
     }
 
@@ -1057,9 +1063,9 @@ public class MainActivity extends BaseActivity implements
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-
         init();
         initView();
+        setVipStatus();
 
         TemplateView template = findViewById(R.id.my_template);
         template.setVisibility(View.INVISIBLE);
@@ -1069,17 +1075,17 @@ public class MainActivity extends BaseActivity implements
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
 
-        P2pLibManager.getInstance().Init();
-        if (!P2pLibManager.getInstance().InitNetwork(this)) {
-            Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
-            try {
-                Thread.sleep(1000);
-            } catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-            this.finish();
-            return;
-        }
+//        P2pLibManager.getInstance().Init();
+//        if (!P2pLibManager.getInstance().InitNetwork(this)) {
+//            Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
+//            try {
+//                Thread.sleep(1000);
+//            } catch(InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            this.finish();
+//            return;
+//        }
 
 //        int p2p_socket = getP2PSocket();
 //        if (!vpn_service.protect(p2p_socket)) {
@@ -1095,12 +1101,10 @@ public class MainActivity extends BaseActivity implements
         operatingAnim.setInterpolator(lin);
         ProxyConfig.Instance.globalMode = P2pLibManager.getInstance().GetGlobalMode();
         Log.e(TAG, "get local country: " + P2pLibManager.getInstance().local_country);
-        CheckVip();
         if (P2pLibManager.getInstance().now_balance == -1) {
-            createAccount();
+            P2pLibManager.createAccount();
         }
         mTvAccount.setText(P2pLibManager.getInstance().account_id);
-        setVipStatus();
         Thread t1 = new Thread(check_tx,"check tx");
         t1.start();
         Log.e("init", "init OK");
@@ -1194,25 +1198,6 @@ public class MainActivity extends BaseActivity implements
 //                });
 //            }
 //        }) .setLayoutRes(R.layout.outof_bandwidth).setDimAmount(0.1f).setCancelOutside(false).setTag("outbandwidthDialog");
-    }
-
-    void CheckVip() {
-        long now_balance = getBalance();
-        P2pLibManager.getInstance().SetBalance(now_balance);
-        String res = P2pLibManager.checkVip();
-        String[] items = res.split(",");
-        if (items.length == 2) {
-            long tm = Long.parseLong(items[0]);
-            long amount = Long.parseLong(items[1]);
-            P2pLibManager.getInstance().payfor_timestamp = tm;
-            P2pLibManager.getInstance().payfor_amount = amount;
-        }
-
-        account_balance = now_balance;
-        P2pLibManager.getInstance().now_balance = account_balance;
-        setVipStatus();
-
-        System.out.println("get now balance: " + now_balance + ", get vip info: " + res);
     }
 
     String getVersionName() {
@@ -1359,7 +1344,7 @@ public class MainActivity extends BaseActivity implements
 
     private String ChooseRouteProxyUrl(String dest_country) {
         {
-            String nodes = getRouteNodes(dest_country);
+            String nodes = P2pLibManager.getRouteNodes(dest_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -1371,7 +1356,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         if (country_route_map.containsKey(now_choosed_country)) {
-            String nodes = getRouteNodes(now_choosed_country);
+            String nodes = P2pLibManager.getRouteNodes(now_choosed_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int)(Math.random() * node_list.length);
@@ -1383,7 +1368,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         for (String key : country_route_map.keySet()) {
-            String nodes = getRouteNodes(key);
+            String nodes = P2pLibManager.getRouteNodes(key);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -1398,7 +1383,7 @@ public class MainActivity extends BaseActivity implements
 
     private String ChooseVpnProxyUrl() {
         {
-            String nodes = getVpnNodes(now_choosed_country);
+            String nodes = P2pLibManager.getVpnNodes(now_choosed_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int)(Math.random() * node_list.length);
@@ -1415,7 +1400,7 @@ public class MainActivity extends BaseActivity implements
                 continue;
             }
 
-            String nodes = getVpnNodes(key);
+            String nodes = P2pLibManager.getVpnNodes(key);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int)(Math.random() * node_list.length);
@@ -1572,11 +1557,14 @@ public class MainActivity extends BaseActivity implements
     protected void onDestroy() {
         LocalVpnService.IsRunning = false;
         LocalVpnService.removeOnStatusChangedListener(this);
-        p2pDestroy();
-        super.onDestroy();
+        P2pLibManager.p2pDestroy();
+        //super.onDestroy();
         if (mCountDownTimer != null && !mCountDownTimer.isDisposed()) {
             mCountDownTimer.dispose();
         }
+
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
     }
 
     public class CheckTransaction extends ListActivity implements Runnable {
@@ -1589,30 +1577,11 @@ public class MainActivity extends BaseActivity implements
             }
 
             while (true) {
-//                for (int i = 0; i < not_get_country_list.size(); ++i) {
-//                    String vpn_url = getVpnNodes(not_get_country_list.get(i));
-//                    if (!vpn_url.isEmpty()) {
-//                        vpn_url = not_get_country_list.get(i) + "\t" + vpn_url;
-//                        Message message = new Message();
-//                        message.what = GOT_VPN_SERVICE;
-//                        message.obj = vpn_url;
-//                        handler.sendMessage(message);
-//                    }
-//
-//                    String route_url = getRouteNodes(not_get_country_list.get(i));
-//                    if (!route_url.isEmpty()) {
-//                        route_url = not_get_country_list.get(i) + "\t" + route_url;
-//                        Message message = new Message();
-//                        message.what = GOT_VPN_ROUTE;
-//                        message.obj = route_url;
-//                        handler.sendMessage(message);
-//                    }
-//                }
-
                 {
-                    long now_balance = getBalance();
-                    P2pLibManager.getInstance().SetBalance(now_balance);
-                    if (now_balance != -1) {
+                    long now_balance = P2pLibManager.getBalance();
+                    System.out.println("get balance: " + now_balance);
+                    if (now_balance != P2pLibManager.getInstance().now_balance) {
+                        P2pLibManager.getInstance().SetBalance(now_balance);
                         Message message = new Message();
                         message.what = GOT_BALANCE;
                         message.obj = now_balance;
@@ -1628,37 +1597,13 @@ public class MainActivity extends BaseActivity implements
                     }
                 }
 
-                vpn_service.protect(getP2PSocket());
-                if (check_vip_times < 1) {
-                    String res = P2pLibManager.checkVip();
-                    String[] items = res.split(",");
-                    if (items.length == 2) {
-                        long tm = Long.parseLong(items[0]);
-                        long amount = Long.parseLong(items[1]);
-                        if (P2pLibManager.getInstance().payfor_timestamp == 0 || tm != Long.MAX_VALUE) {
-                            if (tm != Long.MAX_VALUE && tm != 0)
-                            {
-                                check_vip_times = 11;
-                            }
-                            P2pLibManager.getInstance().payfor_timestamp = tm;
-                            P2pLibManager.getInstance().payfor_amount = amount;
-                        }
-                        check_vip_times++;
-                    }
-                } else {
-                    P2pLibManager.getInstance().PayforVpn();
-                    Message message = new Message();
-                    message.what = GOT_CHANGE_VIP_STATUS;
-                    handler.sendMessage(message);
-                }
-
+                P2pLibManager.getInstance().PayforVpn();
                 if (P2pLibManager.getInstance().now_balance == -1) {
-                    createAccount();
+                    P2pLibManager.createAccount();
                 }
 
-                String new_bootstrap = getNewBootstrap();
+                String new_bootstrap = P2pLibManager.getNewBootstrap();
                 P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
-                //checkVer(null);
                 try {
                     Thread.sleep(2000);
                 } catch(InterruptedException e) {
@@ -1673,15 +1618,4 @@ public class MainActivity extends BaseActivity implements
             }
         }
     }
-
-    public native int getP2PSocket();
-    public native String createAccount();
-    public native String getVpnNodes(String country);
-    public native String getRouteNodes(String country);
-    public static native String getTransactions();
-    public native long getBalance();
-    public static native String checkVersion();
-    public native void p2pDestroy();
-    public native String getNewBootstrap();
-    public static native String transaction(String to, long tenon, String gid);
 }

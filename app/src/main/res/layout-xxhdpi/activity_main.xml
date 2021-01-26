@@ -303,6 +303,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:layout_marginEnd="16dp"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
                                     android:text="@string/recharge"
                                     android:textColor="@color/colorPrimary" />
 
@@ -319,6 +321,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="end"
                                 android:gravity="end"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
                                 android:text="@string/withdraw"
                                 android:textColor="@color/colorPrimary" />
                         </LinearLayout>
@@ -514,7 +518,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:padding="8dp"
-        android:text="About Tenon VPN"
+        android:text="@string/about_tenonvpn"
         android:textColor="@color/colorPrimary" />
 
     <LinearLayout

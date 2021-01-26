@@ -64,8 +64,6 @@
     <string name="share_button">share</string>
 
     <string name="smart_route_usefull" translatable="false">Tenon p2p network protecting your ip and privacy.</string>
-    <string name="global_mode" translatable="false">Global Mode</string>
-
 
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
@@ -115,11 +113,13 @@
     <string name="recharge_way_3">Method 3</string>
     <string name="recharge_way_4">Method 4</string>
     <string name="recharge_way_5">Method 5</string>
+    <string name="recharge_way_6">Method 6</string>
     <string name="pay_way_month">Monthly\n$9</string>
     <string name="pay_way_quarter">Quarterly\n$21/-20%</string>
     <string name="pay_way_annual">Annual\n$62/-40%</string>
-    <string name="fast">Fast</string>
+    <string name="fast">GooglePay</string>
     <string name="watch_ad">Watch ads to earn Tenon</string>
+    <string name="share_to_reward">Share to earn Tenon</string>
     <string name="enter">Enter</string>
     <string name="recharge_way1_desc">Transfer Tenon directly to your anonymous account</string>
     <string name="copy">Copy</string>
@@ -129,6 +129,9 @@
     <string name="total_100_ten">Total≈100 TEN</string>
     <string name="settings">Settings</string>
     <string name="select_language">Language</string>
+    <string name="select_smart_agent">Proxy Mode</string>
+    <string name="smart_agent">Smart Agent</string>
+    <string name="global_mode">Global Mode</string>
     <string name="tg_group">TG Group</string>
     <string name="home_web">Website</string>
     <string name="email">email</string>
@@ -155,5 +158,6 @@
     <string name="transfer_in">transfer in</string>
     <string name="share_reward">share reward</string>
     <string name="watch_ad_reward">ad reward</string>
+    <string name="about_tenonvpn">About TenonVPN</string>
 
 </resources>
