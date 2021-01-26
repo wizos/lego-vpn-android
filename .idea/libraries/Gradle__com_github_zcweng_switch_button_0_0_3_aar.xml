@@ -3,6 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/28b06b5413d69d0f8d057f8458c8c768/jetified-switch-button-0.0.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/28b06b5413d69d0f8d057f8458c8c768/jetified-switch-button-0.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/30cff9d1657c32b861ef4769a16b89e4/jetified-switch-button-0.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/30cff9d1657c32b861ef4769a16b89e4/jetified-switch-button-0.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/30cff9d1657c32b861ef4769a16b89e4/jetified-switch-button-0.0.3/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.zcweng/switch-button/0.0.3/be654fb3fe0283bd3d7ca559b3a8470a6e7b5459/switch-button-0.0.3-javadoc.jar!/" />

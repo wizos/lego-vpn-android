@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="lego-vpn-android/app" />
-      <module fileurl="file://$PROJECT_DIR$/lego-vpn-android.iml" filepath="$PROJECT_DIR$/lego-vpn-android.iml" group="lego-vpn-android" />
-      <module fileurl="file://$PROJECT_DIR$/googleads-mobile-android-native-templates-master/nativetemplates/nativetemplates.iml" filepath="$PROJECT_DIR$/googleads-mobile-android-native-templates-master/nativetemplates/nativetemplates.iml" group="lego-vpn-android/nativetemplates" />
+      <module fileurl="file://$PROJECT_DIR$/lego-vpn-android.iml" filepath="$PROJECT_DIR$/lego-vpn-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/lego-vpn-android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/lego-vpn-android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/googleads-mobile-android-native-templates-master/nativetemplates/lego-vpn-android.nativetemplates.iml" filepath="$PROJECT_DIR$/.idea/modules/googleads-mobile-android-native-templates-master/nativetemplates/lego-vpn-android.nativetemplates.iml" />
     </modules>
   </component>
 </project>

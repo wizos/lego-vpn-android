@@ -3,6 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5715cbf48a26521efb4be3cb74de501/jetified-circlebutton-1.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a5715cbf48a26521efb4be3cb74de501/jetified-circlebutton-1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6679e50cca2d2ff841c56e0ce629b05c/jetified-circlebutton-1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6679e50cca2d2ff841c56e0ce629b05c/jetified-circlebutton-1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6679e50cca2d2ff841c56e0ce629b05c/jetified-circlebutton-1.1/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.markushi/circlebutton/1.1/8db7ec3193bb29297bfdea07f9099ac58133c8a3/circlebutton-1.1-javadoc.jar!/" />

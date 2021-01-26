@@ -3,6 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/63d986db15ca125e4d615806b2da999f/jetified-billing-3.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/63d986db15ca125e4d615806b2da999f/jetified-billing-3.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de0023c1f606a329590eaa5d9ef8fbc0/jetified-billing-3.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de0023c1f606a329590eaa5d9ef8fbc0/jetified-billing-3.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de0023c1f606a329590eaa5d9ef8fbc0/jetified-billing-3.0.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.billingclient/billing/3.0.2/ac9780c4c0d67ba31f7a79486bc068865adb2fcd/billing-3.0.2-javadoc.jar!/" />
