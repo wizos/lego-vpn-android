@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2526e562b84d1935f7eaa86d8c37d3f4/jetified-bottomdialog-1.1.9/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2526e562b84d1935f7eaa86d8c37d3f4/jetified-bottomdialog-1.1.9/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2526e562b84d1935f7eaa86d8c37d3f4/jetified-bottomdialog-1.1.9/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a3ac481d2b94c0619fe535fcf6b0951a/jetified-bottomdialog-1.1.9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a3ac481d2b94c0619fe535fcf6b0951a/jetified-bottomdialog-1.1.9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a3ac481d2b94c0619fe535fcf6b0951a/jetified-bottomdialog-1.1.9/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.shaohui/bottomdialog/1.1.9/20529f33d6ab151d13624e1ca33cfc889136d234/bottomdialog-1.1.9-javadoc.jar!/" />

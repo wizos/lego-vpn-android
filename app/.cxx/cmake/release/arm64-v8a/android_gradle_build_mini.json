@@ -1,43 +1,43 @@
 {
   "buildFiles": [
-    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
-    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\platforms.cmake",
-    "E:\\work\\lego-vpn-android\\app\\CMakeLists.txt"
+    "/Users/admin/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake",
+    "/Users/admin/Library/Android/sdk/ndk/20.0.5594570/build/cmake/platforms.cmake",
+    "/Users/admin/Desktop/lego-vpn-android/app/CMakeLists.txt"
   ],
   "cleanCommands": [
-    "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\release\\arm64-v8a\" clean"
+    "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/release/arm64-v8a\" clean"
   ],
-  "buildTargetsCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\release\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/release/arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Release-arm64-v8a": {
       "artifactName": "native-lib",
-      "buildCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\release\\arm64-v8a\" native-lib",
+      "buildCommand": "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/release/arm64-v8a\" native-lib",
       "abi": "arm64-v8a",
-      "output": "E:\\work\\lego-vpn-android\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libnative-lib.so",
+      "output": "/Users/admin/Desktop/lego-vpn-android/app/build/intermediates/cmake/release/obj/arm64-v8a/libnative-lib.so",
       "runtimeFiles": [
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libclient.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libnetwork.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libbroadcast.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libdht.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libinit.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libnat_traverse.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libtransport.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libtnet.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libsecurity.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libssl.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcrypto.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libzlib.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libdb.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libip.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libkcp.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcontract.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcommon.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\liblog4cpp.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libuv.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libleveldb.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcryptopp.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libprotobuf.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libuuid.a"
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libclient.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libnetwork.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libbroadcast.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libdht.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libinit.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libnat_traverse.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libtransport.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libtnet.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libsecurity.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libssl.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcrypto.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libzlib.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libdb.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libip.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libkcp.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcontract.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcommon.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/liblog4cpp.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libuv.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libleveldb.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcryptopp.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libprotobuf.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libuuid.a"
       ]
     }
   }
