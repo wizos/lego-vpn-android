@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,17 @@ import android.widget.AdapterView;
 import android.os.Handler;
 import android.os.Message;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
+import com.android.billingclient.api.ConsumeResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdError;
@@ -64,6 +76,7 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdCallback;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+import com.google.android.gms.common.internal.Constants;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -82,6 +95,7 @@ import com.yjsoft.tenonvpn.ui.settings.SettingsActivity;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -101,6 +115,7 @@ import org.json.JSONArray;
 
 import android.widget.Spinner;
 
+import cn.forward.androids.utils.LogUtil;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -1756,4 +1771,487 @@ public class MainActivity extends BaseActivity implements
             }
         }
     }
+}
+
+public class GooglePlayHelper {
+    private static final String TAG = GooglePlayHelper.class.getSimpleName();
+    private static final int GAME_ORDER_ID=0x01;
+
+    //订单号
+    private String mOrderID;
+    //用户信息
+    private String mUserID;
+    //商品集合
+    private WeakReference<Activity> mActivityRef;
+    //回调
+//    private OnRechargeStateListener mListener;
+    //商品
+    private String mSku;
+    private String goods_number;//  商品ID，游戏提供
+    private BillingClient mBillingClient;
+    private int mPayTest;
+    private String mConsume = "0";
+
+//    GooglePlayHelper(Activity activity,
+//                     String goods_number, int mPayTest,
+//                     String sku, OnRechargeStateListener mListener) {
+//        this.mActivityRef = new WeakReference<>(activity);
+//        this.goods_number = goods_number;
+//        this.mSku = sku;
+//        this.mPayTest = mPayTest;
+//        this.mListener = mListener;
+//    }
+
+    public GooglePlayHelper(Activity activity, int mPayTest) {
+        this.mActivityRef = new WeakReference<>(activity);
+        this.mPayTest = mPayTest;
+    }
+
+
+
+
+    /**
+     * 初始化
+     */
+    void init() {
+        mBillingClient = BillingClient.newBuilder(mActivityRef.get())
+                .setListener(mPurchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build();
+        if (!mBillingClient.isReady()) {
+            mBillingClient.startConnection(new BillingClientStateListener() {
+                @Override
+                public void onBillingSetupFinished(BillingResult billingResult) {
+                    if (billingResult != null) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+//                            if (!TextUtils.isEmpty(PreferencesUtils.getString(mActivityRef.get(),
+//                                    Constants.USER_LT_UID_KEY))) {
+//                                getLTOrderID();
+//                            } else {
+//                                mListener.onState(mActivityRef.get(), RechargeResult.failOf(LTGameError.make(
+//                                        LTResultCode.STATE_GP_CREATE_ORDER_FAILED,
+//                                        "order create failed:user key is empty"
+//                                )));
+//                                mActivityRef.get().finish();
+//                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onBillingServiceDisconnected() {
+                }
+            });
+        } else {
+//            if (!TextUtils.isEmpty(PreferencesUtils.getString(mActivityRef.get(),
+//                    Constants.USER_LT_UID_KEY))) {
+//                getLTOrderID();
+//            } else {
+//                mListener.onState(mActivityRef.get(), RechargeResult.failOf(LTGameError.make(
+//                        LTResultCode.STATE_GP_CREATE_ORDER_FAILED,
+//                        "order create failed:user key is empty"
+//                )));
+//                mActivityRef.get().finish();
+//            }
+        }
+    }
+
+
+    /**
+     * 购买回调
+     */
+    private PurchasesUpdatedListener mPurchasesUpdatedListener = new PurchasesUpdatedListener() {
+        @Override
+        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> list) {
+            String debugMessage = billingResult.getDebugMessage();
+            Log.e(TAG, debugMessage);
+            if (list != null && list.size() > 0) {
+                if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    for (Purchase purchase : list) {
+                        mConsume = "2";
+//                        uploadToServer(purchase.getPurchaseToken(), purchase.getOrderId(),mOrderID, mPayTest);
+                    }
+
+                }
+            } else {
+                switch (billingResult.getResponseCode()) {
+                    case BillingClient.BillingResponseCode.SERVICE_TIMEOUT: {//服务连接超时
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("-3"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.FEATURE_NOT_SUPPORTED: {
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("-2"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.SERVICE_DISCONNECTED: {//服务未连接
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("-1"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.USER_CANCELED: {//取消
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("1"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.SERVICE_UNAVAILABLE: {//服务不可用
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("2"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.BILLING_UNAVAILABLE: {//购买不可用
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("3"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.ITEM_UNAVAILABLE: {//商品不存在
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("4"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.DEVELOPER_ERROR: {//提供给 API 的无效参数
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("5"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.ERROR: {//错误
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("6"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED: {//未消耗掉
+                        mConsume = "1";
+                        queryHistory();
+                        break;
+                    }
+                    case BillingClient.BillingResponseCode.ITEM_NOT_OWNED: {//不可购买
+//                        mListener.onState(mActivityRef.get(), RechargeResult.failOf("8"));
+                        mActivityRef.get().finish();
+                        break;
+                    }
+                }
+            }
+        }
+    };
+
+    /**
+     * 购买
+     */
+    private void recharge() {
+        if (mBillingClient.isReady()) {
+            List<String> skuList = new ArrayList<>();
+            skuList.add(mSku);
+            SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+            params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+            mBillingClient.querySkuDetailsAsync(params.build(),
+                    new SkuDetailsResponseListener() {
+                        @Override
+                        public void onSkuDetailsResponse(BillingResult billingResult,
+                                                         List<SkuDetails> skuDetailsList) {
+                            if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK
+                                    && skuDetailsList != null) {
+                                for (SkuDetails skuDetails : skuDetailsList) {
+                                    String sku = skuDetails.getSku();
+                                    if (mSku.equals(sku)) {
+                                        BillingFlowParams purchaseParams =
+                                                BillingFlowParams.newBuilder()
+                                                        .setSkuDetails(skuDetails)
+                                                        .setObfuscatedAccountId(mUserID)
+                                                        .setObfuscatedProfileId(mOrderID)
+                                                        .build();
+                                        mBillingClient.launchBillingFlow(mActivityRef.get(), purchaseParams);
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+
+        }
+
+
+    }
+
+
+    /**
+     * 消耗
+     */
+    private void consume(String purchaseToken) {
+        if (mBillingClient.isReady()) {
+            ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                    .setPurchaseToken(purchaseToken)
+                    .build();
+            mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+                @Override
+                public void onConsumeResponse(BillingResult billingResult, String s) {
+
+                }
+            });
+        } else {
+            mBillingClient.startConnection(new BillingClientStateListener() {
+                @Override
+                public void onBillingSetupFinished(BillingResult billingResult) {
+                    if (billingResult != null) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                                    .setPurchaseToken(purchaseToken)
+                                    .build();
+                            mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+                                @Override
+                                public void onConsumeResponse(BillingResult billingResult, String s) {
+
+                                }
+                            });
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onBillingServiceDisconnected() {
+                }
+            });
+        }
+
+    }
+
+    /**
+     * 消耗
+     */
+    private void consume2(String purchaseToken) {
+        if (mBillingClient.isReady()) {
+            ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                    .setPurchaseToken(purchaseToken)
+                    .build();
+            mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+                @Override
+                public void onConsumeResponse(BillingResult billingResult, String s) {
+
+                }
+            });
+            recharge();
+        } else {
+            mBillingClient.startConnection(new BillingClientStateListener() {
+                @Override
+                public void onBillingSetupFinished(BillingResult billingResult) {
+                    if (billingResult != null) {
+                        if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            ConsumeParams consumeParams = ConsumeParams.newBuilder()
+                                    .setPurchaseToken(purchaseToken)
+                                    .build();
+                            mBillingClient.consumeAsync(consumeParams, new ConsumeResponseListener() {
+                                @Override
+                                public void onConsumeResponse(BillingResult billingResult, String s) {
+
+                                }
+                            });
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onBillingServiceDisconnected() {
+                }
+            });
+            recharge();
+        }
+
+    }
+
+    /**
+     * 补单操作
+     */
+    private void queryHistory() {
+        Purchase.PurchasesResult mResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+        for (int i = 0; i < mResult.getPurchasesList().size(); i++) {
+            if (mResult.getPurchasesList().get(i).isAcknowledged()) {
+                consume2(mResult.getPurchasesList().get(i).getPurchaseToken());
+            } else {
+//                uploadToServer2(mResult.getPurchasesList().get(i).getPurchaseToken(),
+//                        mResult.getPurchasesList().get(i).getOrderId(),
+//                        mResult.getPurchasesList().get(i).getAccountIdentifiers().getObfuscatedProfileId(),
+//                        mPayTest);
+            }
+        }
+
+    }
+
+//    /**
+//     * 获取订单ID
+//     */
+//    private void getLTOrderID() {
+//        //自己获取订单ID的接口（和你们自己的服务器进行商量）
+//        LoginRealizeManager.createOrder(mActivityRef.get(), xx, xx, xx,
+//                new OnRechargeStateListener() {
+//
+//                    @Override
+//                    public void onState(Activity activity, RechargeResult result) {
+//                        if (result != null) {
+//                            if (result.getResultModel() != null) {
+//                                if (result.getResultModel().getData() != null) {
+//                                    if (result.getResultModel().getCode() == 0) {
+//                                        if (result.getResultModel().getData().getOrder_number() != null) {
+//                                            mOrderID = result.getResultModel().getData().getOrder_number();
+//                                            PreferencesUtils.init(mActivityRef.get());
+//                                            PreferencesUtils.putString(mActivityRef.get(), GAME_ORDER_ID, mOrderID);
+//                                            recharge();
+//                                        }
+//                                    } else {
+//                                        mListener.onState(mActivityRef.get(),
+//                                                RechargeResult.failOf(result.getResultModel().getMsg()));
+//                                        mActivityRef.get().finish();
+//                                        activity.finish();
+//                                    }
+//
+//                                }
+//
+//                            }
+//                        }
+//                    }
+//
+//                });
+//
+//    }
+//
+//    /**
+//     * 上传到服务器验证接口（具体传值和你们的服务器进行沟通确认）
+//     */
+//    private void uploadToServer(final String purchaseToken,String mGoogleOrder, String mOrderID, int mPayTest) {
+//        LoginRealizeManager.googlePlay(mActivityRef.get(),
+//                purchaseToken, mOrderID, mPayTest, new OnRechargeStateListener() {
+//                    @Override
+//                    public void onState(Activity activity, RechargeResult result) {
+//                        if (result != null) {
+//                            if (result.getResultModel() != null) {
+//                                if (result.getResultModel().getCode() == 0) {
+//                                    mListener.onState(mActivityRef.get(), RechargeResult
+//                                            .successOf(result.getResultModel()));
+//                                    consume(purchaseToken);
+//                                } else if (result.getResultModel().getCode() == 10500) {//网络中断再次重新上传验证上传
+//                                    uploadToServer(purchaseToken,mGoogleOrder, mOrderID, mPayTest);
+//                                } else {//上传订单验证错误日志信息到服务器
+//                                    LoginRealizeManager.sendGooglePlayFailed(mActivityRef.get(), mOrderID, purchaseToken,
+//                                            mGoogleOrder,
+//                                            mPayTest, result.getResultModel().getMsg(), mListener);
+//                                }
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                });
+//
+//    }
+//
+//    /**
+//     * 上传到服务器验证接口（具体传值和你们的服务器进行沟通确认）
+//     */
+//    private void uploadToServer2(final String purchaseToken,String mGoogleOrder, String mOrderID, int mPayTest) {
+//        LoginRealizeManager.googlePlay(mActivityRef.get(),
+//                purchaseToken, mOrderID, mPayTest, new OnRechargeStateListener() {
+//                    @Override
+//                    public void onState(Activity activity, RechargeResult result) {
+//                        if (result != null) {
+//                            if (result.getResultModel() != null) {
+//                                if (result.getResultModel().getCode() == 0) {
+//                                    consume2(purchaseToken);
+//                                    if (mConsume.equals("1")) {
+//                                        recharge();
+//                                    }
+//                                } else if (result.getResultModel().getCode() == 10500) {
+//                                    uploadToServer2(purchaseToken,mGoogleOrder, mOrderID, mPayTest);
+//                                } else {
+//                                    LoginRealizeManager.sendGooglePlayFailed(mActivityRef.get(), mOrderID, purchaseToken,
+//                                            mGoogleOrder,
+//                                            mPayTest, result.getResultModel().getMsg(), mListener);
+//                                }
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                });
+//
+//    }
+//
+//    /**
+//     * 上传到服务器验证
+//     */
+//    private void uploadToServer3(final String purchaseToken, String mGoogleOrder,String mOrderID, int mPayTest) {
+//        LoginRealizeManager.googlePlay(mActivityRef.get(),
+//                purchaseToken, mOrderID, mPayTest, new OnRechargeStateListener() {
+//                    @Override
+//                    public void onState(Activity activity, RechargeResult result) {
+//                        if (result != null) {
+//                            if (result.getResultModel() != null) {
+//                                if (result.getResultModel().getCode() == 0) {
+//                                    consume2(purchaseToken);
+//                                } else if (result.getResultModel().getCode() == 10500) {
+//                                    uploadToServer3(purchaseToken,mGoogleOrder, mOrderID, mPayTest);
+//                                } else {
+//                                    LoginRealizeManager.sendGooglePlayFailed(mActivityRef.get(), mOrderID, purchaseToken,
+//                                            mGoogleOrder,
+//                                            mPayTest, result.getResultModel().getMsg(), mListener);
+//                                }
+//                            }
+//
+//                        }
+//
+//                    }
+//
+//                });
+//
+//    }
+
+
+    /**
+     * 释放
+     */
+    void release() {
+        if (mBillingClient.isReady()) {
+            mBillingClient.endConnection();
+        }
+    }
+
+    /**
+     * 补单操作
+     */
+    public void addOrder() {
+        mBillingClient = BillingClient.newBuilder(mActivityRef.get())
+                .setListener(mPurchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build();
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                if (billingResult != null) {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        Purchase.PurchasesResult mResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                        for (int i = 0; i < mResult.getPurchasesList().size(); i++) {
+                            if (mResult.getPurchasesList().get(i).isAcknowledged()) {//服务器验证
+                                consume2(mResult.getPurchasesList().get(i).getPurchaseToken());
+                            } else {//服务器未验证走验证流程
+//                                uploadToServer3(mResult.getPurchasesList().get(i).getPurchaseToken(),
+//                                        mResult.getPurchasesList().get(i).getOrderId(),
+//                                        mResult.getPurchasesList().get(i).getAccountIdentifiers().getObfuscatedProfileId(),
+//                                        mPayTest);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+            }
+        });
+    }
+
+
 }
