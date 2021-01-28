@@ -92,7 +92,6 @@ public class TcpProxyServer implements Runnable {
             e.printStackTrace();
         } finally {
             this.stop();
-            System.out.println("TcpServer thread exited.");
         }
     }
 

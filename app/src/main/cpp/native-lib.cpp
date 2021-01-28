@@ -357,6 +357,34 @@ JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_vpnConnected(
     return env->NewStringUTF(res.c_str());
 }
 
+JNIEXPORT jbyteArray JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getTestString(
+        JNIEnv *env,
+        jobject) {
+    char test_str[256];
+    uint64_t* testArr = (uint64_t*)test_str;
+    testArr[9] = 4231316217181L;
+    testArr[10] = 4231316217189L;
+    testArr[11] = 42313162171810L;
+//    std::string res(test_str, sizeof(test_str));
+//
+//    jbyteArray data = env->NewByteArray(256);
+//    env->SetByteArrayRegion(data, 0, 256, test_str);
+//    (*jniEnv)->DeleteLocalRef(jniEnv, data);
+//    return env->NewStringUTF(res.c_str());
+
+    jbyteArray arr = (env)->NewByteArray(256);
+    (env)->SetByteArrayRegion(arr,0,256, (jbyte*)test_str);
+    return arr;
+}
+
+JNIEXPORT void JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_adReward(
+        JNIEnv *env,
+        jobject,
+        jstring gid) {
+    jboolean iscopy;
+    const char *des_gid = env->GetStringUTFChars(gid, &iscopy);
+    lego::client::VpnClient::Instance()->AdReward(des_gid);
+}
 
 #ifdef __cplusplus
 }

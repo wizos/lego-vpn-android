@@ -1,7 +1,7 @@
 [
 {
-  "directory": "/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a",
-  "command": "/Users/admin/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android23 --gcc-toolchain=/Users/admin/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/admin/Library/Android/sdk/ndk/20.0.5594570/toolchains/llvm/prebuilt/darwin-x86_64/sysroot  -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC -fvisibility=hidden   -o CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o -c /Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/native-lib.cpp",
-  "file": "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/native-lib.cpp"
+  "directory": "E:/work/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a",
+  "command": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=aarch64-none-linux-android23 --gcc-toolchain=D:/tools/tools/lib/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/tools/tools/lib/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot  -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC -fvisibility=hidden   -o CMakeFiles\\native-lib.dir\\src\\main\\cpp\\native-lib.cpp.o -c E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\native-lib.cpp",
+  "file": "E:/work/lego-vpn-android/app/src/main/cpp/native-lib.cpp"
 }
 ]

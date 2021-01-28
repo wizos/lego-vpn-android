@@ -173,6 +173,7 @@ public:
             const std::string& ip,
             const std::string& uid);
     std::string VpnConnected();
+    void AdReward(const std::string& gid);
 
 private:
     VpnClient();
@@ -264,7 +265,6 @@ private:
 	std::shared_ptr<common::Tick>  dump_config_tick_{ nullptr };
 	std::shared_ptr<common::Tick>  dump_bootstrap_tick_{ nullptr };
     bool account_created_{ false };
-    std::set<std::string> vpn_committee_accounts_;
     uint32_t vpn_vip_level_{ 0 };
     uint32_t vpn_route_network_id_{ 0 };
     std::string conf_path_;

@@ -338,12 +338,10 @@ public class MainActivity extends BaseActivity implements
                     setVipStatus();
                 }
 
-                if (mRewardCount > 0) {
-                    Toast.makeText(MainActivity.this, getString(R.string.get_reward) + mRewardCount + " Tenon", Toast.LENGTH_SHORT).show();
-                    mRewardCount = 0;
+                setVipStatus();
+                if (P2pLibManager.getInstance().vip_left_days <= 0) {
+                    ShowAd(false);
                 }
-
-                ShowAd(false);
             }
 
 //            if (msg.what == GOT_INVALID_SERVER_STATUS) {
@@ -594,59 +592,6 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void initView(final View view) {
-//
-//        Button hide_dlg = (Button) view.findViewById(R.id.dlg_hide_dialog);
-//        hide_dlg.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                bottom_dialog.dismiss();
-//            }
-//        });
-//
-//        Button copy_prikey = (Button) view.findViewById(R.id.dlg_copy_prikey);
-//        copy_prikey.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                copyPrikey(v);
-//            }
-//        });
-//
-//        Button paste_prikey = (Button) view.findViewById(R.id.dlg_paste_prikey);
-//        paste_prikey.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                pastePrikey(v);
-//            }
-//        });
-//
-//        Button copy_id = (Button) view.findViewById(R.id.dlg_copy_account_id);
-//        copy_id.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                copyAccount(v);
-//            }
-//        });
-//
-//        Button buy_tenon = (Button) view.findViewById(R.id.dlg_buy_button);
-//        buy_tenon.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                buyTenon(v);
-//            }
-//        });
-//
-//        EditText prikey_text=(EditText)view.findViewById(R.id.dlg_private_key);
-//        prikey_text.setText(P2pLibManager.getInstance().private_key.toUpperCase());
-//        EditText acc_text=(EditText)view.findViewById(R.id.dlg_account_address);
-//        acc_text.setText(P2pLibManager.getInstance().account_id.toUpperCase());
-//
-//        TextView balance = (TextView)findViewById(R.id.balance_lego);
-//        TextView dlg_balance = (TextView)view.findViewById(R.id.dlg_balance_lego);
-//        dlg_balance.setText(balance.getText());
-//
-//        TextView balance_d = (TextView)findViewById(R.id.balance_dollar);
-//        TextView dlg_balance_d = (TextView)view.findViewById(R.id.dlg_balance_dollar);
-//        dlg_balance_d.setText(balance_d.getText());
-//
-//
-//        global_mode_checkbox = (CheckBox) view.findViewById(R.id.global_mode_check);
-//        global_mode_checkbox.setChecked(ProxyConfig.Instance.globalMode);
-//        global_mode_checkbox.setOnCheckedChangeListener(MainActivity.this);
     }
 
     public void showWebview(View view) {
@@ -1140,14 +1085,8 @@ public class MainActivity extends BaseActivity implements
                 public void onUserEarnedReward(@NonNull RewardItem reward) {
                     // User earned reward.
                     P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-                    mRewardCount = reward.getAmount();
-                    long now_balance = P2pLibManager.getBalance();
-                    P2pLibManager.getInstance().SetBalance(now_balance);
-                    Message message = new Message();
-                    message.what = GOT_BALANCE;
-                    message.obj = now_balance;
-                    handler.sendMessage(message);
-
+                    P2pLibManager.getInstance().AdReward(reward.toString());
+                    Toast.makeText(MainActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -1217,7 +1156,6 @@ public class MainActivity extends BaseActivity implements
         template.setVisibility(View.INVISIBLE);
 
         InitSpinner();
-        ProxyConfig.Instance.globalMode = true;
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
 
@@ -1245,7 +1183,6 @@ public class MainActivity extends BaseActivity implements
         operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
         LinearInterpolator lin = new LinearInterpolator();
         operatingAnim.setInterpolator(lin);
-        ProxyConfig.Instance.globalMode = P2pLibManager.getInstance().GetGlobalMode();
         Log.e(TAG, "get local country: " + P2pLibManager.getInstance().local_country);
         if (P2pLibManager.getInstance().now_balance == -1) {
             P2pLibManager.createAccount();
@@ -1481,19 +1418,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onCheckedChanged(CompoundButton checkBox, boolean isChecked) {
-//        switch (checkBox.getId()) {
-//            case R.id.global_mode_check:
-//                if (isChecked) {
-//                    ProxyConfig.Instance.globalMode = true;
-//                } else {
-//                    ProxyConfig.Instance.globalMode = false;
-//                }
-//
-//                P2pLibManager.getInstance().SaveGlobalMode(ProxyConfig.Instance.globalMode);
-//                break;
-//            default:
-//                break;
-//        }
     }
 
     private String ChooseRouteProxyUrl(String dest_country) {

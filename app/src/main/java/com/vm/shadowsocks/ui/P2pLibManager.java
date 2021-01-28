@@ -6,11 +6,17 @@ import android.util.Log;
 
 import com.vm.shadowsocks.tunnel.shadowsocks.CryptFactory;
 import com.vm.shadowsocks.tunnel.shadowsocks.ICrypt;
+import com.yjsoft.tenonvpn.ui.settings.SettingsActivity;
+import com.yjsoft.tenonvpn.util.SpUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,6 +24,66 @@ import java.util.Set;
 import java.util.Vector;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
+
+class Hex {
+    private static final char[] HEX_CHAR = { '0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    /**
+     * 字节数组转换成16进制字符串
+     *
+     * @param bytes
+     * @return
+     */
+    public static String encode(byte[] bytes) {
+        if (bytes == null || bytes.length == 0) {
+            return null;
+        }
+
+        StringBuffer sb = new StringBuffer(bytes.length * 2);
+        // 27对应的十六进制为1b,对应的二进制是00011011
+        // 取高位和低位：00011011-》0001,1011-》1,b
+        for (int i = 0; i < bytes.length; ++i) {
+            // 取高位：跟0xf0做与运算后再右移4位
+            int high = (bytes[i] & 0xf0) >> 4;// 0xf0: 11110000
+            // 取低位：跟0x0f做与运算
+            int low = bytes[i] & 0x0f;// 0x0f: 00001111
+            // 字符映射
+            sb.append(HEX_CHAR[high]).append(HEX_CHAR[low]);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 16进制字符串转换为字节数组
+     *
+     * @param hex 16进制字符
+     * @return
+     */
+    public static byte[] decode(String hex) {
+        if (hex == null || hex.length() == 0) {
+            return null;
+        }
+
+        // 16进制转byte，长度减半，"1b"-->27
+        int len = hex.length() / 2;
+        byte[] result = new byte[len];
+        String highStr = null;
+        String lowStr = null;
+        int high = 0;
+        int low = 0;
+        for (int i = 0; i < len; i++) {
+            // 高位值
+            highStr = hex.substring(i * 2, i * 2 + 1);// "1b"的高位为"1"
+            high = Integer.parseInt(highStr, 16);// 高位转为10进制
+            // 低位值
+            lowStr = hex.substring(i * 2 + 1, i * 2 + 2);// "1b"的低位为"b"
+            low = Integer.parseInt(lowStr, 16);// 低位转为10进制
+            // 合计值
+            result[i] = (byte) ((high << 4) + low);// 相当于:(高位*16) + 低位
+        }
+        return result;
+    }
+}
 
 public final class P2pLibManager {
     public String local_country = "";
@@ -42,6 +108,7 @@ public final class P2pLibManager {
     public long vip_left_days = -1;
     public long prev_showed_ad_tm = 0;
     public boolean showAdCalled = false;
+    public boolean smartMode = false;
 
     private SplashActivity main_this;
 
@@ -67,7 +134,8 @@ public final class P2pLibManager {
     private final Object ex_route_lock = new Object();
     private Set<String> direct_set = new HashSet<String>();
 
-    public void Init() {
+    public void Init(SplashActivity main_class) {
+        main_this = main_class;
         direct_set.add("42.51.39.113");
         direct_set.add("42.51.33.89");
         direct_set.add("42.51.41.173");
@@ -144,9 +212,22 @@ public final class P2pLibManager {
         direct_set.add("35.153.74.125");
         direct_set.add("54.198.157.144");
 
+        smartMode = !GetGlobalMode();
         InitHeaderEncrypt();
         InitPayforAccounts();
         GetVipStatus();
+    }
+
+    public static long bytesToLong(byte[] input, int offset, boolean littleEndian) {
+        if(offset <0 || offset+8>input.length)
+            throw new IllegalArgumentException(String.format("less than 8 bytes from index %d  is insufficient for long",offset));
+        ByteBuffer buffer = ByteBuffer.wrap(input,offset,8);
+        if(littleEndian){
+            // ByteBuffer.order(ByteOrder) 方法指定字节序,即大小端模式(BIG_ENDIAN/LITTLE_ENDIAN)
+            // ByteBuffer 默认为大端(BIG_ENDIAN)模式
+            buffer.order(ByteOrder.LITTLE_ENDIAN);
+        }
+        return buffer.getLong();
     }
 
     public boolean IsDirectNode(String ip) {
@@ -207,7 +288,6 @@ public final class P2pLibManager {
         Log.e("INIT", "get file path:" + data_path);
         String pri_key = GetUserPrivateKey();
         Log.e("TAG", "get private key: " + pri_key);
-        System.out.println("get private key: " + pri_key);
         String res = "";
         int try_times = 0;
         String tmp_boot_nodes = bootstrap;// + "," + GetNewBootstrapNodes();
@@ -269,6 +349,26 @@ public final class P2pLibManager {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 字节数组与16进制字符串转换工具
+     */
+
+    public void AdReward(String ad_string) {
+        String content = ad_string;
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        byte[] rel = digest.digest(content.getBytes());
+        String hex = Hex.encode(rel);
+        Log.d("TTTTTTTTTTTTTTTTTT xl", hex);
+        adReward(hex);
     }
 
     public boolean fileIsExists(String strFile)
@@ -672,10 +772,11 @@ public final class P2pLibManager {
         } catch (Exception e) {
         }
 
-        return false;
+        return true;
     }
 
     public boolean SaveGlobalMode(Boolean global_mode) {
+        smartMode = !global_mode;
         try {
             SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -896,4 +997,6 @@ public final class P2pLibManager {
     public static native void p2pDestroy();
     public static native String getNewBootstrap();
     public static native String transaction(String to, long tenon, String gid);
+    public static native void adReward(String gid);
+
 }

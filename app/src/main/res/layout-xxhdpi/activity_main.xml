@@ -472,7 +472,7 @@
                     android:background="@drawable/bg_card1"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:padding="8dp">
 
                     <ImageView
                         android:id="@+id/iv_county"
@@ -514,8 +514,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="8dp"
-        android:padding="8dp"
+        android:layout_marginBottom="4dp"
+        android:padding="4dp"
         android:text="@string/about_tenonvpn"
         android:textColor="@color/colorPrimary" />
     <LinearLayout

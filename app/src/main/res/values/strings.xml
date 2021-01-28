@@ -80,8 +80,8 @@
     <string name="free">Free</string>
     <string name="anonymous_account">Account</string>
     <string name="private_key">Private Key</string>
-    <string name="recharge">recharge</string>
-    <string name="withdraw">Sell Flow</string>
+    <string name="recharge">EarnCoin</string>
+    <string name="withdraw">Withdraw</string>
     <string name="un_connect">Connect</string>
     <string name="us">America</string>
     <string name="nodes"> nodes</string>
@@ -115,7 +115,7 @@
     <string name="recharge_way_5">Method 5</string>
     <string name="recharge_way_6">Method 6</string>
     <string name="recharge_way_7">Method 7</string>
-    <string name="get_reward">Watch ad earned coins:</string>
+    <string name="get_reward">Watched ad earned coins random 3 ~ 10 </string>
 
     <string name="pay_way_month">Monthly\n$9</string>
     <string name="pay_way_quarter">Quarterly\n$21/-20%</string>
@@ -163,6 +163,12 @@
     <string name="transfer_in">transfer in</string>
     <string name="share_reward">share reward</string>
     <string name="watch_ad_reward">ad reward</string>
+    <string name="minning">Mining</string>
     <string name="about_tenonvpn">About TenonVPN</string>
+    <string name="decentralized1">Decentralized on&#32;&#32;</string>
+    <string name="decentralized2">Tenon blockchain</string>
+    <string name="security">Encrypt with private key </string>
+    <string name="flash_fast">Fast and Reliable</string>
+    <string name="easy">Easy to use</string>
 
 </resources>

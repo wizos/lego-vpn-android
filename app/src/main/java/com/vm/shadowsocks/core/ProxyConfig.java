@@ -46,8 +46,6 @@ public class ProxyConfig {
     public ArrayList<Config> m_ProxyList;
 //    HashMap<String, Boolean> m_DomainMap;
 
-    public boolean globalMode = false;
-
     int m_dns_ttl;
     String m_welcome_info;
     String m_session_name;
@@ -255,9 +253,10 @@ public class ProxyConfig {
             return true;
         }
 
-        if (globalMode) {
+        if (!P2pLibManager.getInstance().smartMode) {
             return true;
         }
+
         if (host != null) {
             Boolean stateBoolean = getDomainState(host);
             if (stateBoolean != null) {
@@ -378,9 +377,6 @@ public class ProxyConfig {
             String tagString = items[0].toLowerCase(Locale.ENGLISH).trim();
             try {
                 if (!tagString.startsWith("#")) {
-                    if (ProxyConfig.IS_DEBUG)
-                        System.out.println(line);
-
                     if (tagString.equals("ip")) {
                         addIPAddressToList(items, 1, m_IpList);
                     } else if (tagString.equals("dns")) {

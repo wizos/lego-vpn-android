@@ -37,7 +37,8 @@ public class SettingsActivity extends BaseActivity {
     private String language;
     private String smart_mode;
     private String[] languages = {"中文", "ENGLISH"};
-    String[] smart_agents = {"Smart Mode", "Global Mode"};
+    String[] smart_agents_en = {"Smart Mode", "Global Mode"};
+    String[] smart_agents_zh = {"智能分流", "全局模式"};
 
     private String version_download_url = "";
     private boolean upgrade_dialog_showing = false;
@@ -54,9 +55,18 @@ public class SettingsActivity extends BaseActivity {
 
     private void init() {
         language = SpUtil.getInstance(this).getString(SpUtil.LANGUAGE);
-        smart_mode = SpUtil.getInstance(this).getString(SpUtil.SMARTMODE);
-        if (smart_mode.isEmpty()) {
-            smart_mode = "Smart Mode";
+        if (P2pLibManager.getInstance().smartMode) {
+            if (language.equals("ENGLISH")) {
+                smart_mode = "Smart Mode";
+            } else {
+                smart_mode = "智能分流";
+            }
+        } else {
+            if (language.equals("ENGLISH")) {
+                smart_mode = "Global Mode";
+            } else {
+                smart_mode = "全局模式";
+            }
         }
     }
 
@@ -88,7 +98,11 @@ public class SettingsActivity extends BaseActivity {
         mTvLanguage = findViewById(R.id.tv_language);
         mTvLanguage.setText(TextUtils.isEmpty(language) ? languages[0] : language);
         TextView smartMode = findViewById(R.id.tv_dynamic_proxy);
-        smartMode.setText(TextUtils.isEmpty(smart_mode) ? smart_agents[0] : smart_mode);
+        if (language.equals("ENGLISH")) {
+            smartMode.setText(TextUtils.isEmpty(smart_mode) ? smart_agents_en[0] : smart_mode);
+        } else {
+            smartMode.setText(TextUtils.isEmpty(smart_mode) ? smart_agents_zh[0] : smart_mode);
+        }
         findViewById(R.id.iv_back).setOnClickListener(v -> finish());
         findViewById(R.id.ll_select_language).setOnClickListener(v -> showSelectLanguageDialog());
         findViewById(R.id.ll_select_dynamic_proxy).setOnClickListener(v -> showSelectSmartAgent());
@@ -109,13 +123,28 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void showSelectSmartAgent() {
+        String[] smart_agents = null;
+        if (language.equals("ENGLISH")) {
+            smart_agents = smart_agents_en;
+        } else {
+            smart_agents = smart_agents_zh;
+        }
+
         int index = Arrays.asList(smart_agents).indexOf(smart_mode);
         new AlertDialog.Builder(this,R.style.BlackDialog)
                 .setSingleChoiceItems(smart_agents, index, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        String[] smart_agents = null;
+                        if (language.equals("ENGLISH")) {
+                            smart_agents = smart_agents_en;
+                        } else {
+                            smart_agents = smart_agents_zh;
+                        }
+
                         changeSmartAgent(smart_agents[which]);
+                        smart_mode = smart_agents[which];
+                        dialog.dismiss();
                     }
                 })
                 .show();
@@ -134,10 +163,23 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void changeSmartAgent(String smart_agent) {
-        LocalVpnService.IsRunning = false;
-        SpUtil.getInstance(this).putString(SpUtil.SMARTMODE, smart_agent);
         TextView smartMode = findViewById(R.id.tv_dynamic_proxy);
+        String[] smart_agents = null;
+        String eqString = "Smart Mode";
+        if (language.equals("ENGLISH")) {
+            smart_agents = smart_agents_en;
+            eqString = "Smart Mode";
+        } else {
+            smart_agents = smart_agents_zh;
+            eqString = "智能分流";
+        }
+
         smartMode.setText(TextUtils.isEmpty(smart_agent) ? smart_agents[0] : smart_agent);
+        if (smart_agent.equals(eqString)) {
+            P2pLibManager.getInstance().SaveGlobalMode(false);
+        } else {
+            P2pLibManager.getInstance().SaveGlobalMode(true);
+        }
     }
 
     public void checkVer(View view) {

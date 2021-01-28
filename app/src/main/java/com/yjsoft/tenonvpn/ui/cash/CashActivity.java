@@ -110,10 +110,10 @@ public class CashActivity extends BaseActivity {
         final int rowColorOdd = ContextCompat.getColor(CashActivity.this, R.color.odd);
         tableView.setDataRowBackgroundProvider(TableDataRowBackgroundProviders.alternatingRowColors(rowColorEven, rowColorOdd));
         final TableColumnWeightModel tableColumnWeightModel = new TableColumnWeightModel(4);
-        tableColumnWeightModel.setColumnWeight(0, 35);
+        tableColumnWeightModel.setColumnWeight(0, 30);
         tableColumnWeightModel.setColumnWeight(1, 25);
         tableColumnWeightModel.setColumnWeight(2, 20);
-        tableColumnWeightModel.setColumnWeight(3, 20);
+        tableColumnWeightModel.setColumnWeight(3, 25);
         tableView.setColumnModel(tableColumnWeightModel);
         String[] data_header ={getString(R.string.datetime), getString(R.string.charge_type), getString(R.string.charge_amount), getString(R.string.balance)};
         final SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(CashActivity.this, data_header);
@@ -179,6 +179,10 @@ public class CashActivity extends BaseActivity {
 
             if (items[1].equals("6")) {
                 DATA_TO_SHOW[index][1] = getString(R.string.watch_ad_reward);
+            }
+
+            if (items[1].equals("7")) {
+                DATA_TO_SHOW[index][1] = getString(R.string.minning);
             }
 
             DATA_TO_SHOW[index][2] = items[2];

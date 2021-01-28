@@ -67,13 +67,11 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onRewardedAdLoaded() {
                 // Ad successfully loaded.
-                System.out.println("Ad successfully loaded.");
             }
 
             @Override
             public void onRewardedAdFailedToLoad(LoadAdError adError) {
                 // Ad failed to load.
-                System.out.println("Ad failed to load.");
             }
         };
         rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
@@ -81,7 +79,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         initView();
 
-        P2pLibManager.getInstance().Init();
+        P2pLibManager.getInstance().Init(this);
         if (!P2pLibManager.getInstance().InitNetwork(this)) {
             Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
             try {
@@ -94,7 +92,7 @@ public class SplashActivity extends BaseActivity {
         }
         CheckVip();
         if (P2pLibManager.getInstance().vip_left_days > 0) {
-            mAdPassSeconds = 2000;
+            mAdPassSeconds = 1000;
         }
         loadAd();
     }
@@ -127,7 +125,7 @@ public class SplashActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     mBtnPass.setText(String.format("%s%ds", getString(R.string.pass_ad), mAdPassSeconds / 1000 - aLong));
-                    if (rewardedAd.isLoaded()) {
+                    if (rewardedAd.isLoaded() && P2pLibManager.getInstance().vip_left_days <= 0) {
                         if (mCountDownTimer != null && !mCountDownTimer.isDisposed()) {
                             mCountDownTimer.dispose();
                         }
@@ -150,10 +148,8 @@ public class SplashActivity extends BaseActivity {
                             public void onUserEarnedReward(@NonNull RewardItem reward) {
                                 // User earned reward.
                                 P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-                                mRewardCount = reward.getAmount();
-                                if (mRewardCount > 0) {
-                                    Toast.makeText(SplashActivity.this, getString(R.string.get_reward) + mRewardCount + " Tenon", Toast.LENGTH_SHORT).show();
-                                }
+                                P2pLibManager.getInstance().AdReward(reward.toString());
+                                Toast.makeText(SplashActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -163,7 +159,6 @@ public class SplashActivity extends BaseActivity {
                         };
                         rewardedAd.show(activityContext, adCallback);
                     } else {
-                        Log.d("TAG", "The rewarded ad wasn't loaded yet.");
                         if (0 == (mAdPassSeconds / 1000 - aLong)) {
                             launchMain();
                         }

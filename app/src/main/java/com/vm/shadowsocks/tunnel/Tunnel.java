@@ -105,7 +105,6 @@ public abstract class Tunnel {
                 }
                 int now_times = connect_times.incrementAndGet();
                 if (now_times > 15) {
-                    System.out.println("change vpn node");
                     String old_ip = P2pLibManager.getInstance().choosed_vpn_ip;
                     P2pLibManager.getInstance().GetVpnNode();
                     if (!old_ip.equals(P2pLibManager.getInstance().choosed_vpn_ip)) {
