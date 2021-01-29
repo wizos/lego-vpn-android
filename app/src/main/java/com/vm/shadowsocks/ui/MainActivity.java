@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -125,6 +126,8 @@ import me.shaohui.bottomdialog.BottomDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import de.codecrafters.tableview.TableView;
@@ -144,10 +147,10 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-public class MainActivity extends BaseActivity implements
+public class MainActivity extends AppCompatActivity implements
         View.OnClickListener,
         OnCheckedChangeListener,
-        LocalVpnService.onStatusChangedListener {
+        LocalVpnService.onStatusChangedListener  {
     static {
         System.loadLibrary("native-lib");
     }
@@ -163,14 +166,7 @@ public class MainActivity extends BaseActivity implements
     private String selectCountry = "America";
     private VpnService vpn_service = new VpnService();
     private CheckTransaction check_tx = new CheckTransaction();
-    private static final int COMPLETED = 0;
-    private static final int GOT_VPN_SERVICE = 1;
-    private static final int GOT_TANSACTIONS = 2;
     private static final int GOT_BALANCE = 3;
-    private static final int GOT_VPN_ROUTE = 5;
-    private static final int GOT_INVALID_SERVER_STATUS = 6;
-    private static final int GOT_INVALID_STATUS = 7;
-    private static final int GOT_CHANGE_VIP_STATUS = 8;
     private int check_vip_times = 0;
 
     private CheckBox global_mode_checkbox;
@@ -234,6 +230,7 @@ public class MainActivity extends BaseActivity implements
     private AdView mAdView;
     private ForegroundCallbacks foregroundCallbacks = null;
     public int mRewardCount = 0;
+    private GPSUtils mGpsUtils = null;
 
     private int[] county = {R.drawable.us
             , R.drawable.cn
@@ -271,66 +268,6 @@ public class MainActivity extends BaseActivity implements
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == COMPLETED) {
-                String res = (String) msg.obj;
-                String[] split = res.split("\t");
-                if (split.length == 5) {
-                    TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
-                    leftDays.setText(P2pLibManager.getInstance().vip_left_days + res);
-                    TextView balance = (TextView) findViewById(R.id.balance_lego);
-                    balance.setText(split[1] + " Ten");
-//                    TextView balance_d = (TextView)findViewById(R.id.balance_dollar);
-//                    balance_d.setText(String.format("%.2f", Integer.parseInt(split[1]) * 0.002) + "$");
-                    String block_item = "\n\n\n    Transaction Hash: \n    " + split[4] + "\n\n    Block Height：" + split[2] + "\n\n    Block Hash：\n    " + split[3] + "\n\n\n";
-                    block_hashmap.put(list_counter, block_item);
-                    ++list_counter;
-                }
-            }
-
-            if (msg.what == GOT_VPN_SERVICE) {
-                String res = (String) msg.obj;
-                String[] c_split = res.split("\t");
-                String country = c_split[0];
-                String[] split = c_split[1].split(",");
-                if (!country_vpn_map.containsKey(country)) {
-                    country_vpn_map.put(country, new Vector<String>());
-                }
-
-                Vector<String> url_vec = country_vpn_map.get(country);
-                for (int i = 0; i < split.length; ++i) {
-                    url_vec.add(split[i]);
-                    if (url_vec.size() > 16) {
-                        url_vec.remove(0);
-                    }
-                }
-            }
-
-            if (msg.what == GOT_VPN_ROUTE) {
-                String res = (String) msg.obj;
-                String[] c_split = res.split("\t");
-                String country = c_split[0];
-                String[] split = c_split[1].split(",");
-                if (!country_route_map.containsKey(country)) {
-                    country_route_map.put(country, new Vector<String>());
-                }
-
-                Vector<String> url_vec = country_route_map.get(country);
-                for (int i = 0; i < split.length; ++i) {
-                    url_vec.add(split[i]);
-                    if (url_vec.size() > 16) {
-                        url_vec.remove(0);
-                    }
-                }
-            }
-
-            if (msg.what == GOT_TANSACTIONS) {
-                String res = (String) msg.obj;
-                if (res.isEmpty()) {
-                    return;
-                }
-                transactions_res = res;
-            }
-
             if (msg.what == GOT_BALANCE) {
                 long res = (long) msg.obj;
                 if (P2pLibManager.getInstance().now_balance != res) {
@@ -342,22 +279,11 @@ public class MainActivity extends BaseActivity implements
                 if (P2pLibManager.getInstance().vip_left_days <= 0) {
                     ShowAd(false);
                 }
-            }
 
-//            if (msg.what == GOT_INVALID_SERVER_STATUS) {
-//                String res = (String)msg.obj;
-//                if (res.equals("bwo")) {
-//                    LocalVpnService.IsRunning = false;
-//                    Log.e("main 224", "bwo stop vpn server.");
-//                }
-//            }
-
-            if (msg.what == GOT_INVALID_STATUS) {
-                setNotice();
-            }
-
-            if (msg.what == GOT_CHANGE_VIP_STATUS) {
-                setVipStatus();
+                String countryCode = mGpsUtils.getCountryCode();
+                if (!countryCode.isEmpty() && countryCode != P2pLibManager.getInstance().local_country) {
+                    P2pLibManager.getInstance().local_country = countryCode;
+                }
             }
         }
     };
@@ -452,24 +378,8 @@ public class MainActivity extends BaseActivity implements
             return;
         }
 
-//        EditText prikey_text=(EditText)bottom_dialog.getView().findViewById(R.id.dlg_private_key);
-//        prikey_text.setText(tmp_prikey.toUpperCase());
         P2pLibManager.getInstance().private_key = tmp_prikey;
         mTvPrivateKey.setText(key);
-//
-//        EditText acc_text=(EditText)bottom_dialog.getView().findViewById(R.id.dlg_account_address);
-//        acc_text.setText(P2pLibManager.getInstance().account_id.toUpperCase());
-//        Toast.makeText(this, getString(R.string.set_prikey), Toast.LENGTH_SHORT).show();
-//
-//        TextView main_balance = (TextView)findViewById(R.id.main_balance_lego);
-//        main_balance.setText(getString(R.string.now_wait_to_sync));
-//        bottom_dialog.dismiss();
-//        LocalVpnService.IsRunning = false;
-//        P2pLibManager.getInstance().InitResetPrivateKey();
-//        TextView vip_txt = (TextView)findViewById(R.id.main_vip_left_status);
-//        vip_txt.setText("");
-//        TextView notice_txt = (TextView)findViewById(R.id.notice_text);
-//        notice_txt.setText("");
         check_vip_times = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.restart_app));
@@ -483,45 +393,6 @@ public class MainActivity extends BaseActivity implements
             }
         });
         builder.show();
-    }
-
-    public void switchSmartRoute(View view) {
-        LocalVpnService.IsRunning = false;
-        P2pLibManager.getInstance().use_smart_route = true;
-    }
-
-    public void homePage(View view) {
-        wv_produce.loadUrl("file:///android_asset/index.html");
-        wv_produce.clearHistory();
-    }
-
-    public void useBrower(View view) {
-        String url = wv_produce.getUrl();
-        if (url.isEmpty() || url.startsWith("file")) {
-            Toast.makeText(this, getString(R.string.select_a_website_string), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(uri);
-        startActivity(intent);
-    }
-
-    void setNotice() {
-//        TextView notice_txt = (TextView)findViewById(R.id.notice_text);
-//        if (P2pLibManager.getInstance().now_status.equals("cnn")) {
-//            notice_txt.setText(getString(R.string.disconnect_vpn_network));
-//        }
-//
-//        if (P2pLibManager.getInstance().now_status.equals("cni")) {
-//            notice_txt.setText(getString(R.string.invalid_country));
-//        }
-//
-//        if (P2pLibManager.getInstance().now_status.equals("bwo")) {
-//            notice_txt.setText(getString(R.string.bandwidth_over));
-//        }
     }
 
     void setVipStatus() {
@@ -549,77 +420,6 @@ public class MainActivity extends BaseActivity implements
         sendIntent.putExtra(Intent.EXTRA_TEXT, P2pLibManager.getInstance().share_ip + "?id=" + P2pLibManager.getInstance().account_id);
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, "Share TenonVPN"));
-    }
-
-    void initPayView(final View view) {
-//        pay_view=(WebView) view.findViewById(R.id.wv_pay);
-//        pay_view.loadUrl(P2pLibManager.getInstance().buy_tenon_ip + "/chongzhi/" + P2pLibManager.getInstance().account_id);
-//        WebSettings webSettings = pay_view.getSettings();
-//        webSettings.setJavaScriptEnabled(true);
-//        pay_view.getSettings().setSupportZoom(true);
-//        pay_view.getSettings().setAllowFileAccess(true);
-//        pay_view.setWebViewClient(new WebViewClient() {
-//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                view.loadUrl(url);
-//                return true;
-//            }
-//        });
-//
-//        pay_view.getSettings().setJavaScriptEnabled(true);
-//        pay_view.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-//        pay_view.getSettings().setLoadWithOverviewMode(true);
-//        pay_view.getSettings().setDefaultTextEncodingName("utf-8");
-    }
-
-    void initWebView(final View view) {
-//        wv_produce=(WebView) view.findViewById(R.id.wv_produce1);
-//        wv_produce.loadUrl("file:///android_asset/index.html");
-//        WebSettings webSettings = wv_produce.getSettings();
-//        webSettings.setJavaScriptEnabled(true);
-//        wv_produce.getSettings().setSupportZoom(true);
-//        wv_produce.getSettings().setAllowFileAccess(true);
-//        wv_produce.setWebViewClient(new WebViewClient() {
-//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//                view.loadUrl(url);
-//                return true;
-//            }
-//        });
-//
-//        wv_produce.getSettings().setJavaScriptEnabled(true);
-//        wv_produce.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-//        wv_produce.getSettings().setLoadWithOverviewMode(true);
-//        wv_produce.getSettings().setDefaultTextEncodingName("utf-8");
-    }
-
-    private void initView(final View view) {
-    }
-
-    public void showWebview(View view) {
-        if (LocalVpnService.IsRunning != true) {
-            Toast.makeText(this, getString(R.string.connect_first_string), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        webview_dialog.show();
-        web_view_open_btn.setText("");
-        tilte_text_view.setText("");
-    }
-
-    public void hideWebview(View view) {
-        web_view_open_btn.setText(getString(R.string.navigation_string));
-        tilte_text_view.setText("TenonVPN");
-        webview_dialog.dismiss();
-    }
-
-    public void webPrev(View view) {
-        if (wv_produce.canGoBack()) {
-            wv_produce.goBack();
-        }
-    }
-
-    public void webNext(View view) {
-        if (wv_produce.canGoForward()) {
-            wv_produce.goForward();
-        }
     }
 
     @Override
@@ -656,7 +456,6 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void InitSpinner() {
-//        mSpinner = (Spinner) findViewById(R.id.spinner);
         country_vec.add("America");
         country_vec.add("Brazil");
         country_vec.add("Germany");
@@ -715,22 +514,6 @@ public class MainActivity extends BaseActivity implements
                 , R.drawable.ru
                 , R.drawable.cn
         };
-
-        CustomAdapter mCustomAdapter = new CustomAdapter(MainActivity.this, spinnerTitles, spinnerImages);
-//        mSpinner.setAdapter(mCustomAdapter);
-//
-//        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                now_choosed_country = country_to_short.get(spinnerTitles[i]);
-//                P2pLibManager.getInstance().choosed_country = country_to_short.get(spinnerTitles[i]);
-//                LocalVpnService.IsRunning = false;
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
     }
 
     protected void InitGoogleAds(Context context) {
@@ -1027,6 +810,7 @@ public class MainActivity extends BaseActivity implements
 
         return 0;
     }
+
     public RewardedAd createAndLoadRewardedAd() {
         RewardedAd rewardedAd = new RewardedAd(this,
                 "ca-app-pub-3940256099942544/5224354917");
@@ -1146,6 +930,10 @@ public class MainActivity extends BaseActivity implements
             }
         });
         rewardedAd = createAndLoadRewardedAd();
+
+        mGpsUtils = GPSUtils.getInstance(mainActivityThis);
+        mGpsUtils.initPermission();
+        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFF: " + mGpsUtils.getCountryCode());
 
         init();
         initView();
@@ -1665,14 +1453,6 @@ public class MainActivity extends BaseActivity implements
                     handler.sendMessage(message);
                 }
 
-                {
-                    if (!P2pLibManager.getInstance().now_status.equals("OK")) {
-                        Message message = new Message();
-                        message.what = GOT_INVALID_STATUS;
-                        handler.sendMessage(message);
-                    }
-                }
-
                 P2pLibManager.getInstance().PayforVpn();
                 if (P2pLibManager.getInstance().now_balance == -1) {
                     P2pLibManager.createAccount();
@@ -1695,6 +1475,24 @@ public class MainActivity extends BaseActivity implements
             }
         }
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+//        // TODO Auto-generated method stub
+//        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+//        if (grantResults.length == 0) {
+//            return;
+//        }
+//
+//        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+////              Toast.makeText(MainActivity.this, "授权位置信息 Denied", Toast.LENGTH_SHORT)
+////                .show();
+//            mGpsUtils = GPSUtils.getInstance(this);
+//            mGpsUtils.initPermission();
+//            System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 111111 ");
+//
+//        }
+//    }
 }
 
 //public class GooglePlayHelper {

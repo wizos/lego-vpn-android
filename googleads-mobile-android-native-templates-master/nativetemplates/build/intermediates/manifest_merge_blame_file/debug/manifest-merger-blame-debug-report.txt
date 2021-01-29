@@ -6,13 +6,13 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->/Users/friendwu/Desktop/lego-vpn-android/googleads-mobile-android-native-templates-master/nativetemplates/src/main/AndroidManifest.xml
+8-->E:\work\lego-vpn-android\googleads-mobile-android-native-templates-master\nativetemplates\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="28" />
-9-->/Users/friendwu/Desktop/lego-vpn-android/googleads-mobile-android-native-templates-master/nativetemplates/src/main/AndroidManifest.xml
+9-->E:\work\lego-vpn-android\googleads-mobile-android-native-templates-master\nativetemplates\src\main\AndroidManifest.xml
 10
 11    <application android:supportsRtl="true" >
-11-->/Users/friendwu/Desktop/lego-vpn-android/googleads-mobile-android-native-templates-master/nativetemplates/src/main/AndroidManifest.xml:3:3-5:17
-11-->/Users/friendwu/Desktop/lego-vpn-android/googleads-mobile-android-native-templates-master/nativetemplates/src/main/AndroidManifest.xml:3:16-42
+11-->E:\work\lego-vpn-android\googleads-mobile-android-native-templates-master\nativetemplates\src\main\AndroidManifest.xml:3:3-5:17
+11-->E:\work\lego-vpn-android\googleads-mobile-android-native-templates-master\nativetemplates\src\main\AndroidManifest.xml:3:16-42
 12    </application>
 13
 14</manifest>

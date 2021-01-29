@@ -158,7 +158,7 @@
     <string name="charge_type">type</string>
     <string name="charge_amount">amount</string>
     <string name="balance">balance</string>
-    <string name="pay_for_vpn">paid</string>
+    <string name="pay_for_vpn">To VIP</string>
     <string name="transfer_out">transfer out</string>
     <string name="transfer_in">transfer in</string>
     <string name="share_reward">share reward</string>

@@ -1,63 +1,63 @@
 {
   "stringTable": {
-    "0": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a",
-    "1": "--target=armv7-none-linux-androideabi23 --gcc-toolchain=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -fvisibility=hidden"
+    "0": "E:/work/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a",
+    "1": "--target=armv7-none-linux-androideabi23 --gcc-toolchain=D:/tools/tools/lib/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/tools/tools/lib/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -fvisibility=hidden"
   },
   "buildFiles": [
-    "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/platforms.cmake",
-    "/Users/friendwu/Desktop/lego-vpn-android/app/CMakeLists.txt",
-    "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake"
+    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\platforms.cmake",
+    "E:\\work\\lego-vpn-android\\app\\CMakeLists.txt"
   ],
   "cleanCommands": [
-    "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a\" clean"
+    "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a\" clean"
   ],
-  "buildTargetsCommand": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Debug-armeabi-v7a": {
-      "buildCommand": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a\" native-lib",
+      "buildCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a\" native-lib",
       "buildType": "debug",
-      "toolchain": "1235738125",
+      "toolchain": "464246240",
       "abi": "armeabi-v7a",
       "artifactName": "native-lib",
       "files": [
         {
-          "src": "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/native-lib.cpp",
+          "src": "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\native-lib.cpp",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         }
       ],
       "headers": [],
-      "output": "/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so",
+      "output": "E:\\work\\lego-vpn-android\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a\\libnative-lib.so",
       "runtimeFiles": [
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libclient.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libnetwork.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libbroadcast.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libdht.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libinit.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libnat_traverse.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libtransport.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libtnet.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libsecurity.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libssl.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libcrypto.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libzlib.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libdb.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libip.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libkcp.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libcontract.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libcommon.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/liblog4cpp.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libuv.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libleveldb.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libcryptopp.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libprotobuf.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/armeabi-v7a/libuuid.a"
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libclient.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libnetwork.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libbroadcast.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libdht.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libinit.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libnat_traverse.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libtransport.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libtnet.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libsecurity.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libssl.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libcrypto.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libzlib.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libdb.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libip.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libkcp.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libcontract.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libcommon.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\liblog4cpp.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libuv.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libleveldb.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libcryptopp.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libprotobuf.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\armeabi-v7a\\libuuid.a"
       ]
     }
   },
   "toolchains": {
-    "1235738125": {
-      "cppCompilerExecutable": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+    "464246240": {
+      "cppCompilerExecutable": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
     }
   },
   "cFileExtensions": [],

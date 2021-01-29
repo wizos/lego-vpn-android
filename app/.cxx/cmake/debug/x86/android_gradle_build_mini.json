@@ -1,43 +1,43 @@
 {
   "buildFiles": [
-    "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/platforms.cmake",
-    "/Users/friendwu/Desktop/lego-vpn-android/app/CMakeLists.txt",
-    "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake"
+    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\platforms.cmake",
+    "E:\\work\\lego-vpn-android\\app\\CMakeLists.txt"
   ],
   "cleanCommands": [
-    "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" clean"
+    "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\x86\" clean"
   ],
-  "buildTargetsCommand": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\x86\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Debug-x86": {
       "artifactName": "native-lib",
-      "buildCommand": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/x86\" native-lib",
+      "buildCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\x86\" native-lib",
       "abi": "x86",
-      "output": "/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/x86/libnative-lib.so",
+      "output": "E:\\work\\lego-vpn-android\\app\\build\\intermediates\\cmake\\debug\\obj\\x86\\libnative-lib.so",
       "runtimeFiles": [
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libclient.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libnetwork.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libbroadcast.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libdht.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libinit.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libnat_traverse.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libtransport.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libtnet.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libsecurity.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libssl.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libcrypto.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libzlib.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libdb.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libip.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libkcp.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libcontract.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libcommon.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/liblog4cpp.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libuv.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libleveldb.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libcryptopp.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libprotobuf.a",
-        "/Users/friendwu/Desktop/lego-vpn-android/app/src/main/cpp/libs/x86/libuuid.a"
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libclient.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libnetwork.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libbroadcast.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libdht.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libinit.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libnat_traverse.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libtransport.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libtnet.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libsecurity.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libssl.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libcrypto.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libzlib.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libdb.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libip.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libkcp.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libcontract.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libcommon.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\liblog4cpp.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libuv.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libleveldb.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libcryptopp.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libprotobuf.a",
+        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\x86\\libuuid.a"
       ]
     }
   }

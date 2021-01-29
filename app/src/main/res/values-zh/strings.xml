@@ -151,7 +151,7 @@
     <string name="charge_type">类型</string>
     <string name="charge_amount">交易额</string>
     <string name="balance">余额</string>
-    <string name="pay_for_vpn">付款</string>
+    <string name="pay_for_vpn">VIP消耗</string>
     <string name="transfer_out">转出</string>
     <string name="transfer_in">转入</string>
     <string name="share_reward">分享奖励</string>

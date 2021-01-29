@@ -5,9 +5,9 @@
     "environmentVariables": []
   },
   "cmake": {
-    "cmakeArtifactsBaseFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a",
-    "cmakeServerLogFile": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a/cmake_server_log.txt",
-    "cmakeWrappingBaseFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cxx/debug/armeabi-v7a",
+    "cmakeArtifactsBaseFolder": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
+    "cmakeServerLogFile": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a\\cmake_server_log.txt",
+    "cmakeWrappingBaseFolder": "E:\\work\\lego-vpn-android\\app\\.cxx\\cxx\\debug\\armeabi-v7a",
     "effectiveConfiguration": {
       "name": "traditional-android-studio-cmake-environment",
       "description": "Composite reified CMakeSettings configuration",
@@ -15,13 +15,13 @@
       "inheritEnvironments": [
         "ndk"
       ],
-      "buildRoot": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a",
-      "cmakeToolchain": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake",
-      "cmakeExecutable": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
+      "buildRoot": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
+      "cmakeToolchain": "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+      "cmakeExecutable": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
       "variables": [
         {
           "name": "CMAKE_FIND_ROOT_PATH",
-          "value": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/prefab/armeabi-v7a/prefab"
+          "value": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\prefab\\armeabi-v7a\\prefab"
         },
         {
           "name": "CMAKE_BUILD_TYPE",
@@ -29,7 +29,7 @@
         },
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
-          "value": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake"
+          "value": "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake"
         },
         {
           "name": "ANDROID_ABI",
@@ -37,7 +37,7 @@
         },
         {
           "name": "ANDROID_NDK",
-          "value": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061"
+          "value": "D:\\tools\\tools\\lib\\ndk-bundle"
         },
         {
           "name": "ANDROID_PLATFORM",
@@ -49,7 +49,7 @@
         },
         {
           "name": "CMAKE_ANDROID_NDK",
-          "value": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061"
+          "value": "D:\\tools\\tools\\lib\\ndk-bundle"
         },
         {
           "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
@@ -57,11 +57,11 @@
         },
         {
           "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
-          "value": "/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/armeabi-v7a"
+          "value": "E:\\work\\lego-vpn-android\\app\\build\\intermediates\\cmake\\debug\\obj\\armeabi-v7a"
         },
         {
           "name": "CMAKE_MAKE_PROGRAM",
-          "value": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
+          "value": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
         },
         {
           "name": "CMAKE_SYSTEM_NAME",
@@ -74,14 +74,14 @@
       ]
     }
   },
-  "cxxBuildFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a",
+  "cxxBuildFolder": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
   "info": {
     "abi": "ARMEABI_V7A",
     "bitness": 32,
     "deprecated": false,
     "default": true
   },
-  "originalCxxBuildFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/armeabi-v7a",
+  "originalCxxBuildFolder": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\armeabi-v7a",
   "variant": {
     "buildSystemArgumentList": [],
     "buildTargetSet": [],
@@ -92,24 +92,24 @@
     "module": {
       "buildSystem": "CMAKE",
       "cmake": {
-        "cmakeExe": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake",
+        "cmakeExe": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\cmake.exe",
         "minimumCmakeVersion": "3.10.2",
-        "ninjaExe": "/Users/friendwu/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja"
+        "ninjaExe": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe"
       },
-      "cmakeToolchainFile": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake",
-      "cxxFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx",
+      "cmakeToolchainFile": "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
+      "cxxFolder": "E:\\work\\lego-vpn-android\\app\\.cxx",
       "gradleModulePathName": ":app",
-      "intermediatesFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates",
-      "makeFile": "/Users/friendwu/Desktop/lego-vpn-android/app/CMakeLists.txt",
-      "moduleBuildFile": "/Users/friendwu/Desktop/lego-vpn-android/app/build.gradle",
-      "moduleRootFolder": "/Users/friendwu/Desktop/lego-vpn-android/app",
+      "intermediatesFolder": "E:\\work\\lego-vpn-android\\app\\build\\intermediates",
+      "makeFile": "E:\\work\\lego-vpn-android\\app\\CMakeLists.txt",
+      "moduleBuildFile": "E:\\work\\lego-vpn-android\\app\\build.gradle",
+      "moduleRootFolder": "E:\\work\\lego-vpn-android\\app",
       "ndkDefaultAbiList": [
         "ARMEABI_V7A",
         "ARM64_V8A",
         "X86",
         "X86_64"
       ],
-      "ndkFolder": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061",
+      "ndkFolder": "D:\\tools\\tools\\lib\\ndk-bundle",
       "ndkMetaAbiList": [
         {
           "abi": "ARMEABI_V7A",
@@ -138,7 +138,7 @@
       ],
       "ndkMetaPlatforms": {
         "min": 16,
-        "max": 30,
+        "max": 29,
         "aliases": {
           "20": 19,
           "25": 24,
@@ -154,8 +154,7 @@
           "O": 26,
           "O-MR1": 27,
           "P": 28,
-          "Q": 29,
-          "R": 30
+          "Q": 29
         }
       },
       "ndkSupportedAbiList": [
@@ -165,31 +164,31 @@
         "X86_64"
       ],
       "ndkDefaultStl": "LIBCXX_STATIC",
-      "ndkVersion": "22.0.7026061",
+      "ndkVersion": "20.0.5594570",
       "project": {
-        "compilerSettingsCacheFolder": "/Users/friendwu/Desktop/lego-vpn-android/.cxx",
-        "cxxFolder": "/Users/friendwu/Desktop/lego-vpn-android/.cxx",
+        "compilerSettingsCacheFolder": "E:\\work\\lego-vpn-android\\.cxx",
+        "cxxFolder": "E:\\work\\lego-vpn-android\\.cxx",
         "isBuildOnlyTargetAbiEnabled": true,
         "isCmakeBuildCohabitationEnabled": false,
         "isNativeCompilerSettingsCacheEnabled": false,
-        "rootBuildGradleFolder": "/Users/friendwu/Desktop/lego-vpn-android",
-        "sdkFolder": "/Users/friendwu/Library/Android/sdk",
+        "rootBuildGradleFolder": "E:\\work\\lego-vpn-android",
+        "sdkFolder": "D:\\tools\\tools\\lib",
         "isPrefabEnabled": false
       },
       "splitsAbiFilterSet": [],
       "stlSharedObjectMap": {
         "LIBCXX_SHARED": {
-          "ARMEABI_V7A": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
-          "ARM64_V8A": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
-          "X86": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
-          "X86_64": "/Users/friendwu/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+          "ARMEABI_V7A": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\arm-linux-androideabi\\libc++_shared.so",
+          "ARM64_V8A": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\libc++_shared.so",
+          "X86": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\i686-linux-android\\libc++_shared.so",
+          "X86_64": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\x86_64-linux-android\\libc++_shared.so"
         },
         "LIBCXX_STATIC": {},
         "NONE": {},
         "SYSTEM": {}
       }
     },
-    "objFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj",
+    "objFolder": "E:\\work\\lego-vpn-android\\app\\build\\intermediates\\cmake\\debug\\obj",
     "variantName": "debug",
     "validAbiList": [
       "ARMEABI_V7A",
@@ -197,8 +196,8 @@
       "X86",
       "X86_64"
     ],
-    "prefabDirectory": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/prefab",
+    "prefabDirectory": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\prefab",
     "prefabPackageDirectoryList": []
   },
-  "prefabFolder": "/Users/friendwu/Desktop/lego-vpn-android/app/.cxx/cmake/debug/prefab/armeabi-v7a"
+  "prefabFolder": "E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\prefab\\armeabi-v7a"
 }
