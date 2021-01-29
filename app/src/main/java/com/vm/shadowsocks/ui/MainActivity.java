@@ -930,6 +930,11 @@ public class MainActivity extends BaseActivity implements
         mGpsUtils = GPSUtils.getInstance(mainActivityThis);
         mGpsUtils.initPermission();
 
+        String countryCode = mGpsUtils.getCountryCode();
+        if (!countryCode.isEmpty() && countryCode != P2pLibManager.getInstance().local_country) {
+            P2pLibManager.getInstance().local_country = countryCode;
+        }
+
         init();
         initView();
         setVipStatus();
@@ -941,23 +946,6 @@ public class MainActivity extends BaseActivity implements
         InitSpinner();
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
-
-//        P2pLibManager.getInstance().Init();
-//        if (!P2pLibManager.getInstance().InitNetwork(this)) {
-//            Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
-//            try {
-//                Thread.sleep(1000);
-//            } catch(InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            this.finish();
-//            return;
-//        }
-
-//        int p2p_socket = getP2PSocket();
-//        if (!vpn_service.protect(p2p_socket)) {
-//            Log.e(TAG,"protect vpn socket failed");
-//        }
 
         //Pre-App Proxy
         if (AppProxyManager.isLollipopOrAbove) {

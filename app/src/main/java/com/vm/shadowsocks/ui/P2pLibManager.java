@@ -367,7 +367,6 @@ public final class P2pLibManager {
 
         byte[] rel = digest.digest(content.getBytes());
         String hex = Hex.encode(rel);
-        Log.d("TTTTTTTTTTTTTTTTTT xl", hex);
         adReward(hex);
     }
 
