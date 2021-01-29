@@ -3,7 +3,6 @@ package com.vm.shadowsocks.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,22 +11,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,7 +36,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.app.ListActivity;
 import android.net.VpnService;
-import android.widget.AdapterView;
 import android.os.Handler;
 import android.os.Message;
 
@@ -62,14 +53,12 @@ import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.formats.NativeAdOptions;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -77,47 +66,25 @@ import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdCallback;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-import com.google.android.gms.common.internal.Constants;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
 import com.vm.shadowsocks.R;
 import com.vm.shadowsocks.core.AppProxyManager;
 import com.vm.shadowsocks.core.LocalVpnService;
-import com.vm.shadowsocks.core.ProxyConfig;
 import com.yjsoft.tenonvpn.BaseActivity;
 import com.yjsoft.tenonvpn.ui.about.AboutActivity;
 import com.yjsoft.tenonvpn.ui.cash.CashActivity;
 import com.yjsoft.tenonvpn.ui.recharge.RechargeActivity;
 import com.yjsoft.tenonvpn.ui.settings.SettingsActivity;
 
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
-import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import at.grabner.circleprogress.CircleProgressView;
-import at.markushi.ui.CircleButton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.JSONArray;
-
 import android.widget.Spinner;
 
-import cn.forward.androids.utils.LogUtil;
-import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -126,26 +93,10 @@ import me.shaohui.bottomdialog.BottomDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
-
-import de.codecrafters.tableview.TableView;
-import de.codecrafters.tableview.model.TableColumnWeightModel;
-
-import androidx.core.content.ContextCompat;
-
 import java.lang.String;
 import java.util.concurrent.TimeUnit;
-
 import android.webkit.WebView;
-import android.webkit.WebSettings;
-import android.webkit.WebViewClient;
 import android.view.KeyEvent;
-
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class MainActivity extends BaseActivity implements
         View.OnClickListener,
@@ -160,47 +111,16 @@ public class MainActivity extends BaseActivity implements
     private static final String CONFIG_URL_KEY = "CONFIG_URL_KEY";
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
     private Calendar mCalendar;
-    private boolean StartVpnChecked = false;
     private Animation operatingAnim;
     private Vector<String> country_vec = new Vector<String>();
-    private String selectCountry = "America";
     private VpnService vpn_service = new VpnService();
     private CheckTransaction check_tx = new CheckTransaction();
     private static final int GOT_BALANCE = 3;
-    private int check_vip_times = 0;
-
-    private CheckBox global_mode_checkbox;
-    private HashMap<Integer, String> block_hashmap = new HashMap<Integer, String>();
-    int list_counter = 0;
-
-    public ArrayList<String> vpn_country_list = new ArrayList<String>();
-
-    private HashMap<String, Vector<String>> country_vpn_map = new HashMap<String, Vector<String>>();
     private HashMap<String, Vector<String>> country_route_map = new HashMap<String, Vector<String>>();
     private HashMap<String, String> country_to_short = new HashMap<String, String>();
-
-    private CircleProgressView mCircleView;
-
-    private Spinner mSpinner;
-    private String[] spinnerTitles;
-    private int[] spinnerImages;
     private String now_choosed_country = "US";
-    private BottomDialog bottom_dialog;
-    private BottomDialog webview_dialog;
-    private BottomDialog outof_bandwidth_dialog;
-
-    private String transactions_res = new String("");
     public static String choosed_vpn_url = "";
-    private final int kDefaultVpnServerPort = 9033;
-    private WebView wv_produce;
-    private Button web_view_open_btn;
-    private TextView tilte_text_view;
-    private long goback_prev_timestamp = 0;
     private boolean isExit;
-    private WebView pay_view;
-    private BottomDialog payview_dialog;
-
-    /////
     private boolean mIsShowPrivateKey = false;
     private boolean mIsConnect = false;
     private TextView mTvPrivateKey;
@@ -224,12 +144,9 @@ public class MainActivity extends BaseActivity implements
     private String[] checkOutNodeNames;
     private Vector<Integer> nodesNumbers = new Vector<Integer>();
     private boolean mMainIsVip = true;
-    private AdLoader mAdLoader = null;
     private RewardedAd rewardedAd;
-    private boolean bLoadingAds = false;
     private AdView mAdView;
     private ForegroundCallbacks foregroundCallbacks = null;
-    public int mRewardCount = 0;
     private GPSUtils mGpsUtils = null;
 
     private int[] county = {R.drawable.us
@@ -288,14 +205,6 @@ public class MainActivity extends BaseActivity implements
         }
     };
 
-    public void hideDialog(View view) {
-        bottom_dialog.dismiss();
-    }
-
-    public void hideOutofBandwidth(View view) {
-        outof_bandwidth_dialog.dismiss();
-    }
-
     public void copyAccount(View view) {
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData mClipData = ClipData.newPlainText("Label", P2pLibManager.getInstance().account_id);
@@ -345,10 +254,6 @@ public class MainActivity extends BaseActivity implements
         startActivity(intent);
     }
 
-    public void hidePayDialog(View view) {
-        payview_dialog.dismiss();
-    }
-
     public void resetPrikey(String tmp_prikey) {
         if (tmp_prikey.length() != 64) {
             Toast.makeText(this, getString(R.string.invalid_prikey) + ":" + tmp_prikey, Toast.LENGTH_SHORT).show();
@@ -380,7 +285,6 @@ public class MainActivity extends BaseActivity implements
 
         P2pLibManager.getInstance().private_key = tmp_prikey;
         mTvPrivateKey.setText(key);
-        check_vip_times = 0;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.restart_app));
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
@@ -447,14 +351,6 @@ public class MainActivity extends BaseActivity implements
         return super.onKeyDown(keyCode, event);
     }
 
-    public void showDialog(View view) {
-        bottom_dialog.show();
-    }
-
-    public void showBandwidthOutDialog(View view) {
-        outof_bandwidth_dialog.show();
-    }
-
     private void InitSpinner() {
         country_vec.add("America");
         country_vec.add("Brazil");
@@ -492,93 +388,6 @@ public class MainActivity extends BaseActivity implements
         country_to_short.put("England", "GB");
         country_to_short.put("Russia", "RU");
         country_to_short.put("China", "CN");
-
-        for (String value : country_to_short.values()) {
-            vpn_country_list.add(value);
-        }
-        spinnerTitles = new String[]{"America", "Singapore", "Brazil", "Germany", "Netherlands", "France", "Korea", "Japan", "Canada", "Australia", "Hong Kong", "India", "England", "Russia", "China"};
-        spinnerImages = new int[]{
-                R.drawable.us
-                , R.drawable.sg
-                , R.drawable.br
-                , R.drawable.de
-                , R.drawable.nl
-                , R.drawable.fr
-                , R.drawable.kr
-                , R.drawable.jp
-                , R.drawable.ca
-                , R.drawable.au
-                , R.drawable.hk
-                , R.drawable.in
-                , R.drawable.gb
-                , R.drawable.ru
-                , R.drawable.cn
-        };
-    }
-
-    protected void InitGoogleAds(Context context) {
-        if (mAdLoader == null) {
-            mAdLoader = new AdLoader.Builder(context, "ca-app-pub-3940256099942544/6300978111")
-                    .forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
-                        @Override
-                        public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
-                            int decode = 128;
-                            ColorDrawable colorDrawable = new ColorDrawable(decode);
-                            NativeTemplateStyle styles = new
-                                    NativeTemplateStyle.Builder().withMainBackgroundColor(colorDrawable).build();
-                            TemplateView template = findViewById(R.id.my_template);
-                            template.setVisibility(View.VISIBLE);
-                            ViewGroup.LayoutParams lp;
-                            LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.my_layout);
-                            lp = mLinearLayout.getLayoutParams();
-                            lp.height = 200;
-                            mLinearLayout.setLayoutParams(lp);
-                            template.setStyles(styles);
-                            template.setNativeAd(unifiedNativeAd);
-                            if (mConnectingDialog == null) {
-                                return;
-                            }
-
-                            mConnectingDialog.dismiss();
-                            mIsConnect = true;
-                            mFlConnect.setBackgroundResource(R.drawable.selector_connect);
-                            mIvConnect.setImageResource(R.drawable.connected);
-                            mTvConnect.setText(R.string.connected);
-                            mTvConnect.setTextColor(getResources().getColor(R.color.colorConnect));
-                            mTvConnectDesc.setVisibility(View.VISIBLE);
-                            mLlConnect.setBackgroundResource(R.drawable.selector_connect_inner);
-                            mIvSecurity.setVisibility(View.VISIBLE);
-                            mPb.setProgress(0);
-                            mCountDownTimer.dispose();
-                        }
-                    })
-                    .withAdListener(new AdListener() {
-                        @Override
-                        public void onAdFailedToLoad(int errorCode) {
-                            // 链接失败
-                            if (mConnectingDialog == null) {
-                                return;
-                            }
-                            mConnectingDialog.dismiss();
-                            mIsConnect = true;
-                            mFlConnect.setBackgroundResource(R.drawable.selector_connect);
-                            mIvConnect.setImageResource(R.drawable.connected);
-                            mTvConnect.setText(R.string.connected);
-                            mTvConnect.setTextColor(getResources().getColor(R.color.colorConnect));
-                            mTvConnectDesc.setVisibility(View.VISIBLE);
-                            mLlConnect.setBackgroundResource(R.drawable.selector_connect_inner);
-                            mIvSecurity.setVisibility(View.VISIBLE);
-                            mPb.setProgress(0);
-                            mCountDownTimer.dispose();
-                        }
-                    }).withNativeAdOptions(new NativeAdOptions.Builder()
-                            // Methods in the NativeAdOptions.Builder class can be
-                            // used here to specify individual options settings.
-                            .build())
-                    .build();
-        }
-
-        mAdLoader.loadAds(new AdRequest.Builder().build(), 3);
     }
 
     ///////////////////////////
@@ -659,7 +468,6 @@ public class MainActivity extends BaseActivity implements
             }
         });
         mFlConnect = findViewById(R.id.fl_connect);
-//        mFlConnect.setOnClickListener(this);
         mLlConnect = findViewById(R.id.ll_connect);
         mLlConnect.setOnClickListener(this);
 
@@ -688,11 +496,6 @@ public class MainActivity extends BaseActivity implements
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-//        LinearLayout mLinearLayout = (LinearLayout) findViewById(R.id.my_layout);
-//        ViewGroup.LayoutParams lp;
-//        lp = mLinearLayout.getLayoutParams();
-//        lp.height = 200;
-//        mLinearLayout.setLayoutParams(lp);
     }
 
     private void showSelectNodesDialog() {
@@ -718,11 +521,8 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void copyAccount(String text) {
-        //获取剪贴板管理器：
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        // 创建普通字符型ClipData
         ClipData mClipData = ClipData.newPlainText("Label", text);
-        // 将ClipData内容放到系统剪贴板里。
         if (cm != null) {
             cm.setPrimaryClip(mClipData);
         }
@@ -791,13 +591,14 @@ public class MainActivity extends BaseActivity implements
     private Integer checkVipStatus() {
         if (mMainIsVip) {
             if (P2pLibManager.getInstance().vip_left_days < 0) {
-                changeMainToFree();
+                //changeMainToFree();
+                //changeMainToVip();
                 Toast.makeText(this, getString(R.string.can_not_get_balance), Toast.LENGTH_LONG).show();
                 return 1;
             }
 
             if (P2pLibManager.getInstance().vip_left_days == 0) {
-                changeMainToFree();
+                //changeMainToFree();
                 Toast.makeText(this, getString(R.string.is_not_vip), Toast.LENGTH_LONG).show();
                 return 1;
             }
@@ -844,7 +645,6 @@ public class MainActivity extends BaseActivity implements
         }
 
         if (rewardedAd.isLoaded()) {
-            bLoadingAds = true;
             Activity activityContext = MainActivity.this;
             RewardedAdCallback adCallback = new RewardedAdCallback() {
                 @Override
@@ -880,7 +680,6 @@ public class MainActivity extends BaseActivity implements
     }
     private void toggleConnect() {
         if (LocalVpnService.IsRunning) {
-            bLoadingAds = false;
             LocalVpnService.IsRunning = false;
         } else {
             checkVipStatus();
@@ -925,11 +724,10 @@ public class MainActivity extends BaseActivity implements
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        rewardedAd = createAndLoadRewardedAd();
 
+        rewardedAd = createAndLoadRewardedAd();
         mGpsUtils = GPSUtils.getInstance(mainActivityThis);
         mGpsUtils.initPermission();
-
         String countryCode = mGpsUtils.getCountryCode();
         if (!countryCode.isEmpty() && countryCode != P2pLibManager.getInstance().local_country) {
             P2pLibManager.getInstance().local_country = countryCode;
@@ -939,18 +737,15 @@ public class MainActivity extends BaseActivity implements
         initView();
         setVipStatus();
         foregroundCallbacks = ForegroundCallbacks.get(this.getApplication());
-
         TemplateView template = findViewById(R.id.my_template);
         template.setVisibility(View.INVISIBLE);
-
         InitSpinner();
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
-
-        //Pre-App Proxy
         if (AppProxyManager.isLollipopOrAbove) {
             new AppProxyManager(this);
         }
+
         operatingAnim = AnimationUtils.loadAnimation(this, R.anim.tip);
         LinearInterpolator lin = new LinearInterpolator();
         operatingAnim.setInterpolator(lin);
@@ -958,100 +753,10 @@ public class MainActivity extends BaseActivity implements
         if (P2pLibManager.getInstance().now_balance == -1) {
             P2pLibManager.createAccount();
         }
+
         mTvAccount.setText(P2pLibManager.getInstance().account_id);
         Thread t1 = new Thread(check_tx, "check tx");
         t1.start();
-        Log.e("init", "init OK");
-//        bottom_dialog = BottomDialog.create(getSupportFragmentManager())
-//                .setViewListener(new BottomDialog.ViewListener() {
-//                    @Override
-//                    public void bindView(View v) {
-//                        initView(v);
-//                    }
-//                })
-//                .setLayoutRes(R.layout.dialog_layout)
-//                .setDimAmount(0.1f)
-//                .setCancelOutside(false)
-//                .setTag("BottomDialog");
-//
-//        webview_dialog = BottomDialog.create(getSupportFragmentManager());
-//        webview_dialog.setViewListener(new BottomDialog.ViewListener() {
-//                    @Override
-//                    public void bindView(View v) {
-//                        initWebView(v);
-//
-//                        webview_dialog.getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                        webview_dialog.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-//                            @Override
-//                            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-//                                if (i == KeyEvent.KEYCODE_BACK) {
-//                                    long now_timestamp = System.currentTimeMillis();
-//                                    if (now_timestamp - goback_prev_timestamp <= 200) {
-//                                        return true;
-//                                    }
-//
-//                                    goback_prev_timestamp = now_timestamp;
-//                                    if (wv_produce.canGoBack()) {
-//                                        wv_produce.goBack();
-//                                        return true;
-//                                    } else {
-//                                        web_view_open_btn.setText(getString(R.string.navigation_string));
-//                                        tilte_text_view.setText("TenonVPN");
-//                                        webview_dialog.dismiss();
-//                                        return false;
-//                                    }
-//                                }
-//                                return true;
-//                            }
-//                        });
-//                    }
-//                })
-//                .setLayoutRes(R.layout.link_web)
-//                .setDimAmount(0.1f)
-//                .setCancelOutside(false)
-//                .setTag("WebviewDialog");
-//
-//        outof_bandwidth_dialog = BottomDialog.create(getSupportFragmentManager());
-//        outof_bandwidth_dialog.setViewListener(new BottomDialog.ViewListener() {
-//            @Override
-//            public void bindView(View view) {
-//                Button bwo_buy_tenon = (Button) view.findViewById(R.id.dlg_bwo_buy_tenon);
-//                bwo_buy_tenon.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        buyTenon(v);
-//                    }
-//                });
-//
-//                Button bwo_hide = (Button) view.findViewById(R.id.dlg_bwo_hide);
-//                bwo_hide.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        outof_bandwidth_dialog.dismiss();
-//                    }
-//                });
-//
-//                outof_bandwidth_dialog.getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
-//                    @Override
-//                    public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
-//                        if (i == KeyEvent.KEYCODE_BACK) {
-//                            long now_timestamp = System.currentTimeMillis();
-//                            if (now_timestamp - goback_prev_timestamp <= 200) {
-//                                return true;
-//                            }
-//
-//                            goback_prev_timestamp = now_timestamp;
-//                            if (pay_view.canGoBack()) {
-//                                pay_view.goBack();
-//                                return true;
-//                            } else {
-//                                outof_bandwidth_dialog.dismiss();
-//                                return false;
-//                            }
-//                        }
-//                        return true;
-//                    }
-//                });
-//            }
-//        }) .setLayoutRes(R.layout.outof_bandwidth).setDimAmount(0.1f).setCancelOutside(false).setTag("outbandwidthDialog");
     }
 
     String getVersionName() {
@@ -1104,8 +809,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onStatusChanged(String status, Boolean isRunning) {
-//        CircleButton c_btn = (CircleButton)findViewById(R.id.start_vpn);
-//        c_btn.setEnabled(true);
         if (isRunning) {
             String res = P2pLibManager.getInstance().VpnConnected();
             String fd_res[] = res.split(",");
@@ -1156,23 +859,6 @@ public class MainActivity extends BaseActivity implements
     }
 
     public void startVpn(View view) {
-//        TextView notice_txt = (TextView)findViewById(R.id.notice_text);
-//        notice_txt.setText("");
-//        if (P2pLibManager.getInstance().now_status.equals("bwo")) {
-//            if (P2pLibManager.getInstance().now_balance >= P2pLibManager.getInstance().min_payfor_vpn_tenon || P2pLibManager.getInstance().vip_level > 0) {
-//                P2pLibManager.getInstance().now_status = "ok";
-//                P2pLibManager.getInstance().PayforVpn();
-//            } else {
-//                showBandwidthOutDialog(view);
-//                // Toast.makeText(MainActivity.this, getString(R.string.bandwidth_over), Toast.LENGTH_SHORT).show();
-//            }
-//            return;
-//        }
-
-//        if (P2pLibManager.getInstance().now_status.equals("cni")) {
-//            Toast.makeText(MainActivity.this, getString(R.string.invalid_country), Toast.LENGTH_SHORT).show();
-//            return;
-//        }
         if (LocalVpnService.IsRunning != true) {
             Intent intent = LocalVpnService.prepare(this);
             if (intent == null) {
@@ -1274,16 +960,14 @@ public class MainActivity extends BaseActivity implements
             Toast.makeText(this, "Waiting Decentralized Vpn Server...", Toast.LENGTH_SHORT).show();
             return;
         }
+
         String[] item_split = vpn_proxy_url.split(":");
         if (item_split.length < 7) {
             Toast.makeText(this, "Waiting Decentralized Vpn Server...", Toast.LENGTH_SHORT).show();
             return;
         }
+
         String direct_vpn_proxy_url = "ss://aes-128-cfb:passwd@" + item_split[0] + ":" + item_split[1];
-        //String login_gid = vpnLogin(item_split[6]);
-        //Log.e(TAG, "join account address:" + item_split[6]);
-
-
         boolean res = P2pLibManager.getInstance().GetVpnNode();
         if (!res) {
             Toast.makeText(this, "Waiting Decentralized Vpn Server...", Toast.LENGTH_SHORT).show();
@@ -1302,10 +986,7 @@ public class MainActivity extends BaseActivity implements
             Log.e(TAG, P2pLibManager.getInstance().choosed_country + ":" + P2pLibManager.getInstance().local_country + " direct to " + vpn_proxy_url);
         }
         startService(new Intent(this, LocalVpnService.class));
-//        CircleButton c_btn = (CircleButton)findViewById(R.id.start_vpn);
-//        c_btn.setEnabled(false);
         LocalVpnService.IsRunning = true;
-//        mCircleView.spin();
         if (mIsConnect) {
             // 未连接
             mIsConnect = false;
@@ -1317,9 +998,7 @@ public class MainActivity extends BaseActivity implements
             mLlConnect.setBackgroundResource(R.drawable.selector_un_connect_inner);
             mIvSecurity.setVisibility(View.INVISIBLE);
         } else {
-            // 已连接
             showConnectDialog();
-            // 模拟链接中
             mCountDownTimer = Observable
                     .interval(0, 1, TimeUnit.MILLISECONDS)
                     .take(7000)
