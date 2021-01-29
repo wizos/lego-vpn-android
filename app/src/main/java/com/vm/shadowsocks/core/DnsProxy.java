@@ -151,9 +151,7 @@ public class DnsProxy implements Runnable {
                 if (ProxyConfig.Instance.needProxy(question.Domain, realIP)) {
                     int fakeIP = getOrCreateFakeIP(question.Domain);
                     tamperDnsResponse(rawPacket, dnsPacket, fakeIP);
-                    if (ProxyConfig.IS_DEBUG)
-                        System.out.printf("FakeDns: %s=>%s(%s)\n", question.Domain, CommonMethods.ipIntToString(realIP), CommonMethods.ipIntToString(fakeIP));
-                    return true;
+                     return true;
                 }
             }
         }
@@ -201,10 +199,6 @@ public class DnsProxy implements Runnable {
             if (ProxyConfig.Instance.needProxy(question.Domain, getIPFromCache(question.Domain))) {
                 int fakeIP = getOrCreateFakeIP(question.Domain);
                 tamperDnsResponse(ipHeader.m_Data, dnsPacket, fakeIP);
-
-                if (ProxyConfig.IS_DEBUG)
-                    System.out.printf("interceptDns FakeDns: %s=>%s\n", question.Domain, CommonMethods.ipIntToString(fakeIP));
-
                 int sourceIP = ipHeader.getSourceIP();
                 short sourcePort = udpHeader.getSourcePort();
                 ipHeader.setSourceIP(ipHeader.getDestinationIP());

@@ -37,11 +37,9 @@ public class ChinaIpMaskManager {
                     int mask = CommonMethods.readInt(buffer, i + 4);
                     ChinaIpMaskDict.put(ip, mask);
                     MaskDict.put(mask, mask);
-                    //System.out.printf("%s/%s\n", CommonMethods.IP2String(ip),CommonMethods.IP2String(mask));
                 }
             }
             inputStream.close();
-            System.out.printf("ChinaIpMask records count: %d\n", ChinaIpMaskDict.size());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -147,7 +147,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends BaseActivity implements
         View.OnClickListener,
         OnCheckedChangeListener,
         LocalVpnService.onStatusChangedListener  {
@@ -825,7 +825,6 @@ public class MainActivity extends AppCompatActivity implements
             public void onRewardedAdFailedToLoad(LoadAdError adError) {
                 // Ad failed to load.
                 createAndLoadRewardedAd();
-                System.out.println("failed to load ad.");
             }
         };
         rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
@@ -851,7 +850,6 @@ public class MainActivity extends AppCompatActivity implements
                 @Override
                 public void onRewardedAdOpened() {
                     // Ad opened.
-                    System.out.println("onRewardedAdOpened");
                     if (directShow) {
                         P2pLibManager.getInstance().showAdCalled = true;
                     }
@@ -860,7 +858,6 @@ public class MainActivity extends AppCompatActivity implements
                 @Override
                 public void onRewardedAdClosed() {
                     // Ad closed.
-                    System.out.println("onRewardedAdClosed");
                     rewardedAd = createAndLoadRewardedAd();
                     P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
                 }
@@ -882,7 +879,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
     private void toggleConnect() {
-        System.out.println("toggleConnect");
         if (LocalVpnService.IsRunning) {
             bLoadingAds = false;
             LocalVpnService.IsRunning = false;
@@ -933,7 +929,6 @@ public class MainActivity extends AppCompatActivity implements
 
         mGpsUtils = GPSUtils.getInstance(mainActivityThis);
         mGpsUtils.initPermission();
-        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFF: " + mGpsUtils.getCountryCode());
 
         init();
         initView();
@@ -1157,7 +1152,6 @@ public class MainActivity extends AppCompatActivity implements
                 mCountDownTimer.dispose();
             } else {
                 ShowAd(false);
-                System.out.println("connect and now show ad.");
             }
         } else {
             mIsConnect = false;
@@ -1476,23 +1470,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        // TODO Auto-generated method stub
-//        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-//        if (grantResults.length == 0) {
-//            return;
-//        }
-//
-//        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-////              Toast.makeText(MainActivity.this, "授权位置信息 Denied", Toast.LENGTH_SHORT)
-////                .show();
-//            mGpsUtils = GPSUtils.getInstance(this);
-//            mGpsUtils.initPermission();
-//            System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF 111111 ");
-//
-//        }
-//    }
 }
 
 //public class GooglePlayHelper {

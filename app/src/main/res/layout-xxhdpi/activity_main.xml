@@ -76,7 +76,8 @@
                         android:layout_marginStart="4dp"
                         android:text="@string/share"
                         android:onClick="shareTenon"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="4dp" />
                 </LinearLayout>
             </LinearLayout>
 

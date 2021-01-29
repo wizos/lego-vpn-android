@@ -30,7 +30,6 @@ public class TcpProxyServer implements Runnable {
         m_ServerSocketChannel.register(m_Selector, SelectionKey.OP_ACCEPT);
         this.Port = (short) m_ServerSocketChannel.socket().getLocalPort();
         Log.e("local proxy", "start tcp server " + port + ":" + (int)this.Port);
-        System.out.printf("AsyncTcpServer listen on %d success.\n", this.Port & 0xFFFF);
     }
 
     public void start() {
@@ -100,8 +99,6 @@ public class TcpProxyServer implements Runnable {
         NatSession session = NatSessionManager.getSession(portKey);
         if (session != null) {
             if (ProxyConfig.Instance.needProxy(session.RemoteHost, session.RemoteIP)) {
-                if (ProxyConfig.IS_DEBUG)
-                    System.out.printf("%d/%d:[PROXY] %s=>%s:%d\n", NatSessionManager.getSessionCount(), Tunnel.SessionCount, session.RemoteHost, CommonMethods.ipIntToString(session.RemoteIP), session.RemotePort & 0xFFFF);
                 return InetSocketAddress.createUnresolved(session.RemoteHost, session.RemotePort & 0xFFFF);
             } else {
                 return new InetSocketAddress(localChannel.socket().getInetAddress(), session.RemotePort & 0xFFFF);

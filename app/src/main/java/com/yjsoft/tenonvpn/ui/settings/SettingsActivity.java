@@ -115,8 +115,8 @@ public class SettingsActivity extends BaseActivity {
                 .setSingleChoiceItems(languages, index, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
                         changeLanguage(languages[which]);
+                        dialog.dismiss();
                     }
                 })
                 .show();
