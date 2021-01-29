@@ -81,21 +81,17 @@ import java.util.List;
 import java.util.Vector;
 import java.util.ArrayList;
 import java.util.HashMap;
-import at.grabner.circleprogress.CircleProgressView;
 import org.json.JSONArray;
-import android.widget.Spinner;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import me.shaohui.bottomdialog.BottomDialog;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import java.lang.String;
 import java.util.concurrent.TimeUnit;
-import android.webkit.WebView;
 import android.view.KeyEvent;
 
 public class MainActivity extends BaseActivity implements
@@ -212,48 +208,6 @@ public class MainActivity extends BaseActivity implements
         Toast.makeText(this, getString(R.string.copy_succ), Toast.LENGTH_SHORT).show();
     }
 
-    public void copyPrikey(View view) {
-        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData mClipData = ClipData.newPlainText("Label", P2pLibManager.getInstance().private_key);
-        cm.setPrimaryClip(mClipData);
-        Toast.makeText(this, getString(R.string.copy_succ), Toast.LENGTH_SHORT).show();
-    }
-
-    public void shareVip(View view) {
-        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData mClipData = ClipData.newPlainText("Label", P2pLibManager.getInstance().share_ip + "?id=" + P2pLibManager.getInstance().account_id);
-        cm.setPrimaryClip(mClipData);
-        Toast.makeText(this, getString(R.string.copy_share_vip), Toast.LENGTH_SHORT).show();
-    }
-
-    public void JoinUs(View view) {
-        String url = "https://github.com/tenondvpn/tenonvpn-join";
-        if (url.isEmpty() || url.startsWith("file")) {
-            Toast.makeText(this, getString(R.string.select_a_website_string), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(uri);
-        startActivity(intent);
-    }
-
-    public void buyTenon(View view) {
-        String url = P2pLibManager.getInstance().buy_tenon_ip + "/chongzhi/" + P2pLibManager.getInstance().account_id;
-        if (url.isEmpty() || url.startsWith("file")) {
-            Toast.makeText(this, getString(R.string.select_a_website_string), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(uri);
-        startActivity(intent);
-    }
-
     public void resetPrikey(String tmp_prikey) {
         if (tmp_prikey.length() != 64) {
             Toast.makeText(this, getString(R.string.invalid_prikey) + ":" + tmp_prikey, Toast.LENGTH_SHORT).show();
@@ -310,12 +264,20 @@ public class MainActivity extends BaseActivity implements
             } else {
                 balance.setText("0 Ten");
             }
+
+            LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
+            if (P2pLibManager.getInstance().vip_left_days > 0) {
+                lay_out.setVisibility(View.GONE);
+            } else {
+                lay_out.setVisibility(View.VISIBLE);
+            }
         } else {
             TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
             leftDays.setText("- - " + getString(R.string.layters_over_after));
             TextView balance = (TextView) findViewById(R.id.balance_lego);
             balance.setText("- - Ten");
         }
+
     }
 
     public void shareTenon(View view) {
@@ -492,10 +454,14 @@ public class MainActivity extends BaseActivity implements
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+        if (P2pLibManager.getInstance().vip_left_days > 0) {
+            LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
+            lay_out.setVisibility(View.GONE);
+        }
     }
 
     private void showSelectNodesDialog() {
@@ -1095,10 +1061,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     public class CheckTransaction extends ListActivity implements Runnable {
-        public List<String> gid_list = new ArrayList<String>();
         private ArrayList<String> not_get_country_list = new ArrayList<String>();
-        private int bandwidth_used = 0;
-
         public void run() {
             for (String value : country_to_short.values()) {
                 not_get_country_list.add(value);
@@ -1129,14 +1092,7 @@ public class MainActivity extends BaseActivity implements
                 }
             }
         }
-
-        public void AddTxGid(String tx_gid) {
-            synchronized (this) {
-                gid_list.add(tx_gid);
-            }
-        }
     }
-
 }
 
 //public class GooglePlayHelper {

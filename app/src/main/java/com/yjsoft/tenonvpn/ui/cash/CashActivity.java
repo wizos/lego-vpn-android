@@ -90,6 +90,7 @@ public class CashActivity extends BaseActivity {
             return;
         }
 
+        cash_count.setText("0");
         Toast.makeText(this, getString(R.string.transaction_success) , Toast.LENGTH_SHORT).show();
     }
 
