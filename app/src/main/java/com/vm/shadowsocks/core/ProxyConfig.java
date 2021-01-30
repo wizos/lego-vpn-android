@@ -100,6 +100,166 @@ public class ProxyConfig {
 //        m_DomainMap = new HashMap<String, Boolean>();
         m_Timer = new Timer();
         m_Timer.schedule(m_Task, 120000, 120000);//每两分钟刷新一次。
+        proxyDomainSet.add("google");
+        proxyDomainSet.add("youtube");
+        proxyDomainSet.add("facebook");
+        proxyDomainSet.add("wikipedia");
+        proxyDomainSet.add("twitter");
+        proxyDomainSet.add("live");
+        proxyDomainSet.add("yahoo");
+        proxyDomainSet.add("reddit");
+        proxyDomainSet.add("netflix");
+        proxyDomainSet.add("blogspot");
+        proxyDomainSet.add("bing");
+        proxyDomainSet.add("instagram");
+        proxyDomainSet.add("zoom");
+        proxyDomainSet.add("twitch");
+        proxyDomainSet.add("fc2");
+        proxyDomainSet.add("xhamster");
+        proxyDomainSet.add("tumblr");
+        proxyDomainSet.add("pinterest");
+        proxyDomainSet.add("amazon");
+        proxyDomainSet.add("pornhub");
+        proxyDomainSet.add("xvideos");
+        proxyDomainSet.add("imgur");
+        proxyDomainSet.add("thepiratebay");
+        proxyDomainSet.add("whatsapp");
+        proxyDomainSet.add("amazonaws");
+        proxyDomainSet.add("dailymotion");
+        proxyDomainSet.add("medium");
+        proxyDomainSet.add("quora");
+        proxyDomainSet.add("bbc");
+        proxyDomainSet.add("nytimes");
+        proxyDomainSet.add("vimeo");
+        proxyDomainSet.add("theguardian");
+        proxyDomainSet.add("slideshare");
+        proxyDomainSet.add("deviantart");
+        proxyDomainSet.add("telegram");
+        proxyDomainSet.add("soundcloud");
+        proxyDomainSet.add("washingtonpost");
+        proxyDomainSet.add("slack");
+        proxyDomainSet.add("nicovideo");
+        proxyDomainSet.add("archive");
+        proxyDomainSet.add("scribd");
+        proxyDomainSet.add("line");
+        proxyDomainSet.add("mega");
+        proxyDomainSet.add("xing");
+        proxyDomainSet.add("hardsextube");
+        proxyDomainSet.add("drtuber");
+        proxyDomainSet.add("wikimedia");
+        proxyDomainSet.add("bloomberg");
+        proxyDomainSet.add("e-hentai");
+        proxyDomainSet.add("goodreads");
+        proxyDomainSet.add("flickr");
+        proxyDomainSet.add("huffpost");
+        proxyDomainSet.add("duckduckgo");
+        proxyDomainSet.add("wattpad");
+        proxyDomainSet.add("spiegel");
+        proxyDomainSet.add("independent");
+        proxyDomainSet.add("wsj");
+        proxyDomainSet.add("Feedly");
+        proxyDomainSet.add("yomiuri");
+        proxyDomainSet.add("reuters");
+        proxyDomainSet.add("PChome");
+        proxyDomainSet.add("nikkeibp");
+        proxyDomainSet.add("nbcnews");
+        proxyDomainSet.add("disqus");
+        proxyDomainSet.add("badoo");
+        proxyDomainSet.add("exhentai");
+        proxyDomainSet.add("eporner");
+        proxyDomainSet.add("appledaily");
+        proxyDomainSet.add("nintendo");
+        proxyDomainSet.add("technorati");
+        proxyDomainSet.add("archiveofourown");
+        proxyDomainSet.add("pixiv");
+        proxyDomainSet.add("viber");
+        proxyDomainSet.add("nordvpn");
+        proxyDomainSet.add("scmp");
+        proxyDomainSet.add("plurk");
+        proxyDomainSet.add("economist");
+        proxyDomainSet.add("rfi");
+        proxyDomainSet.add("change");
+        proxyDomainSet.add("smh");
+        proxyDomainSet.add("Internet");
+        proxyDomainSet.add("voanews");
+        proxyDomainSet.add("inoreader");
+        proxyDomainSet.add("nbc");
+        proxyDomainSet.add("rfa");
+        proxyDomainSet.add("pbworks");
+        proxyDomainSet.add("straitstimes");
+        proxyDomainSet.add("theepochtimes");
+        proxyDomainSet.add("moegirl");
+        proxyDomainSet.add("sony");
+        proxyDomainSet.add("aljazeera");
+        proxyDomainSet.add("worldcat");
+        proxyDomainSet.add("tapatalk");
+        proxyDomainSet.add("hbo");
+        proxyDomainSet.add("Flipboard");
+        proxyDomainSet.add("wikiquote");
+        proxyDomainSet.add("minghui");
+        proxyDomainSet.add("ndr");
+        proxyDomainSet.add("boxun");
+        proxyDomainSet.add("akinator");
+        proxyDomainSet.add("wikiversity");
+        proxyDomainSet.add("ntdtv");
+        proxyDomainSet.add("1688");
+        proxyDomainSet.add("Shield");
+        proxyDomainSet.add("tvb");
+        proxyDomainSet.add("getlantern");
+        proxyDomainSet.add("hrw");
+        proxyDomainSet.add("wikileaks");
+        proxyDomainSet.add("theinitium");
+        proxyDomainSet.add("sonymusic");
+        proxyDomainSet.add("kadokawa");
+        proxyDomainSet.add("shadowsocks");
+        proxyDomainSet.add("openvpn");
+        proxyDomainSet.add("gab");
+        proxyDomainSet.add("allmovie");
+        proxyDomainSet.add("amnesty");
+        proxyDomainSet.add("rferl");
+        proxyDomainSet.add("wikinews");
+        proxyDomainSet.add("torproject");
+        proxyDomainSet.add("rsf");
+        proxyDomainSet.add("tvr");
+        proxyDomainSet.add("livestation");
+        proxyDomainSet.add("akamai");
+        proxyDomainSet.add("greatfire");
+        proxyDomainSet.add("falundafa");
+        proxyDomainSet.add("dalailama");
+        proxyDomainSet.add("americanbar");
+        proxyDomainSet.add("freetibet");
+        proxyDomainSet.add("tibet");
+        proxyDomainSet.add("rri");
+        proxyDomainSet.add("sluggn");
+        proxyDomainSet.add("citizenpowerforchina");
+        proxyDomainSet.add("spotify");
+        proxyDomainSet.add("pandora");
+        proxyDomainSet.add("imdb");
+        proxyDomainSet.add("hulu");
+        proxyDomainSet.add("steampowered");
+        proxyDomainSet.add("blizzard");
+        proxyDomainSet.add("tripadvisor");
+        proxyDomainSet.add("airbnb");
+        proxyDomainSet.add("ted");
+        proxyDomainSet.add("udemy");
+        proxyDomainSet.add("coursera");
+        proxyDomainSet.add("snapchat");
+        proxyDomainSet.add("linkddin");
+        proxyDomainSet.add("wikihow");
+        proxyDomainSet.add("wikioedia");
+        proxyDomainSet.add("ebay");
+        proxyDomainSet.add("paypal");
+        proxyDomainSet.add("blogger");
+        proxyDomainSet.add("wordpress");
+        proxyDomainSet.add("pixabay");
+        proxyDomainSet.add("nationalgeographic");
+        proxyDomainSet.add("smallpdf");
+        proxyDomainSet.add("stackoverflow");
+        proxyDomainSet.add("github");
+        proxyDomainSet.add("digitalocean");
+        proxyDomainSet.add("godaddy");
+
+        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: " + proxyDomainSet.contains("google"));
     }
 
     TimerTask m_Task = new TimerTask() {
@@ -222,25 +382,35 @@ public class ProxyConfig {
     }
 
     boolean proxyDomain(String host) {
-        if (host.indexOf("google") > 0) {
-            return true;
-        }
+        String[] host_splits = host.split("\\.");
+        for (int i = 0; i < host_splits.length; ++i) {
+            if (host_splits[i].equals("www") || host_splits[i].equals("net") || host_splits[i].equals("org") || host_splits[i].equals("com")) {
+                continue;
+            }
 
-        if (host.indexOf("facebook") > 0) {
-            return true;
+            if (proxyDomainSet.contains(host_splits[i])) {
+                return true;
+            }
         }
-
-        if (host.indexOf("twitter") > 0) {
-            return true;
-        }
-
-        if (host.indexOf("telegram") > 0) {
-            return true;
-        }
-
-        if (host.indexOf("pornhub") > 0) {
-            return true;
-        }
+//        if (host.indexOf("google") > 0) {
+//            return true;
+//        }
+//
+//        if (host.indexOf("facebook") > 0) {
+//            return true;
+//        }
+//
+//        if (host.indexOf("twitter") > 0) {
+//            return true;
+//        }
+//
+//        if (host.indexOf("telegram") > 0) {
+//            return true;
+//        }
+//
+//        if (host.indexOf("pornhub") > 0) {
+//            return true;
+//        }
         return false;
     }
 
