@@ -108,12 +108,10 @@ public class MainActivity extends BaseActivity implements
     private static final int START_VPN_SERVICE_REQUEST_CODE = 1985;
     private Calendar mCalendar;
     private Animation operatingAnim;
-    private Vector<String> country_vec = new Vector<String>();
     private VpnService vpn_service = new VpnService();
     private CheckTransaction check_tx = new CheckTransaction();
     private static final int GOT_BALANCE = 3;
     private HashMap<String, Vector<String>> country_route_map = new HashMap<String, Vector<String>>();
-    private HashMap<String, String> country_to_short = new HashMap<String, String>();
     private String now_choosed_country = "US";
     public static String choosed_vpn_url = "";
     private boolean isExit;
@@ -145,7 +143,9 @@ public class MainActivity extends BaseActivity implements
     private ForegroundCallbacks foregroundCallbacks = null;
     private GPSUtils mGpsUtils = null;
 
-    private int[] county = {R.drawable.us
+    private int[] county = {
+            R.drawable.aa
+            , R.drawable.us
             , R.drawable.cn
             , R.drawable.sg
             , R.drawable.jp
@@ -311,45 +311,6 @@ public class MainActivity extends BaseActivity implements
         }
 
         return super.onKeyDown(keyCode, event);
-    }
-
-    private void InitSpinner() {
-        country_vec.add("America");
-        country_vec.add("Brazil");
-        country_vec.add("Germany");
-        country_vec.add("France");
-        country_vec.add("Korea");
-        country_vec.add("Netherlands");
-        country_vec.add("Canada");
-        country_vec.add("Australia");
-        country_vec.add("Portugal");
-        country_vec.add("Japan");
-        country_vec.add("Hong Kong");
-        country_vec.add("New Zealand");
-        country_vec.add("India");
-        country_vec.add("Indonesia");
-        country_vec.add("England");
-        country_vec.add("Russia");
-        country_vec.add("China");
-
-        country_to_short.put("Australia", "AU");
-        country_to_short.put("Singapore", "SG");
-        country_to_short.put("Brazil", "BR");
-        country_to_short.put("Germany", "DE");
-        country_to_short.put("France", "FR");
-        country_to_short.put("Korea", "KR");
-        country_to_short.put("Netherlands", "NL");
-        country_to_short.put("Canada", "CA");
-        country_to_short.put("America", "US");
-        country_to_short.put("Portugal", "PT");
-        country_to_short.put("Japan", "JP");
-        country_to_short.put("Hong Kong", "HK");
-        country_to_short.put("New Zealand", "NZ");
-        country_to_short.put("India", "IN");
-        country_to_short.put("Indonesia", "ID");
-        country_to_short.put("England", "GB");
-        country_to_short.put("Russia", "RU");
-        country_to_short.put("China", "CN");
     }
 
     ///////////////////////////
@@ -705,7 +666,6 @@ public class MainActivity extends BaseActivity implements
         foregroundCallbacks = ForegroundCallbacks.get(this.getApplication());
         TemplateView template = findViewById(R.id.my_template);
         template.setVisibility(View.INVISIBLE);
-        InitSpinner();
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
         if (AppProxyManager.isLollipopOrAbove) {
@@ -1061,12 +1021,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     public class CheckTransaction extends ListActivity implements Runnable {
-        private ArrayList<String> not_get_country_list = new ArrayList<String>();
         public void run() {
-            for (String value : country_to_short.values()) {
-                not_get_country_list.add(value);
-            }
-
             while (true) {
                 {
                     long now_balance = P2pLibManager.getBalance();

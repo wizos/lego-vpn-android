@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="county">
+        <item>Automatic&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;,US</item>
         <item>America&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;,US</item>
         <item>China&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;,CN</item>
         <item>Singapore&#160;&#160;&#160;&#160;&#160;&#160;,SG</item>
