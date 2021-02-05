@@ -99,7 +99,7 @@ public class RechargeActivity extends BaseActivity {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, paypalConfig);
         startService(intent);
         initView(getWindow().getDecorView());
-        initGooglePay();
+//        initGooglePay();
     }
 
     private void initGooglePay(){
@@ -264,7 +264,7 @@ public class RechargeActivity extends BaseActivity {
     }
 
     public void onClickPaypalMonth(View v) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("9"), "USD", P2pLibManager.getInstance().account_id,
+        PayPalPayment payment = new PayPalPayment(new BigDecimal("5"), "USD", P2pLibManager.getInstance().account_id,
                 PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
@@ -272,7 +272,7 @@ public class RechargeActivity extends BaseActivity {
     }
 
     public void onClickPaypalQuarter(View v) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("21"), "USD", P2pLibManager.getInstance().account_id,
+        PayPalPayment payment = new PayPalPayment(new BigDecimal("12"), "USD", P2pLibManager.getInstance().account_id,
                 PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
@@ -280,7 +280,7 @@ public class RechargeActivity extends BaseActivity {
     }
 
     public void onClickPaypalYear(View v) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("62"), "USD", P2pLibManager.getInstance().account_id,
+        PayPalPayment payment = new PayPalPayment(new BigDecimal("36"), "USD", P2pLibManager.getInstance().account_id,
                 PayPalPayment.PAYMENT_INTENT_SALE);
         Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);

@@ -117,9 +117,9 @@
     <string name="recharge_way_7">Method 7</string>
     <string name="get_reward">Watched ad earned coins random 3 ~ 10 </string>
 
-    <string name="pay_way_month">Monthly\n$9</string>
-    <string name="pay_way_quarter">Quarterly\n$21/-20%</string>
-    <string name="pay_way_annual">Annual\n$62/-40%</string>
+    <string name="pay_way_month">Monthly\n$5</string>
+    <string name="pay_way_quarter">Quarterly\n$12/-20%</string>
+    <string name="pay_way_annual">Annual\n$36/-40%</string>
     <string name="fast">GooglePay</string>
     <string name="watch_ad">Watch ads to earn Tenon</string>
     <string name="mining">Mining</string>

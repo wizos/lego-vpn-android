@@ -110,9 +110,9 @@
     <string name="get_reward">观看广告将获得币：3~10 </string>
     <string name="minning">挖矿</string>
 
-    <string name="pay_way_month">包月\n9美元</string>
-    <string name="pay_way_quarter">包季\n21美元/8折</string>
-    <string name="pay_way_annual">包年\n62美元/6折</string>
+    <string name="pay_way_month">包月\n5美元</string>
+    <string name="pay_way_quarter">包季\n12美元/8折</string>
+    <string name="pay_way_annual">包年\n36美元/6折</string>
     <string name="fast">谷歌支付</string>
     <string name="watch_ad">观看广告获得Tenon</string>
     <string name="share_to_reward">分享获取Tenon</string>
