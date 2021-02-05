@@ -19,7 +19,7 @@
             android:layout_height="25dp"
             android:layout_gravity="top|right"
             android:layout_margin="20dp"
-            android:alpha="0.8"
+            android:alpha="0.3"
             android:background="@drawable/select_bgb"
             android:gravity="center"
             android:onClick="passAd"
