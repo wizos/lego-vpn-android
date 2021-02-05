@@ -1,5 +1,7 @@
 package com.yjsoft.tenonvpn.ui.recharge;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
@@ -21,6 +23,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -39,6 +49,8 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
@@ -78,6 +90,7 @@ public class RechargeActivity extends BaseActivity {
 // .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
 //.merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +98,59 @@ public class RechargeActivity extends BaseActivity {
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, paypalConfig);
         startService(intent);
-
         initView(getWindow().getDecorView());
+        initGooglePay();
     }
 
+    private void initGooglePay(){
+        //"4cb03f6557eb7b04d354c5b22fc8b3a3";
+
+        PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
+            @Override
+            public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+                // To be implemented in a later section.
+                Log.d("谷歌内购=","onPurchasesUpdated");
+            }
+        };
+
+        BillingClient billingClient = BillingClient.newBuilder(this)
+                .setListener(purchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build();
+
+        billingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(BillingResult billingResult) {
+                if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
+                    // The BillingClient is ready. You can query purchases here.
+                    Log.d("谷歌内购=","BillingClient.BillingResponseCode.OK");
+
+                    List<String> skuList = new ArrayList<>();
+                    skuList.add("premium_upgrade");
+                    skuList.add("gas");
+                    SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+                    params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
+                    billingClient.querySkuDetailsAsync(params.build(),
+                            new SkuDetailsResponseListener() {
+                                @Override
+                                public void onSkuDetailsResponse(BillingResult billingResult,
+                                                                 List<SkuDetails> skuDetailsList) {
+                                    // Process the result.
+                                    Log.d("谷歌内购=","onSkuDetailsResponse");
+                                }
+                            });
+                }else{
+                    Log.d("谷歌内购=","billingResult.getResponseCode()");
+                }
+            }
+            @Override
+            public void onBillingServiceDisconnected() {
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+                Log.d("谷歌内购=","onBillingServiceDisconnected");
+            }
+        });
+    }
     private void initView(View view) {
         TextView accountId = findViewById(R.id.recharge_account);
         accountId.setText(P2pLibManager.getInstance().account_id);

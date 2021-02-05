@@ -1,63 +1,63 @@
 {
   "stringTable": {
-    "0": "E:/work/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a",
-    "1": "--target=aarch64-none-linux-android23 --gcc-toolchain=D:/tools/tools/lib/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64 --sysroot=D:/tools/tools/lib/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -fvisibility=hidden"
+    "0": "/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a",
+    "1": "--target=aarch64-none-linux-android23 --gcc-toolchain=/Users/admin/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/admin/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Dnative_lib_EXPORTS -I../../../../src/main/cpp/libs/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -fvisibility=hidden"
   },
   "buildFiles": [
-    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\android.toolchain.cmake",
-    "D:\\tools\\tools\\lib\\ndk-bundle\\build\\cmake\\platforms.cmake",
-    "E:\\work\\lego-vpn-android\\app\\CMakeLists.txt"
+    "/Users/admin/Library/Android/sdk/ndk/22.0.7026061/build/cmake/platforms.cmake",
+    "/Users/admin/Desktop/lego-vpn-android/app/CMakeLists.txt",
+    "/Users/admin/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake"
   ],
   "cleanCommands": [
-    "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\arm64-v8a\" clean"
+    "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a\" clean"
   ],
-  "buildTargetsCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe  -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a\" {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "native-lib-Debug-arm64-v8a": {
-      "buildCommand": "D:\\tools\\tools\\lib\\cmake\\3.10.2.4988404\\bin\\ninja.exe -C \"E:\\work\\lego-vpn-android\\app\\.cxx\\cmake\\debug\\arm64-v8a\" native-lib",
+      "buildCommand": "/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja -C \"/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/debug/arm64-v8a\" native-lib",
       "buildType": "debug",
-      "toolchain": "464246240",
+      "toolchain": "4293816134",
       "abi": "arm64-v8a",
       "artifactName": "native-lib",
       "files": [
         {
-          "src": "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\native-lib.cpp",
+          "src": "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/native-lib.cpp",
           "flagsOrdinal": 1,
           "workingDirectoryOrdinal": 0
         }
       ],
       "headers": [],
-      "output": "E:\\work\\lego-vpn-android\\app\\build\\intermediates\\cmake\\debug\\obj\\arm64-v8a\\libnative-lib.so",
+      "output": "/Users/admin/Desktop/lego-vpn-android/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so",
       "runtimeFiles": [
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libclient.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libnetwork.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libbroadcast.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libdht.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libinit.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libnat_traverse.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libtransport.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libtnet.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libsecurity.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libssl.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcrypto.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libzlib.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libdb.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libip.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libkcp.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcontract.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcommon.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\liblog4cpp.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libuv.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libleveldb.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libcryptopp.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libprotobuf.a",
-        "E:\\work\\lego-vpn-android\\app\\src\\main\\cpp\\libs\\arm64-v8a\\libuuid.a"
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libclient.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libnetwork.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libbroadcast.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libdht.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libinit.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libnat_traverse.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libtransport.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libtnet.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libsecurity.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libssl.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcrypto.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libzlib.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libdb.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libip.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libkcp.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcontract.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcommon.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/liblog4cpp.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libuv.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libleveldb.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libcryptopp.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libprotobuf.a",
+        "/Users/admin/Desktop/lego-vpn-android/app/src/main/cpp/libs/arm64-v8a/libuuid.a"
       ]
     }
   },
   "toolchains": {
-    "464246240": {
-      "cppCompilerExecutable": "D:\\tools\\tools\\lib\\ndk-bundle\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    "4293816134": {
+      "cppCompilerExecutable": "/Users/admin/Library/Android/sdk/ndk/22.0.7026061/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
     }
   },
   "cFileExtensions": [],
