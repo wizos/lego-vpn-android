@@ -74,7 +74,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">Login failed</string>
-    <string name="pass_ad">Skip Ads In&#160;&#160;</string>
+    <string name="pass_ad"></string>
     <string name="share">Share</string>
     <string name="pro"></string>
     <string name="free">Free</string>
