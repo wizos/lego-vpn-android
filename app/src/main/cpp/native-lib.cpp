@@ -55,11 +55,12 @@ JNIEXPORT void JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_p2pDestroy(
 JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getRouteNodes(
         JNIEnv *env,
         jobject,
+        jboolean vip,
         jstring country) {
     std::vector<lego::client::VpnServerNodePtr> nodes;
     jboolean iscopy;
     const char *in_country = env->GetStringUTFChars(country, &iscopy);
-    lego::client::VpnClient::Instance()->GetVpnServerNodes(in_country, "", 16, true, nodes);
+    lego::client::VpnClient::Instance()->GetVpnServerNodes(in_country, "", 16, true, vip, nodes);
     std::string vpn_svr = "";
     for (uint32_t i = 0; i < nodes.size(); ++i) {
         vpn_svr += nodes[i]->ip + ":";
@@ -79,11 +80,12 @@ JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getRouteNodes
 JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getVpnNodes(
         JNIEnv *env,
         jobject,
+        jboolean vip,
         jstring country) {
     std::vector<lego::client::VpnServerNodePtr> nodes;
     jboolean iscopy;
     const char *in_country = env->GetStringUTFChars(country, &iscopy);
-    lego::client::VpnClient::Instance()->GetVpnServerNodes(in_country, "", 16, false, nodes);
+    lego::client::VpnClient::Instance()->GetVpnServerNodes(in_country, "", 16, false, vip, nodes);
     std::string vpn_svr = "";
     for (uint32_t i = 0; i < nodes.size(); ++i) {
         vpn_svr += nodes[i]->ip + ":";

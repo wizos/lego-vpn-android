@@ -804,7 +804,7 @@ public class MainActivity extends BaseActivity implements
 
     private String ChooseRouteProxyUrl(String dest_country) {
         {
-            String nodes = P2pLibManager.getRouteNodes(dest_country);
+            String nodes = P2pLibManager.getRouteNodes(P2pLibManager.getInstance().isVip(), dest_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -816,7 +816,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         if (country_route_map.containsKey(now_choosed_country)) {
-            String nodes = P2pLibManager.getRouteNodes(now_choosed_country);
+            String nodes = P2pLibManager.getRouteNodes(P2pLibManager.getInstance().isVip(), now_choosed_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -828,7 +828,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         for (String key : country_route_map.keySet()) {
-            String nodes = P2pLibManager.getRouteNodes(key);
+            String nodes = P2pLibManager.getRouteNodes(P2pLibManager.getInstance().isVip(), key);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -843,7 +843,7 @@ public class MainActivity extends BaseActivity implements
 
     private String ChooseVpnProxyUrl() {
         {
-            String nodes = P2pLibManager.getVpnNodes(now_choosed_country);
+            String nodes = P2pLibManager.getVpnNodes(P2pLibManager.getInstance().isVip(), now_choosed_country);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);
@@ -860,7 +860,7 @@ public class MainActivity extends BaseActivity implements
                 continue;
             }
 
-            String nodes = P2pLibManager.getVpnNodes(key);
+            String nodes = P2pLibManager.getVpnNodes(P2pLibManager.getInstance().isVip(), key);
             if (!nodes.isEmpty()) {
                 String[] node_list = nodes.split(",");
                 int rand_num = (int) (Math.random() * node_list.length);

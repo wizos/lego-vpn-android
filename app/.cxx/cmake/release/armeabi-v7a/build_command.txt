@@ -1,20 +1,20 @@
-Executable : /Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/cmake
+Executable : D:\tools\tools\lib\cmake\3.10.2.4988404\bin\cmake.exe
 arguments : 
--H/Users/admin/Desktop/lego-vpn-android/app
--DCMAKE_FIND_ROOT_PATH=/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/release/prefab/armeabi-v7a/prefab
+-HE:\work\lego-vpn-android\app
+-DCMAKE_FIND_ROOT_PATH=E:\work\lego-vpn-android\app\.cxx\cmake\release\prefab\armeabi-v7a\prefab
 -DCMAKE_BUILD_TYPE=Release
--DCMAKE_TOOLCHAIN_FILE=/Users/admin/Library/Android/sdk/ndk/22.0.7026061/build/cmake/android.toolchain.cmake
+-DCMAKE_TOOLCHAIN_FILE=D:\tools\tools\lib\ndk-bundle\build\cmake\android.toolchain.cmake
 -DANDROID_ABI=armeabi-v7a
--DANDROID_NDK=/Users/admin/Library/Android/sdk/ndk/22.0.7026061
+-DANDROID_NDK=D:\tools\tools\lib\ndk-bundle
 -DANDROID_PLATFORM=android-23
 -DCMAKE_ANDROID_ARCH_ABI=armeabi-v7a
--DCMAKE_ANDROID_NDK=/Users/admin/Library/Android/sdk/ndk/22.0.7026061
+-DCMAKE_ANDROID_NDK=D:\tools\tools\lib\ndk-bundle
 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
--DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/admin/Desktop/lego-vpn-android/app/build/intermediates/cmake/release/obj/armeabi-v7a
--DCMAKE_MAKE_PROGRAM=/Users/admin/Library/Android/sdk/cmake/3.10.2.4988404/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=E:\work\lego-vpn-android\app\build\intermediates\cmake\release\obj\armeabi-v7a
+-DCMAKE_MAKE_PROGRAM=D:\tools\tools\lib\cmake\3.10.2.4988404\bin\ninja.exe
 -DCMAKE_SYSTEM_NAME=Android
 -DCMAKE_SYSTEM_VERSION=23
--B/Users/admin/Desktop/lego-vpn-android/app/.cxx/cmake/release/armeabi-v7a
+-BE:\work\lego-vpn-android\app\.cxx\cmake\release\armeabi-v7a
 -GNinja
 jvmArgs : 
 

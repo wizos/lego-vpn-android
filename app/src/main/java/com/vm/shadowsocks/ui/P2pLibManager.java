@@ -100,7 +100,6 @@ public final class P2pLibManager {
     public HashSet<String> payfor_vpn_accounts = new HashSet<String>();
     public Vector<String> payfor_vpn_accounts_arr = new Vector<String>();
     public HashMap<String, String> client_prop_map = new HashMap<String, String>();
-    public int vip_level = 0;
     public int free_used_bandwidth = 0;
     public long payfor_timestamp = 0;
     public long payfor_amount = 0;
@@ -242,6 +241,10 @@ public final class P2pLibManager {
 
             return "";
         }
+    }
+
+    public boolean isVip() {
+        return vip_left_days > 0;
     }
 
     public void SetDefaultRouting(String data) {
@@ -526,7 +529,6 @@ public final class P2pLibManager {
     }
 
     public void InitResetPrivateKey() {
-        vip_level = 0;
         free_used_bandwidth = 0;
         payfor_timestamp = 0;
         now_status = "ok";
@@ -678,7 +680,7 @@ public final class P2pLibManager {
     }
 
     public String GetOneVpnNode(String country) {
-        String vpn_url = getVpnNodes(country);
+        String vpn_url = getVpnNodes(P2pLibManager.getInstance().isVip(), country);
         if (vpn_url.isEmpty()) {
             return "";
         }
@@ -694,7 +696,7 @@ public final class P2pLibManager {
     }
 
     public String GetOneRouteNode(String country) {
-        String route_url = getRouteNodes(country);
+        String route_url = getRouteNodes(P2pLibManager.getInstance().isVip(), country);
         if (route_url.isEmpty()) {
             return "";
         }
@@ -976,8 +978,8 @@ public final class P2pLibManager {
     }
 
     public native String initP2PNetwork(String ip, int port, String bootstarp, String file_path, String version, String pri_key);
-    public static native String getVpnNodes(String country);
-    public static native String getRouteNodes(String country);
+    public static native String getVpnNodes(boolean vip, String country);
+    public static native String getRouteNodes(boolean vip, String country);
     public static native String getPublicKey();
     public static native String payforVpn(String to, long tenon, String gid);
     public static native String checkVip();

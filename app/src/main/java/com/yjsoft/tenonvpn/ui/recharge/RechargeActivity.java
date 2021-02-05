@@ -140,7 +140,7 @@ public class RechargeActivity extends BaseActivity {
                                 }
                             });
                 }else{
-                    Log.d("谷歌内购=","billingResult.getResponseCode()");
+                    Log.d("谷歌内购=","billingResult.getResponseCode(): " + billingResult.getResponseCode() + ":" + billingResult.getDebugMessage());
                 }
             }
             @Override
