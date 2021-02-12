@@ -80,7 +80,7 @@
     <string name="free">Free</string>
     <string name="anonymous_account">Account</string>
     <string name="private_key">Private Key</string>
-    <string name="recharge">EarnCoin</string>
+    <string name="recharge">Recharge</string>
     <string name="withdraw">Withdraw</string>
     <string name="un_connect">Connect</string>
     <string name="us">America</string>
@@ -164,11 +164,20 @@
     <string name="share_reward">share reward</string>
     <string name="watch_ad_reward">ad reward</string>
     <string name="minning">Mining</string>
-    <string name="about_tenonvpn">About TenonVPN</string>
+    <string name="about_tenonvpn">About</string>
+    <string name="telegram">Support</string>
+
     <string name="decentralized1">The light of Blockchain Apps&#32;&#32;</string>
     <string name="decentralized2">Tenon blockchain</string>
     <string name="security">Encrypt with private key </string>
     <string name="flash_fast">Fast and Reliable</string>
     <string name="easy">Easy to use</string>
+    <string name="paypal_cancel">Recharge canceled.</string>
+    <string name="paypal_error">PayPal failed, close or open vpn and try again.</string>
+    <string name="paypal_success">Recharge success.</string>
+    <string name="last_not_sure">The last recharge is still in consumption.</string>
+    <string name="bandwdith_out">Today traffic used up!</string>
+    <string name="download_free">Get Free</string>
+    <string name="tomorrow">Use Tomorrow</string>
 
 </resources>

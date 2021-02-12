@@ -71,7 +71,7 @@
     <string name="free">免费版</string>
     <string name="anonymous_account">匿名账户</string>
     <string name="private_key">私钥</string>
-    <string name="recharge">赚币</string>
+    <string name="recharge">充值</string>
     <string name="withdraw">提币</string>
     <string name="un_connect">未链接</string>
     <string name="us">美国</string>
@@ -156,11 +156,19 @@
     <string name="transfer_in">转入</string>
     <string name="share_reward">分享奖励</string>
     <string name="watch_ad_reward">广告奖励</string>
-    <string name="about_tenonvpn">关于                                                                                                             TenonVPN</string>
+    <string name="about_tenonvpn">关于产品</string>
+    <string name="telegram">服务支持</string>
     <string name="decentralized1">区块链应用之光</string>
     <string name="decentralized2">的去中心化产品</string>
     <string name="security">独立密钥加密</string>
     <string name="flash_fast">快速稳定</string>
     <string name="easy">易于使用</string>
+    <string name="paypal_error">Paypal失败, 关掉或开启vpn后重试.</string>
+    <string name="paypal_cancel">交易取消.</string>
+    <string name="paypal_success">充值成功.</string>
+    <string name="last_not_sure">上一次充值还在消费中.</string>
+    <string name="bandwdith_out">今天流量已用完</string>
+    <string name="download_free">下载免费版</string>
+    <string name="tomorrow">明天再用</string>
 
 </resources>

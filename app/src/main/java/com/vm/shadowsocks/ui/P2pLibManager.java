@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.vm.shadowsocks.tunnel.shadowsocks.CryptFactory;
 import com.vm.shadowsocks.tunnel.shadowsocks.ICrypt;
 import com.yjsoft.tenonvpn.ui.settings.SettingsActivity;
@@ -109,6 +110,10 @@ public final class P2pLibManager {
     public boolean showAdCalled = false;
     public boolean smartMode = false;
 
+    final public boolean is_not_google_ver = false;
+    public String down_ad_id = "";
+    public String jl_ad_id = "";
+
     private SplashActivity main_this;
 
     private String countries[] = {"US", "SG", "BR","DE","FR","KR", "JP", "CA","AU","HK", "IN", "GB","CN"};
@@ -122,7 +127,7 @@ public final class P2pLibManager {
     private final int kLocalPort = 7891;
     private String bootstrap = "id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001, id:113.17.169.103:9001,id:113.17.169.105:9001,id:113.17.169.106:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:113.17.169.95:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,";
     //    private String bootstrap = "id:113.17.169.103:9001,";
-    public final String kCurrentVersion = "4.0.3";
+    public final String kCurrentVersion = "5.0.0";
     public String share_ip = "https://www.tenonvpn.net";
     public String buy_tenon_ip = "https://www.tenonvpn.net";
     public Vector<ICrypt> header_encrypt_vec = new Vector<ICrypt>();
@@ -132,8 +137,18 @@ public final class P2pLibManager {
     static private HashMap<String, String> ex_route_map = new HashMap<String, String>();
     private final Object ex_route_lock = new Object();
     private Set<String> direct_set = new HashSet<String>();
+    private long local_used_bandwidth = 0;
+    private long local_now_day_tm = 0;
 
     public void Init(SplashActivity main_class) {
+        if (is_not_google_ver) {
+            down_ad_id = "ca-app-pub-3940256099942544/6300978111";
+            jl_ad_id = "ca-app-pub-3940256099942544/5224354917";
+        } else {
+            down_ad_id = "ca-app-pub-1878869478486684/8691822122";
+            jl_ad_id = "ca-app-pub-1878869478486684/9047045341";
+        }
+
         main_this = main_class;
         direct_set.add("42.51.39.113");
         direct_set.add("42.51.33.89");
@@ -550,13 +565,13 @@ public final class P2pLibManager {
         long vip_days = payfor_amount / min_payfor_vpn_tenon;
         if (payfor_timestamp != Long.MAX_VALUE && days_timestamp + vip_days > days_cur) {
             payfor_gid = "";
-            vip_left_days = (days_timestamp + vip_days - days_cur) + (now_balance / min_payfor_vpn_tenon);
+            vip_left_days = (days_timestamp + vip_days - days_cur) + ((now_balance + GetLastRechargeAmount()) / min_payfor_vpn_tenon);
             return;
         } else {
             PayforVipTrans();
         }
 
-        vip_left_days = now_balance / min_payfor_vpn_tenon;
+        vip_left_days = (now_balance + GetLastRechargeAmount()) / min_payfor_vpn_tenon;
         String res = P2pLibManager.checkVip();
         String[] items = res.split(",");
         if (items.length == 2) {
@@ -567,7 +582,11 @@ public final class P2pLibManager {
     }
 
     private void PayforVipTrans() {
-        int rand_num = 0;// (int)(Math.random() * payfor_vpn_accounts_arr.size());
+        if (payfor_vpn_accounts_arr.size() <= 0) {
+            return;
+        }
+
+        int rand_num = (int)(Math.random() * payfor_vpn_accounts_arr.size());
         String acc = payfor_vpn_accounts_arr.get(rand_num);
         if (acc.isEmpty()) {
             return;
@@ -739,6 +758,54 @@ public final class P2pLibManager {
         }
     }
 
+    public int GetLastRechargeAmount() {
+        String lastRecharge = GetLastRecharge();
+        if (lastRecharge.isEmpty()) {
+            return 0;
+        }
+
+        String[] split_item = lastRecharge.split("`");
+        if (split_item.length >= 7) {
+            int tenonAmount = 0;
+            if (split_item[1].equals("5")) {
+                tenonAmount = 1990;
+            }
+
+            if (split_item[1].equals("12")) {
+                tenonAmount = 5950;
+            }
+
+            if (split_item[1].equals("36")) {
+                tenonAmount = 23800;
+            }
+
+            return tenonAmount;
+        }
+
+        return 0;
+    }
+
+    public String GetLastRecharge() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String lastRecharge = sharedPreferences.getString("last_recharge","");
+            return lastRecharge;
+        } catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public void SaveLastRecharge(String lastRecharge) {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("last_recharge", lastRecharge);
+            editor.commit();
+        } catch (Exception e) {
+        }
+    }
+
     public Boolean GetVipStatus() {
         try {
             SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
@@ -787,6 +854,42 @@ public final class P2pLibManager {
             return false;
         }
         return true;
+    }
+
+    public void AddLocalBandwidth(long bandwidth) {
+//        long now_day_tm = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
+//        if (now_day_tm != local_now_day_tm) {
+//            local_now_day_tm = now_day_tm;
+//            local_used_bandwidth = 0;
+//        }
+//
+//        local_used_bandwidth += bandwidth;
+//        try {
+//            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putLong("local_used_bandwidth", local_used_bandwidth);
+//            editor.putLong("local_now_day_tm", local_now_day_tm);
+//            editor.commit();
+//        } catch (Exception e) {
+//        }
+    }
+
+    public boolean IsLocalBandwidthExceeded() {
+        return false;
+//        try {
+//            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+//            long tmp_local_used_bandwidth=sharedPreferences.getLong("local_used_bandwidth",0);
+//            long tmp_local_now_day_tm=sharedPreferences.getLong("local_now_day_tm",0);
+//            long now_day_tm = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
+//            if (now_day_tm != tmp_local_now_day_tm) {
+//                return false;
+//            }
+//
+//            return tmp_local_used_bandwidth > (1024 * 1024 * 100);
+//        } catch (Exception e) {
+//        }
+//
+//        return local_used_bandwidth > (1024 * 1024 * 100);
     }
 
     private static final int kStreamConnectRangeMin = 0;

@@ -1,57 +1,49 @@
 package com.yjsoft.tenonvpn.ui.recharge;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
-
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingResult;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsParams;
-import com.android.billingclient.api.SkuDetailsResponseListener;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.braintreepayments.api.BraintreeFragment;
+import com.braintreepayments.api.PayPal;
+import com.braintreepayments.api.exceptions.BraintreeError;
+import com.braintreepayments.api.exceptions.ErrorWithResponse;
+import com.braintreepayments.api.exceptions.InvalidArgumentException;
+import com.braintreepayments.api.interfaces.BraintreeCancelListener;
+import com.braintreepayments.api.interfaces.BraintreeErrorListener;
+import com.braintreepayments.api.interfaces.ConfigurationListener;
+import com.braintreepayments.api.interfaces.PaymentMethodNonceCreatedListener;
+import com.braintreepayments.api.models.PayPalAccountNonce;
+import com.braintreepayments.api.models.PayPalRequest;
 import com.vm.shadowsocks.ui.MainActivity;
 import com.vm.shadowsocks.ui.P2pLibManager;
 import com.yjsoft.tenonvpn.BaseActivity;
 import com.vm.shadowsocks.R;
-import com.vm.shadowsocks.ui.SplashActivity;
-import com.yjsoft.tenonvpn.util.SpUtil;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import de.codecrafters.tableview.TableView;
@@ -73,84 +65,20 @@ public class RechargeActivity extends BaseActivity {
     private ProgressBar mPb;
     private Disposable mCountDownTimer;
 
-
-    //配置何种支付环境，一般沙盒，正式
-    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
-    private static final String DEFAULT_CURRENCY = "USD";
-    //你所注册的APP Id
-    private static final String CONFIG_CLIENT_ID = "AbuMevFqcAj-LapIFs9jgLPGDfbyRkjhK2ie3XY6FEUB2TrziZGg8ERteGcYwSzl-0Ch7D4dnbtfVh5z";
-    private static final int REQUEST_CODE_PAYMENT = 1;
-    private static final int REQUEST_CODE_FUTURE_PAYMENT = 2;
-    private static final int REQUEST_CODE_PROFILE_SHARING = 3;
-    private static PayPalConfiguration paypalConfig = new PayPalConfiguration().environment(CONFIG_ENVIRONMENT)
-            .clientId(CONFIG_CLIENT_ID);
-
-    //以下配置是授权支付的时候用到的
-//.merchantName("Example Merchant")
-// .merchantPrivacyPolicyUri(Uri.parse("https://www.example.com/privacy"))
-//.merchantUserAgreementUri(Uri.parse("https://www.example.com/legal"));
-
+    private BraintreeFragment mBraintreeFragment = null;
+    private String mAuthorization = "sandbox_jynrg7dz_r8rzzbz92gqwnhsf";
+    private String mPaypalAmount = "";
+    private Boolean mPaypalCallbacked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recharge);
-        Intent intent = new Intent(this, PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, paypalConfig);
-        startService(intent);
         initView(getWindow().getDecorView());
-//        initGooglePay();
+
+        Initpaypal();
     }
 
-    private void initGooglePay(){
-        //"4cb03f6557eb7b04d354c5b22fc8b3a3";
-
-        PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
-            @Override
-            public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
-                // To be implemented in a later section.
-                Log.d("谷歌内购=","onPurchasesUpdated");
-            }
-        };
-
-        BillingClient billingClient = BillingClient.newBuilder(this)
-                .setListener(purchasesUpdatedListener)
-                .enablePendingPurchases()
-                .build();
-
-        billingClient.startConnection(new BillingClientStateListener() {
-            @Override
-            public void onBillingSetupFinished(BillingResult billingResult) {
-                if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
-                    // The BillingClient is ready. You can query purchases here.
-                    Log.d("谷歌内购=","BillingClient.BillingResponseCode.OK");
-
-                    List<String> skuList = new ArrayList<>();
-                    skuList.add("premium_upgrade");
-                    skuList.add("gas");
-                    SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-                    params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
-                    billingClient.querySkuDetailsAsync(params.build(),
-                            new SkuDetailsResponseListener() {
-                                @Override
-                                public void onSkuDetailsResponse(BillingResult billingResult,
-                                                                 List<SkuDetails> skuDetailsList) {
-                                    // Process the result.
-                                    Log.d("谷歌内购=","onSkuDetailsResponse");
-                                }
-                            });
-                }else{
-                    Log.d("谷歌内购=","billingResult.getResponseCode(): " + billingResult.getResponseCode() + ":" + billingResult.getDebugMessage());
-                }
-            }
-            @Override
-            public void onBillingServiceDisconnected() {
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
-                Log.d("谷歌内购=","onBillingServiceDisconnected");
-            }
-        });
-    }
     private void initView(View view) {
         TextView accountId = findViewById(R.id.recharge_account);
         accountId.setText(P2pLibManager.getInstance().account_id);
@@ -169,7 +97,7 @@ public class RechargeActivity extends BaseActivity {
             return;
         }
 
-        prev_transactions = transactions_res;
+//        prev_transactions = transactions_res;
         TableView<String[]> tableView = (TableView<String[]>) getWindow().getDecorView().findViewById(R.id.rechargeTableView);
         final int rowColorEven = ContextCompat.getColor(RechargeActivity.this, R.color.env);
         final int rowColorOdd = ContextCompat.getColor(RechargeActivity.this, R.color.odd);
@@ -185,36 +113,37 @@ public class RechargeActivity extends BaseActivity {
         simpleTableHeaderAdapter.setTextColor(ContextCompat.getColor(RechargeActivity.this, R.color.white));
         simpleTableHeaderAdapter.setTextSize(14);
         tableView.setHeaderAdapter(simpleTableHeaderAdapter);
-        String[] lines = transactions_res.split(";");
-        String[][] DATA_TO_SHOW = new String[lines.length][4];
         int index = 0;
-        String latestHistory = SpUtil.getInstance(this).getString(SpUtil.LATESTPAYHISTORY);
-        if (!latestHistory.isEmpty()) {
-            String[] split_item = latestHistory.split("_");
-            if (split_item.length == 3) {
-                boolean find = false;
-                for (int i = 0; i < lines.length; ++i) {
-                    String[] items = lines[i].split(",");
-                    if (items.length != 7) {
-                        continue;
+        String lastRecharge = P2pLibManager.getInstance().GetLastRecharge();
+        if (!lastRecharge.isEmpty()) {
+            String[] split_item = lastRecharge.split("`");
+            if (split_item.length >= 8) {
+                if (transactions_res.indexOf(split_item[7]) <= 0) {
+                    int tenonAmount = 0;
+                    if (split_item[1].equals("5")) {
+                        tenonAmount = 1990;
                     }
 
-                    if (items[4].equals(split_item[0])) {
-                        find = true;
-                        break;
+                    if (split_item[1].equals("12")) {
+                        tenonAmount = 5950;
                     }
-                }
 
-                if (!find) {
-                    DATA_TO_SHOW[index][0] = split_item[1];
-                    DATA_TO_SHOW[index][1] = getString(R.string.pay_for_vpn);
-                    DATA_TO_SHOW[index][2] = split_item[2];
-                    DATA_TO_SHOW[index][3] = "verifying...";
-                    ++index;
+                    if (split_item[1].equals("36")) {
+                        tenonAmount = 23800;
+                    }
+
+                    long now_balance = P2pLibManager.getInstance().now_balance + tenonAmount;
+                    postNonceToServer(split_item[0], split_item[1], split_item[2], split_item[3], split_item[4], split_item[5]);
+                    String new_line = split_item[6] + ",3," + tenonAmount + "," + now_balance + "," + split_item[7] + ",0,0";
+                    transactions_res = new_line + ";" + transactions_res;
+                } else {
+                    P2pLibManager.getInstance().SaveLastRecharge("");
                 }
             }
         }
 
+        String[] lines = transactions_res.split(";");
+        String[][] DATA_TO_SHOW = new String[lines.length][4];
         for (int i = 0; i < lines.length && index < lines.length; ++i) {
             String[] items = lines[i].split(",");
             if (items.length != 7) {
@@ -263,62 +192,177 @@ public class RechargeActivity extends BaseActivity {
         }
     }
 
+    @SuppressLint("DefaultLocale")
+    public static String getNowTime() {
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH)+1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        return String.format("%02d/%02d %02d:%02d", month, day, hour, + minute);
+    }
+
+    public static String GenGid(String randStr) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(randStr.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void Initpaypal() {
+        try {
+            mBraintreeFragment = BraintreeFragment.newInstance(this, mAuthorization);
+            mBraintreeFragment.addListener((ConfigurationListener) configuration -> {
+            });
+            // 支付完成监听
+            mBraintreeFragment.addListener((PaymentMethodNonceCreatedListener) paymentMethodNonce -> {
+                // Send nonce to server
+                String nonce = paymentMethodNonce.getNonce();
+                String email = paymentMethodNonce.getDescription();
+                String firstName = "";
+                String lastName = "";
+                String phone = "";
+                if (paymentMethodNonce instanceof PayPalAccountNonce) {
+                    PayPalAccountNonce payPalAccountNonce = (PayPalAccountNonce) paymentMethodNonce;
+                    // Access additional information
+                    email = payPalAccountNonce.getEmail();
+                    firstName = payPalAccountNonce.getFirstName();
+                    lastName = payPalAccountNonce.getLastName();
+                    phone = payPalAccountNonce.getPhone();
+                }
+                postNonceToServer(nonce, mPaypalAmount, email, phone, firstName, lastName);
+                String gid_str = GenGid(for_gid_random_str + nonce);
+                String lastRecharge = nonce + "`" +  mPaypalAmount + "`" + email + "`" + phone + "`" + firstName + "`" + lastName  + "`" + getNowTime() + "`" + gid_str;
+                 P2pLibManager.getInstance().SaveLastRecharge(lastRecharge);
+                mPaypalCallbacked = true;
+                UpdateTableView();
+                Toast.makeText(this, getString(R.string.paypal_success), Toast.LENGTH_SHORT).show();
+            });
+            // 取消监听
+            mBraintreeFragment.addListener((BraintreeCancelListener) requestCode -> {
+                 Toast.makeText(this, getString(R.string.paypal_cancel), Toast.LENGTH_SHORT).show();
+                mPaypalCallbacked = true;
+            });
+
+            // 错误监听
+            mBraintreeFragment.addListener((BraintreeErrorListener) error -> {
+                if (error instanceof ErrorWithResponse) {
+                    ErrorWithResponse errorWithResponse = (ErrorWithResponse) error;
+                    BraintreeError cardErrors = errorWithResponse.errorFor("creditCard");
+                    if (cardErrors != null) {
+                        // There is an issue with the credit card.
+                        BraintreeError expirationMonthError = cardErrors.errorFor("expirationMonth");
+                        if (expirationMonthError != null) {
+                            // There is an issue with the expiration month.
+                            System.out.println("paypal" + expirationMonthError.getMessage());
+                        }
+                    }
+                }
+                mPaypalCallbacked = true;
+                Toast.makeText(this, getString(R.string.paypal_error), Toast.LENGTH_SHORT).show();
+
+            });
+            // mBraintreeFragment is ready to use!
+        } catch (InvalidArgumentException e) {
+            // There was an issue with your authorization string.
+        }
+    }
+    public void postNonceToServer(
+            String nonce,
+            String amount,
+            String email,
+            String phone,
+            String firstName,
+            String secondName){
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObj = new JSONObject();
+                    jsonObj.put("nonce", nonce);
+                    jsonObj.put("amount", amount);
+                    jsonObj.put("email", email);
+                    jsonObj.put("phone", phone);
+                    jsonObj.put("firstName", firstName);
+                    jsonObj.put("secondName", secondName);
+                    jsonObj.put("id", P2pLibManager.getInstance().account_id);
+                    HttpPost httpPost = new HttpPost("http://www.tenonvpn.net/braintree_client_callback");
+                    StringEntity entity = new StringEntity(jsonObj.toString(), HTTP.UTF_8);
+                    entity.setContentType("application/json");
+                    httpPost.setEntity(entity);
+                    HttpClient client = new DefaultHttpClient();
+                    client.execute(httpPost);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     public void onClickPaypalMonth(View v) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("5"), "USD", P2pLibManager.getInstance().account_id,
-                PayPalPayment.PAYMENT_INTENT_SALE);
-        Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
-    }
-
-    public void onClickPaypalQuarter(View v) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("12"), "USD", P2pLibManager.getInstance().account_id,
-                PayPalPayment.PAYMENT_INTENT_SALE);
-        Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
-    }
-
-    public void onClickPaypalYear(View v) {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("36"), "USD", P2pLibManager.getInstance().account_id,
-                PayPalPayment.PAYMENT_INTENT_SALE);
-        Intent intent = new Intent(RechargeActivity.this, PaymentActivity.class);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (data == null) {
+        if (P2pLibManager.getInstance().GetLastRechargeAmount() > 0) {
+            Toast.makeText(this, getString(R.string.last_not_sure), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        PaymentConfirmation confirm = data
-                .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+        showWaitingPayPalDialog();
+//        PayPalRequest request = new PayPalRequest("5")
+//                .currencyCode("USD")
+//                .intent(PayPalRequest.INTENT_SALE);
+//        PayPal.requestOneTimePayment(mBraintreeFragment, request);
+//        mPaypalAmount = "5";
+        Uri uri = Uri.parse("https://www.tenonvpn.net/pp_one_month/" + P2pLibManager.getInstance().account_id);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 
-        String paymentId;
-        try {
-            paymentId = confirm.toJSONObject().getJSONObject("response")
-                    .getString("id");
-            String payment_client = confirm.getPayment().toJSONObject()
-                    .toString();
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            String text = for_gid_random_str + paymentId;
-            byte[] hash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
-            SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
-            sdf.applyPattern("MM-dd HH:mm");
-            String last_histor = hash + "_" + sdf.toString() + "_" + confirm.getPayment().toJSONObject().getString("amount");
-            SpUtil.getInstance(this).putString(SpUtil.LATESTPAYHISTORY, last_histor);
-            Log.e("PAYPAL", "gid: " + hash + ", paymentId: " + paymentId + ", payment_json: "+ payment_client);
-            // TODO ：把paymentId和payment_json传递给自己的服务器以确认你的款项是否收到或者收全
-            // TODO ：得到服务器返回的结果，你就可以跳转成功页面或者做相应的处理了
-        } catch (JSONException | NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+    public void onClickPaypalQuarter(View v) {
+        if (P2pLibManager.getInstance().GetLastRechargeAmount() > 0) {
+            Toast.makeText(this, getString(R.string.last_not_sure), Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        showWaitingPayPalDialog();
+        Uri uri = Uri.parse("https://www.tenonvpn.net/pp_six_month/" + P2pLibManager.getInstance().account_id);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+
+//        PayPalRequest request = new PayPalRequest("12")
+//                .currencyCode("USD")
+//                .intent(PayPalRequest.INTENT_SALE);
+//        PayPal.requestOneTimePayment(mBraintreeFragment, request);
+//        mPaypalAmount = "12";
+    }
+
+    public void onClickPaypalYear(View v) {
+        if (P2pLibManager.getInstance().GetLastRechargeAmount() > 0) {
+            Toast.makeText(this, getString(R.string.last_not_sure), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        showWaitingPayPalDialog();
+        Uri uri = Uri.parse("https://www.tenonvpn.net/pp_one_year/" + P2pLibManager.getInstance().account_id);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+
+//        PayPalRequest request = new PayPalRequest("36")
+//                .currencyCode("USD")
+//                .intent(PayPalRequest.INTENT_SALE);
+//        PayPal.requestOneTimePayment(mBraintreeFragment, request);
+//        mPaypalAmount = "36";
     }
 
     public void copyAccount(View view) {
@@ -330,7 +374,6 @@ public class RechargeActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
     }
 
@@ -371,7 +414,7 @@ public class RechargeActivity extends BaseActivity {
         P2pLibManager.getInstance().showAdCalled = false;
         mCountDownTimer = Observable
                 .interval(0, 1, TimeUnit.MILLISECONDS)
-                .take(10000)
+                .take(6000)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
@@ -381,7 +424,32 @@ public class RechargeActivity extends BaseActivity {
                         MainActivity.mainActivityThis.ShowAd(true);
                     }
 
-                    if (aLong == 9000 || P2pLibManager.getInstance().showAdCalled) {
+                    if (aLong == 5000 || P2pLibManager.getInstance().showAdCalled) {
+                        mPb.setProgress(0);
+                        mWaitingAdDialog.dismiss();
+                        mCountDownTimer.dispose();
+                    }
+                });
+    }
+
+    public void showWaitingPayPalDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_connecting, null, false);
+        TextView mTvConnectingDesc = view.findViewById(R.id.tv_connecting_desc);
+        mTvConnectingDesc.setText("loading ad...");
+        mPb = view.findViewById(R.id.progress_bar_h);
+        mWaitingAdDialog = new androidx.appcompat.app.AlertDialog.Builder(this, R.style.TransparentDialog)
+                .setCancelable(false)
+                .setView(view).show();
+        mPaypalCallbacked = false;
+        mCountDownTimer = Observable
+                .interval(0, 1, TimeUnit.MILLISECONDS)
+                .take(6000)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
+                    mPb.setProgress((int) ((aLong * 20) / 1000));
+                    if (aLong == 5000 || mPaypalCallbacked) {
                         mPb.setProgress(0);
                         mWaitingAdDialog.dismiss();
                         mCountDownTimer.dispose();

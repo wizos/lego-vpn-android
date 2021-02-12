@@ -258,8 +258,6 @@ public class ProxyConfig {
         proxyDomainSet.add("github");
         proxyDomainSet.add("digitalocean");
         proxyDomainSet.add("godaddy");
-
-        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD: " + proxyDomainSet.contains("google"));
     }
 
     TimerTask m_Task = new TimerTask() {

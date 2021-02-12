@@ -1,0 +1,4 @@
+# ninja log v5
+35	3936	634305057	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	1f8bae28f92ce94a
+57	3972	634731664	../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	19f3c29b70f1163
+2	63	0	clean	3255ce8ee36b67a6

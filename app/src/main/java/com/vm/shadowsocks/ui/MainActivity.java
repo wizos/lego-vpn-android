@@ -39,34 +39,19 @@ import android.net.VpnService;
 import android.os.Handler;
 import android.os.Message;
 
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingFlowParams;
-import com.android.billingclient.api.BillingResult;
-import com.android.billingclient.api.ConsumeParams;
-import com.android.billingclient.api.ConsumeResponseListener;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsParams;
-import com.android.billingclient.api.SkuDetailsResponseListener;
-import com.google.android.ads.nativetemplates.NativeTemplateStyle;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.rewarded.RewardItem;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdCallback;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-import com.paypal.android.sdk.payments.PayPalService;
 import com.vm.shadowsocks.R;
 import com.vm.shadowsocks.core.AppProxyManager;
 import com.vm.shadowsocks.core.LocalVpnService;
@@ -129,6 +114,7 @@ public class MainActivity extends BaseActivity implements
     private TextView mTvConnectingDesc;
     private ProgressBar mPb;
     private androidx.appcompat.app.AlertDialog mConnectingDialog = null;
+    private androidx.appcompat.app.AlertDialog mSettingDialog = null;
     private TextView mTvAccount;
     private TextView mTvSwitch;
     private String key = "s823rjdf9s8hc23289rhvnweua8932s823rjdf9s8hc23289rhvnweua8932rkop";
@@ -177,29 +163,6 @@ public class MainActivity extends BaseActivity implements
                 .put("PAN_ONLY")
                 .put("CRYPTOGRAM_3DS");
     }
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == GOT_BALANCE) {
-                long res = (long) msg.obj;
-                if (P2pLibManager.getInstance().now_balance != res) {
-                    P2pLibManager.getInstance().now_balance = res;
-                    setVipStatus();
-                }
-
-                setVipStatus();
-                if (P2pLibManager.getInstance().vip_left_days <= 0) {
-                    ShowAd(false);
-                }
-
-                String countryCode = mGpsUtils.getCountryCode();
-                if (!countryCode.isEmpty() && countryCode != P2pLibManager.getInstance().local_country) {
-                    P2pLibManager.getInstance().local_country = countryCode;
-                }
-            }
-        }
-    };
 
     public void copyAccount(View view) {
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -259,23 +222,28 @@ public class MainActivity extends BaseActivity implements
             TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
             leftDays.setText(P2pLibManager.getInstance().vip_left_days + getString(R.string.layters_over_after));
             TextView balance = (TextView) findViewById(R.id.balance_lego);
+            long newBlance = P2pLibManager.getInstance().GetLastRechargeAmount();
             if (P2pLibManager.getInstance().now_balance >= 0) {
-                balance.setText(P2pLibManager.getInstance().now_balance + " Ten");
-            } else {
-                balance.setText("0 Ten");
+                newBlance += P2pLibManager.getInstance().now_balance;
             }
 
-            LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
-            if (P2pLibManager.getInstance().vip_left_days > 0) {
-                lay_out.setVisibility(View.GONE);
-            } else {
-                lay_out.setVisibility(View.VISIBLE);
-            }
+            balance.setText(newBlance + " Ten");
+//            LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
+//            if (P2pLibManager.getInstance().vip_left_days > 0) {
+//                lay_out.setVisibility(View.GONE);
+//            } else {
+//                lay_out.setVisibility(View.VISIBLE);
+//            }
         } else {
             TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
             leftDays.setText("- - " + getString(R.string.layters_over_after));
             TextView balance = (TextView) findViewById(R.id.balance_lego);
-            balance.setText("- - Ten");
+            long newBlance = P2pLibManager.getInstance().GetLastRechargeAmount();
+            if (P2pLibManager.getInstance().now_balance >= 0) {
+                newBlance += P2pLibManager.getInstance().now_balance;
+            }
+
+            balance.setText(newBlance + " Ten");
         }
 
     }
@@ -374,6 +342,9 @@ public class MainActivity extends BaseActivity implements
                 changeMainToVip();
             }
         });
+
+//        findViewById(R.id.tv_switch).setVisibility(View.GONE);
+//        findViewById(R.id.tv_switch_image).setVisibility(View.GONE);
         mTvAccount = findViewById(R.id.tv_account);
         mIvShowPrivateKey = findViewById(R.id.iv_show_private_key);
         mIvShowPrivateKey.setOnClickListener(this);
@@ -417,9 +388,9 @@ public class MainActivity extends BaseActivity implements
         mAdView.loadAd(adRequest);
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        adView.setAdUnitId(P2pLibManager.getInstance().down_ad_id);
 
-        if (P2pLibManager.getInstance().vip_left_days > 0) {
+        if (P2pLibManager.getInstance().vip_left_days > 0 ) {
             LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
             lay_out.setVisibility(View.GONE);
         }
@@ -540,8 +511,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     public RewardedAd createAndLoadRewardedAd() {
-        RewardedAd rewardedAd = new RewardedAd(this,
-                "ca-app-pub-3940256099942544/5224354917");
+        RewardedAd rewardedAd = new RewardedAd(this,P2pLibManager.getInstance().jl_ad_id);
         RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
             @Override
             public void onRewardedAdLoaded() {
@@ -609,6 +579,13 @@ public class MainActivity extends BaseActivity implements
         if (LocalVpnService.IsRunning) {
             LocalVpnService.IsRunning = false;
         } else {
+            if (P2pLibManager.getInstance().IsLocalBandwidthExceeded()) {
+                //
+                LocalVpnService.IsRunning = false;
+                showBandwidthDialog();
+                return;
+            }
+
             checkVipStatus();
             startVpn(null);
         }
@@ -664,8 +641,6 @@ public class MainActivity extends BaseActivity implements
         initView();
         setVipStatus();
         foregroundCallbacks = ForegroundCallbacks.get(this.getApplication());
-        TemplateView template = findViewById(R.id.my_template);
-        template.setVisibility(View.INVISIBLE);
         mCalendar = Calendar.getInstance();
         LocalVpnService.addOnStatusChangedListener(this);
         if (AppProxyManager.isLollipopOrAbove) {
@@ -781,6 +756,18 @@ public class MainActivity extends BaseActivity implements
             mIvSecurity.setVisibility(View.INVISIBLE);
             mPb.setProgress(0);
             mCountDownTimer.dispose();
+        }
+    }
+
+    public void goToTelegram(View view) {
+        if (P2pLibManager.getInstance().isVip()) {
+            Uri uri = Uri.parse("https://t.me/tenonvpn_vip");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        } else {
+            Uri uri = Uri.parse("https://t.me/tenonvpn");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
         }
     }
 
@@ -1016,9 +1003,58 @@ public class MainActivity extends BaseActivity implements
             mCountDownTimer.dispose();
         }
 
-        stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
     }
+
+    private void showBandwidthDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_bandwidth, null, false);
+        new androidx.appcompat.app.AlertDialog.Builder(this).setTitle(R.string.bandwdith_out)
+                .setView(view)
+                .setPositiveButton(R.string.download_free, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setNegativeButton(R.string.recharge, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setNeutralButton(R.string.tomorrow, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .show();
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == GOT_BALANCE) {
+                long res = (long) msg.obj;
+                if (P2pLibManager.getInstance().now_balance != res) {
+                    P2pLibManager.getInstance().now_balance = res;
+                }
+
+                setVipStatus();
+                if (P2pLibManager.getInstance().vip_left_days <= 0) {
+                    ShowAd(false);
+                }
+
+                String countryCode = mGpsUtils.getCountryCode();
+                if (!countryCode.isEmpty() && countryCode != P2pLibManager.getInstance().local_country) {
+                    P2pLibManager.getInstance().local_country = countryCode;
+                }
+
+                if (P2pLibManager.getInstance().IsLocalBandwidthExceeded()) {
+                    //
+                    LocalVpnService.IsRunning = false;
+                }
+            }
+        }
+    };
 
     public class CheckTransaction extends ListActivity implements Runnable {
         public void run() {
@@ -1041,7 +1077,7 @@ public class MainActivity extends BaseActivity implements
                 P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
 
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

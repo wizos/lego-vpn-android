@@ -26,8 +26,8 @@ android {
         applicationId "com.vm.tenonvpn"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 32
-        versionName "2.0.1"
+        versionCode 34
+        versionName "2.0.3"
         ndk {
             abiFilters 'arm64-v8a', 'x86', 'x86_64', 'armeabi-v7a'
         }
@@ -84,11 +84,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.gms:play-services-ads:19.7.0'
     implementation project(':nativetemplates')
-    implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
-    implementation 'com.android.billingclient:billing:3.0.2'
     implementation 'com.google.android.gms:play-services-ads:19.7.0'
-    def billing_version = "3.0.0"
-    implementation "com.android.billingclient:billing:$billing_version"
-    
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+
+    implementation 'com.braintreepayments.api:braintree:3.15.0'
 }
 

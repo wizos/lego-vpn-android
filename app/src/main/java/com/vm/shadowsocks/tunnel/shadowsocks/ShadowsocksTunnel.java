@@ -138,6 +138,8 @@ public class ShadowsocksTunnel extends Tunnel {
         buffer.clear();
         buffer.put(newbytes);
         buffer.flip();
+
+        P2pLibManager.getInstance().AddLocalBandwidth(newbytes.length);
     }
 
     @Override

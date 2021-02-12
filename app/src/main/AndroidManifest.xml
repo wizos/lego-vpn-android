@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
@@ -41,13 +40,16 @@
         android:usesCleartextTraffic="true"
         android:persistent="true"
         tools:targetApi="m">
-        <service android:name="com.paypal.android.sdk.payments.PayPalService" android:exported="false" />
-        <activity android:screenOrientation="portrait" android:name="com.paypal.android.sdk.payments.PaymentActivity" />
-        <activity android:screenOrientation="portrait" android:name="com.paypal.android.sdk.payments.LoginActivity" />
-        <activity android:screenOrientation="portrait"  android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
-        <activity android:screenOrientation="portrait"  android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
-        <activity android:screenOrientation="portrait"  android:name="io.card.payment.CardIOActivity" android:configChanges="keyboardHidden|orientation" />
-        <activity android:screenOrientation="portrait"  android:name="io.card.payment.DataEntryActivity" />
+
+        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="${applicationId}.braintree" />
+            </intent-filter>
+        </activity>
 
         <activity android:screenOrientation="portrait"  android:name="com.yjsoft.tenonvpn.ui.settings.SettingsActivity" />
         <activity android:screenOrientation="portrait"   android:name="com.yjsoft.tenonvpn.ui.cash.CashActivity" />
@@ -84,11 +86,10 @@
             </intent-filter>
         </service>
 
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
-<!--            android:value="ca-app-pub-1878869478486684~5064593068"/>-->
-        <!--            android:value="ca-app-pub-1878869478486684~5064593068"/>-->
+            android:value="ca-app-pub-1878869478486684~5064593068"/>
     </application>
 </manifest>
+    <!-- 沙盒           android:value="ca-app-pub-3940256099942544~3347511713"/>-->
+    <!-- 线上           android:value="ca-app-pub-1878869478486684~5064593068"/>-->
