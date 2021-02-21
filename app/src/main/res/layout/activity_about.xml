@@ -59,9 +59,9 @@
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="TenonVPN © 2020"
+            android:text="TenonVPN © 2021"
             android:textColor="#434D4C"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ScrollView
@@ -88,12 +88,12 @@
                 android:text="@string/add_nodes_desc"
                 android:textColor="@color/colorSubTitle" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoLink="all"
-                android:text="https://github.com/tenondvpn/tenonvpn-join\n"
-                android:textColor="@color/colorPrimary" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:autoLink="all"-->
+<!--                android:text="https://github.com/tenondvpn/tenonvpn-join\n"-->
+<!--                android:textColor="@color/colorPrimary" />-->
 
             <TextView
                 android:layout_width="wrap_content"

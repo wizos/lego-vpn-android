@@ -80,7 +80,7 @@
     <string name="free">Free</string>
     <string name="anonymous_account">Account</string>
     <string name="private_key">Private Key</string>
-    <string name="recharge">Recharge</string>
+    <string name="recharge">Earn</string>
     <string name="withdraw">Withdraw</string>
     <string name="un_connect">Connect</string>
     <string name="us">America</string>
@@ -179,5 +179,6 @@
     <string name="bandwdith_out">Today traffic used up!</string>
     <string name="download_free">Get Free</string>
     <string name="tomorrow">Use Tomorrow</string>
+    <string name="failed_load_ad">ad is not ready, retry!</string>
 
 </resources>

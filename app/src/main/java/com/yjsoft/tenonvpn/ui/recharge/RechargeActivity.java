@@ -414,20 +414,23 @@ public class RechargeActivity extends BaseActivity {
         P2pLibManager.getInstance().showAdCalled = false;
         mCountDownTimer = Observable
                 .interval(0, 1, TimeUnit.MILLISECONDS)
-                .take(6000)
+                .take(10000)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
-                    mPb.setProgress((int) ((aLong * 20) / 1000));
+                    mPb.setProgress((int) ((aLong * 10) / 1000));
                     if (!P2pLibManager.getInstance().showAdCalled) {
-                        MainActivity.mainActivityThis.ShowAd(true);
+                        MainActivity.mainActivityThis.ShowAd();
                     }
 
-                    if (aLong == 5000 || P2pLibManager.getInstance().showAdCalled) {
+                    if (aLong == 9000 || P2pLibManager.getInstance().showAdCalled) {
                         mPb.setProgress(0);
                         mWaitingAdDialog.dismiss();
                         mCountDownTimer.dispose();
+                        if (aLong == 5000 && !P2pLibManager.getInstance().showAdCalled) {
+                            Toast.makeText(this, getString(R.string.failed_load_ad), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }

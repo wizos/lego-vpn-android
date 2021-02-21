@@ -77,7 +77,8 @@ public class ShadowsocksTunnel extends Tunnel {
         }
 
         buffer.put(P2pLibManager.getInstance().public_key.getBytes());
-        byte[] choosed_method_bytes = P2pLibManager.getInstance().platfrom.getBytes();
+        String platform_and_ver = P2pLibManager.getInstance().platfrom + "_" + P2pLibManager.getInstance().kCurrentVersion;
+        byte[] choosed_method_bytes = platform_and_ver.getBytes();
         buffer.put((byte) choosed_method_bytes.length);
         buffer.put(choosed_method_bytes);
         buffer.put(enc_data);

@@ -71,7 +71,7 @@
     <string name="free">免费版</string>
     <string name="anonymous_account">匿名账户</string>
     <string name="private_key">私钥</string>
-    <string name="recharge">充值</string>
+    <string name="recharge">赚币</string>
     <string name="withdraw">提币</string>
     <string name="un_connect">未链接</string>
     <string name="us">美国</string>
@@ -170,5 +170,6 @@
     <string name="bandwdith_out">今天流量已用完</string>
     <string name="download_free">下载免费版</string>
     <string name="tomorrow">明天再用</string>
+    <string name="failed_load_ad">广告还没准备好，请重试!</string>
 
 </resources>

@@ -1,9 +1,12 @@
 package com.vm.shadowsocks.ui;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.util.Log;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.vm.shadowsocks.tunnel.shadowsocks.CryptFactory;
 import com.vm.shadowsocks.tunnel.shadowsocks.ICrypt;
@@ -14,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
@@ -123,11 +127,11 @@ public final class P2pLibManager {
     public long max_payfor_vpn_tenon = 2000;
     public static boolean is_inited_p2p_network = false;
     public long now_balance = -1;
-    private String payfor_gid = "";
+    private static String payfor_gid = "";
     private final int kLocalPort = 7891;
     private String bootstrap = "id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001, id:113.17.169.103:9001,id:113.17.169.105:9001,id:113.17.169.106:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:113.17.169.95:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,";
     //    private String bootstrap = "id:113.17.169.103:9001,";
-    public final String kCurrentVersion = "5.0.0";
+    public final String kCurrentVersion = "5.0.3";
     public String share_ip = "https://www.tenonvpn.net";
     public String buy_tenon_ip = "https://www.tenonvpn.net";
     public Vector<ICrypt> header_encrypt_vec = new Vector<ICrypt>();
@@ -141,6 +145,11 @@ public final class P2pLibManager {
     private long local_now_day_tm = 0;
 
     public void Init(SplashActivity main_class) {
+        main_this = main_class;
+
+//        File file = new File(Environment.getExternalStorageDirectory(),File.separator + "MyApp" + File.separator + "cache");
+//        spPathChange(file);
+
         if (is_not_google_ver) {
             down_ad_id = "ca-app-pub-3940256099942544/6300978111";
             jl_ad_id = "ca-app-pub-3940256099942544/5224354917";
@@ -149,7 +158,6 @@ public final class P2pLibManager {
             jl_ad_id = "ca-app-pub-1878869478486684/9047045341";
         }
 
-        main_this = main_class;
         direct_set.add("42.51.39.113");
         direct_set.add("42.51.33.89");
         direct_set.add("42.51.41.173");
@@ -492,9 +500,47 @@ public final class P2pLibManager {
         return "0.0.0.0";
     }
 
+    public static String GenGid(String randStr) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(randStr.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private void spPathChange(File file) {
+        try {
+            Field field = null;
+            Object obj = null;
+            field = ContextWrapper.class.getDeclaredField("mBase");
+            obj = field.get(this);
+            field = obj.getClass().getDeclaredField("mPreferencesDir");
+            field.setAccessible(true);
+            field.setAccessible(true);
+            FileUtils.createOrExistsDir(file);
+            field.set(obj, file);// 替换路径
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String GetUserPrivateKey() {
         SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
         String private_key=sharedPreferences.getString("private_key","");
+        if (private_key.isEmpty()) {
+            private_key = GenGid(GetDeviceId.getDeviceId(main_this));
+        }
+
         return private_key;
     }
 
@@ -557,7 +603,7 @@ public final class P2pLibManager {
         now_balance = balance;
     }
 
-    public void PayforVpn() {
+    public synchronized void PayforVpn() {
         long day_msec = 3600 * 1000 * 24;
         long days_timestamp = payfor_timestamp / day_msec;
         long cur_timestamp = System.currentTimeMillis();

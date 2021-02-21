@@ -354,42 +354,42 @@
                     android:textSize="12sp" />
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/bg_card"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="16dp"-->
+<!--                android:background="@drawable/bg_card"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="16dp">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/recharge_way_7"
-                    android:textColor="@color/colorPrimary" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/recharge_way_7"-->
+<!--                    android:textColor="@color/colorPrimary" />-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/mining"
-                    android:textColor="@color/colorSubTitle" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="@string/mining"-->
+<!--                    android:textColor="@color/colorSubTitle" />-->
 
-                <Button
-                    android:id="@+id/btn_join_node"
-                    android:layout_width="55dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="bottom|right"
-                    android:background="@drawable/select_bg"
-                    android:gravity="center"
-                    android:text="@string/join_node"
-                    android:onClick="joinNode"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
+<!--                <Button-->
+<!--                    android:id="@+id/btn_join_node"-->
+<!--                    android:layout_width="55dp"-->
+<!--                    android:layout_height="25dp"-->
+<!--                    android:layout_gravity="bottom|right"-->
+<!--                    android:background="@drawable/select_bg"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/join_node"-->
+<!--                    android:onClick="joinNode"-->
+<!--                    android:textColor="@color/colorPrimaryDark"-->
+<!--                    android:textSize="12sp" />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
