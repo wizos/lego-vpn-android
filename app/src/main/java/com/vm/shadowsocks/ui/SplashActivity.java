@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity {
     private Disposable mCountDownTimer;
     private Button mBtnPass;
     private int mAdPassSeconds = 5000;
-    private RewardedAd mRewardedAd;
+    private RewardedAd mRewardedAd = null;
     private boolean mAdShowed = false;
     private boolean mAdShowedButNotCompleted = false;
 
@@ -60,12 +60,23 @@ public class SplashActivity extends BaseActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        LoadAd();
-
-        setContentView(R.layout.activity_splash);
-        initView();
 
         P2pLibManager.getInstance().Init(this);
+        mRewardedAd = new RewardedAd(this, P2pLibManager.getInstance().jl_ad_id);
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
+            @Override
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
+            }
+
+            @Override
+            public void onRewardedAdFailedToLoad(LoadAdError adError) {
+                // Ad failed to load.
+            }
+        };
+        mRewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        setContentView(R.layout.activity_splash);
+        initView();
         if (!P2pLibManager.getInstance().InitNetwork(this)) {
             Toast.makeText(this, getString(R.string.init_failed) , Toast.LENGTH_SHORT).show();
             try {
@@ -80,7 +91,51 @@ public class SplashActivity extends BaseActivity {
         if (P2pLibManager.getInstance().vip_left_days > 0) {
             mAdPassSeconds = 1000;
         }
+
+        ShowAd();
         StartTimer();
+    }
+
+    void ShowAd() {
+        if (mRewardedAd.isLoaded() && P2pLibManager.getInstance().vip_left_days <= 0) {
+            if (mCountDownTimer != null && !mCountDownTimer.isDisposed()) {
+                mCountDownTimer.dispose();
+            }
+
+            Activity activityContext = SplashActivity.this;
+            RewardedAdCallback adCallback = new RewardedAdCallback() {
+                @Override
+                public void onRewardedAdOpened() {
+                    // Ad opened.
+                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                }
+
+                @Override
+                public void onRewardedAdClosed() {
+                    // Ad closed.
+                    mAdShowed = true;
+                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                    launchMain();
+                }
+
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem reward) {
+                    // User earned reward.
+                    mAdShowed = true;
+                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                    P2pLibManager.getInstance().AdReward(reward.toString());
+                    Toast.makeText(SplashActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
+                    launchMain();
+                }
+
+                @Override
+                public void onRewardedAdFailedToShow(AdError adError) {
+                    // Ad failed to display.
+                }
+            };
+
+            mRewardedAd.show(activityContext, adCallback);
+        }
     }
 
     void CheckVip() {
@@ -103,62 +158,6 @@ public class SplashActivity extends BaseActivity {
         mBtnPass = findViewById(R.id.btn_pass);
     }
 
-    private void LoadAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        RewardedAd.load(this, P2pLibManager.getInstance().jl_ad_id, adRequest, new RewardedAdLoadCallback(){
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                // Handle the error.
-                mRewardedAd = null;
-                LoadAd();
-            }
-
-            @Override
-            public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                mRewardedAd = rewardedAd;
-                mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-                    @Override
-                    public void onAdShowedFullScreenContent() {
-                        // Called when ad is shown.
-                        mRewardedAd = null;
-                        mAdShowedButNotCompleted = true;
-                    }
-
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        // Called when ad fails to show.
-                    }
-
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        // Called when ad is dismissed.
-                        // Don't forget to set the ad reference to null so you
-                        // don't show the ad a second time.
-                        mRewardedAd = null;
-                        mAdShowed = true;
-                    }
-                });
-            }
-        });
-    }
-    private void ShowAd() {
-        if (mRewardedAd == null) {
-            return;
-        }
-
-        Activity activityContext = SplashActivity.this;
-        mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
-            @Override
-            public void onUserEarnedReward(@NonNull RewardItem reward) {
-                // User earned reward.
-                mAdShowed = true;
-                P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-                P2pLibManager.getInstance().AdReward(reward.toString());
-                Toast.makeText(SplashActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void StartTimer() {
         mCountDownTimer = Observable
             .interval(0, 1, TimeUnit.SECONDS)
@@ -168,16 +167,21 @@ public class SplashActivity extends BaseActivity {
             .subscribe(aLong -> {
                 mBtnPass.setText(String.format("%s%ds", getString(R.string.pass_ad), mAdPassSeconds / 1000 - aLong));
                 if (P2pLibManager.getInstance().vip_left_days > 0) {
+                    mCountDownTimer.dispose();
                     launchMain();
+                    return;
                 }
 
                 if (0 == (mAdPassSeconds / 1000 - aLong) && !mAdShowedButNotCompleted) {
+                    mCountDownTimer.dispose();
                     launchMain();
+                    return;
                 }
 
                 if (mAdShowed) {
+                    mCountDownTimer.dispose();
                     launchMain();
-                }   else {
+                }  else {
                     ShowAd();
                 }
             });

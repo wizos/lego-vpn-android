@@ -421,14 +421,14 @@ public class RechargeActivity extends BaseActivity {
                     mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
                     mPb.setProgress((int) ((aLong * 10) / 1000));
                     if (!P2pLibManager.getInstance().showAdCalled) {
-                        MainActivity.mainActivityThis.ShowAd();
+                        MainActivity.mainActivityThis.ShowAd(true);
                     }
 
                     if (aLong == 9000 || P2pLibManager.getInstance().showAdCalled) {
                         mPb.setProgress(0);
                         mWaitingAdDialog.dismiss();
                         mCountDownTimer.dispose();
-                        if (aLong == 5000 && !P2pLibManager.getInstance().showAdCalled) {
+                        if (aLong >= 9000 && !P2pLibManager.getInstance().showAdCalled) {
                             Toast.makeText(this, getString(R.string.failed_load_ad), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -477,7 +477,7 @@ public class RechargeActivity extends BaseActivity {
                 handler.sendMessage(message);
 
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                 } catch(InterruptedException e) {
                     e.printStackTrace();
                 }

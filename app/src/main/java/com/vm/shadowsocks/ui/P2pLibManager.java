@@ -117,6 +117,11 @@ public final class P2pLibManager {
     final public boolean is_not_google_ver = false;
     public String down_ad_id = "";
     public String jl_ad_id = "";
+    public String jl_ad_id_1 = "";
+    public String jl_ad_id_2 = "";
+    public String jl_ad_id_3 = "";
+    public String jl_ad_id_4 = "";
+    public String jl_ad_id_5 = "";
 
     private SplashActivity main_this;
 
@@ -131,7 +136,7 @@ public final class P2pLibManager {
     private final int kLocalPort = 7891;
     private String bootstrap = "id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001, id:113.17.169.103:9001,id:113.17.169.105:9001,id:113.17.169.106:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:113.17.169.95:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,";
     //    private String bootstrap = "id:113.17.169.103:9001,";
-    public final String kCurrentVersion = "5.0.3";
+    public final String kCurrentVersion = "5.0.4";
     public String share_ip = "https://www.tenonvpn.net";
     public String buy_tenon_ip = "https://www.tenonvpn.net";
     public Vector<ICrypt> header_encrypt_vec = new Vector<ICrypt>();
@@ -153,9 +158,19 @@ public final class P2pLibManager {
         if (is_not_google_ver) {
             down_ad_id = "ca-app-pub-3940256099942544/6300978111";
             jl_ad_id = "ca-app-pub-3940256099942544/5224354917";
+            jl_ad_id_1 = "ca-app-pub-3940256099942544/5224354917";
+            jl_ad_id_2 = "ca-app-pub-3940256099942544/5224354917";
+            jl_ad_id_3 = "ca-app-pub-3940256099942544/5224354917";
+            jl_ad_id_4 = "ca-app-pub-3940256099942544/5224354917";
+            jl_ad_id_5 = "ca-app-pub-3940256099942544/5224354917";
         } else {
             down_ad_id = "ca-app-pub-1878869478486684/8691822122";
             jl_ad_id = "ca-app-pub-1878869478486684/9047045341";
+            jl_ad_id_1 = "ca-app-pub-1878869478486684/1068369006";
+            jl_ad_id_2 = "ca-app-pub-1878869478486684/9759223724";
+            jl_ad_id_3 = "ca-app-pub-1878869478486684/3694532348";
+            jl_ad_id_4 = "ca-app-pub-1878869478486684/7324632070";
+            jl_ad_id_5 = "ca-app-pub-1878869478486684/3674636453";
         }
 
         direct_set.add("42.51.39.113");

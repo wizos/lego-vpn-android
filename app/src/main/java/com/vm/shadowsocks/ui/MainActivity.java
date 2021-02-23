@@ -127,7 +127,6 @@ public class MainActivity extends BaseActivity implements
     private String[] checkOutNodeNames;
     private Vector<Integer> nodesNumbers = new Vector<Integer>();
     private boolean mMainIsVip = true;
-    private RewardedAd rewardedAd;
     private AdView mAdView;
     private ForegroundCallbacks foregroundCallbacks = null;
     private GPSUtils mGpsUtils = null;
@@ -135,6 +134,9 @@ public class MainActivity extends BaseActivity implements
     private int mAdShowedTimes = 0;
     private int mPrevAdShowedTimes = 0;
     private boolean mIsUserDisconnect = false;
+    private int mLoadAdSuccTimes = 0;
+    private int mLoadAdFailedTimes = 0;
+    private  boolean mShouldReloadAd = false;
 
     private int[] county = {
             R.drawable.aa
@@ -517,64 +519,93 @@ public class MainActivity extends BaseActivity implements
         return 0;
     }
 
-    private void LoadAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        RewardedAd.load(this, P2pLibManager.getInstance().jl_ad_id, adRequest, new RewardedAdLoadCallback(){
+    public RewardedAd createAndLoadRewardedAd() {
+        mShouldReloadAd = false;
+        RewardedAd rewardedAd = new RewardedAd(this,P2pLibManager.getInstance().jl_ad_id);
+        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
             @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                // Handle the error.
-                mRewardedAd = null;
-                LoadAd();
+            public void onRewardedAdLoaded() {
+                // Ad successfully loaded.
             }
 
             @Override
-            public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
-                mRewardedAd = rewardedAd;
-                mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-                    @Override
-                    public void onAdShowedFullScreenContent() {
-                    }
-
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(AdError adError) {
-                        // Called when ad fails to show.
-                        mRewardedAd = null;
-                    }
-
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        // Called when ad is dismissed.
-                        // Don't forget to set the ad reference to null so you
-                        // don't show the ad a second time.
-                        mAdShowedTimes++;
-                        mRewardedAd = null;
-                        P2pLibManager.getInstance().showAdCalled = true;
-                        LoadAd();
-                    }
-                });
+            public void onRewardedAdFailedToLoad(LoadAdError adError) {
+                // Ad failed to load.
+                mShouldReloadAd = true;
             }
-        });
+        };
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        return rewardedAd;
     }
 
-    public void ShowAd() {
-        if (mRewardedAd == null) {
+    public void ChangeToConnected() {
+        if (mConnectingDialog == null) {
             return;
         }
+        mConnectingDialog.dismiss();
+        mIsConnect = true;
+        mFlConnect.setBackgroundResource(R.drawable.selector_connect);
+        mIvConnect.setImageResource(R.drawable.connected);
+        mTvConnect.setText(R.string.connected);
+        mTvConnect.setTextColor(getResources().getColor(R.color.colorConnect));
+        mTvConnectDesc.setVisibility(View.VISIBLE);
+        mLlConnect.setBackgroundResource(R.drawable.selector_connect_inner);
+        mIvSecurity.setVisibility(View.VISIBLE);
+        mPb.setProgress(0);
+        mCountDownTimer.dispose();
+    }
 
-        P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-        Activity activityContext = MainActivity.this;
-        mRewardedAd.show(activityContext, new OnUserEarnedRewardListener() {
-            @Override
-            public void onUserEarnedReward(@NonNull RewardItem reward) {
-                // User earned reward.
-                mAdShowedTimes++;
-                P2pLibManager.getInstance().showAdCalled = true;
-                P2pLibManager.getInstance().AdReward(reward.toString());
-                Toast.makeText(MainActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
+    public void ShowAd(boolean directShow) {
+        if (!directShow) {
+            if (!foregroundCallbacks.isForeground()) {
+                return;
             }
-        });
 
-        mRewardedAd = null;
+            long now_tm = Calendar.getInstance().getTimeInMillis();
+            if (now_tm - P2pLibManager.getInstance().prev_showed_ad_tm < 5 * 60 * 1000) {
+                return;
+            }
+        }
+
+        if (mRewardedAd.isLoaded()) {
+            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            Activity activityContext = MainActivity.this;
+            RewardedAdCallback adCallback = new RewardedAdCallback() {
+                @Override
+                public void onRewardedAdOpened() {
+                    // Ad opened.
+                    if (directShow) {
+                        P2pLibManager.getInstance().showAdCalled = true;
+                    }
+                }
+
+                @Override
+                public void onRewardedAdClosed() {
+                    // Ad closed.
+                    mShouldReloadAd = true;
+                    P2pLibManager.getInstance().showAdCalled = true;
+                    ChangeToConnected();
+                }
+
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem reward) {
+                    // User earned reward.
+                    P2pLibManager.getInstance().AdReward(reward.toString());
+                    mShouldReloadAd = true;
+                    P2pLibManager.getInstance().showAdCalled = true;
+                    Toast.makeText(MainActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
+                    ChangeToConnected();
+                }
+
+                @Override
+                public void onRewardedAdFailedToShow(AdError adError) {
+                    // Ad failed to display.
+                    mShouldReloadAd = true;
+                    ChangeToConnected();
+                }
+            };
+            mRewardedAd.show(activityContext, adCallback);
+        }
     }
 
     private void toggleConnect() {
@@ -590,10 +621,6 @@ public class MainActivity extends BaseActivity implements
             }
 
             mIsUserDisconnect = false;
-            if (!P2pLibManager.getInstance().isVip()) {
-                ShowAd();
-            }
-
             checkVipStatus();
             startVpn(null);
         }
@@ -637,7 +664,7 @@ public class MainActivity extends BaseActivity implements
             }
         });
 
-        LoadAd();
+        mRewardedAd = createAndLoadRewardedAd();
         mGpsUtils = GPSUtils.getInstance(mainActivityThis);
         mGpsUtils.initPermission();
         String countryCode = mGpsUtils.getCountryCode();
@@ -744,20 +771,7 @@ public class MainActivity extends BaseActivity implements
             }
 
             if (P2pLibManager.getInstance().isVip() || mAdShowedTimes > mPrevAdShowedTimes) {
-                if (mConnectingDialog == null) {
-                    return;
-                }
-                mConnectingDialog.dismiss();
-                mIsConnect = true;
-                mFlConnect.setBackgroundResource(R.drawable.selector_connect);
-                mIvConnect.setImageResource(R.drawable.connected);
-                mTvConnect.setText(R.string.connected);
-                mTvConnect.setTextColor(getResources().getColor(R.color.colorConnect));
-                mTvConnectDesc.setVisibility(View.VISIBLE);
-                mLlConnect.setBackgroundResource(R.drawable.selector_connect_inner);
-                mIvSecurity.setVisibility(View.VISIBLE);
-                mPb.setProgress(0);
-                mCountDownTimer.dispose();
+                ChangeToConnected();
             }
         } else {
             mIsConnect = false;
@@ -942,29 +956,19 @@ public class MainActivity extends BaseActivity implements
             showConnectDialog();
             mCountDownTimer = Observable
                     .interval(0, 1, TimeUnit.MILLISECONDS)
-                    .take(20000)
+                    .take(10000)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(aLong -> {
                         mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
-                        mPb.setProgress((int) ((aLong * 5) / 1000));
-                        if (aLong == 19000|| mAdShowedTimes > mPrevAdShowedTimes) {
-                            mConnectingDialog.dismiss();
-                            mIsConnect = true;
-                            mFlConnect.setBackgroundResource(R.drawable.selector_connect);
-                            mIvConnect.setImageResource(R.drawable.connected);
-                            mTvConnect.setText(R.string.connected);
-                            mTvConnect.setTextColor(getResources().getColor(R.color.colorConnect));
-                            mTvConnectDesc.setVisibility(View.VISIBLE);
-                            mLlConnect.setBackgroundResource(R.drawable.selector_connect_inner);
-                            mIvSecurity.setVisibility(View.VISIBLE);
-                            mPb.setProgress(0);
-                            mCountDownTimer.dispose();
+                        mPb.setProgress((int) ((aLong * 10) / 1000));
+                        if (aLong >= 9000|| mAdShowedTimes > mPrevAdShowedTimes) {
+                            ChangeToConnected();
                             mPrevAdShowedTimes = mAdShowedTimes;
                         } else {
                             long nowTm = Calendar.getInstance().getTimeInMillis();
-                            if (nowTm - P2pLibManager.getInstance().prev_showed_ad_tm > 1000 && !P2pLibManager.getInstance().isVip()) {
-                                ShowAd();
+                            if (nowTm - P2pLibManager.getInstance().prev_showed_ad_tm > 10000 && !P2pLibManager.getInstance().isVip()) {
+                                ShowAd(true);
                             }
                         }
                     });
@@ -1090,6 +1094,9 @@ public class MainActivity extends BaseActivity implements
 
                 String new_bootstrap = P2pLibManager.getNewBootstrap();
                 P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
+                if (mShouldReloadAd) {
+                    mRewardedAd = createAndLoadRewardedAd();
+                }
             }
         }
     };

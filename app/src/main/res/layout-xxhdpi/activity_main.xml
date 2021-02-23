@@ -51,7 +51,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="v5.0.3"
+                        android:text="v5.0.4"
                         android:textColor="@color/colorSubTitle"
                         android:textSize="16sp" />
                 </LinearLayout>
