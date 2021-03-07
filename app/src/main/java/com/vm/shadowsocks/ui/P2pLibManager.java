@@ -17,18 +17,22 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
+import com.vm.shadowsocks.R;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
+import static com.blankj.utilcode.util.StringUtils.getString;
 
 class Hex {
     private static final char[] HEX_CHAR = { '0', '1', '2', '3', '4', '5', '6',
@@ -109,12 +113,12 @@ public final class P2pLibManager {
     public long payfor_timestamp = 0;
     public long payfor_amount = 0;
     public String now_status = "ok";
-    public long vip_left_days = -1;
+    private long vip_left_days = -1;
     public long prev_showed_ad_tm = 0;
     public boolean showAdCalled = false;
     public boolean smartMode = false;
 
-    final public boolean is_not_google_ver = false;
+    final public boolean is_google_ver = false;
     public String down_ad_id = "";
     public String jl_ad_id = "";
     public String jl_ad_id_1 = "";
@@ -122,6 +126,13 @@ public final class P2pLibManager {
     public String jl_ad_id_3 = "";
     public String jl_ad_id_4 = "";
     public String jl_ad_id_5 = "";
+
+    public String ins_ad_id = "";
+    public String ins_ad_id_1 = "";
+    public String ins_ad_id_2 = "";
+    public String ins_ad_id_3 = "";
+    public String ins_ad_id_4 = "";
+    public String ins_ad_id_5 = "";
 
     private SplashActivity main_this;
 
@@ -136,7 +147,7 @@ public final class P2pLibManager {
     private final int kLocalPort = 7891;
     private String bootstrap = "id:42.51.39.113:9001,id:42.51.33.89:9001,id:42.51.41.173:9001, id:113.17.169.103:9001,id:113.17.169.105:9001,id:113.17.169.106:9001,id:113.17.169.93:9001,id:113.17.169.94:9001,id:113.17.169.95:9001,id:216.108.227.52:9001,id:216.108.231.102:9001,id:216.108.231.103:9001,id:216.108.231.105:9001,id:216.108.231.19:9001,id:3.12.73.217:9001,id:3.137.186.226:9001,id:3.22.68.200:9001,id:3.138.121.98:9001,id:18.188.190.127:9001,";
     //    private String bootstrap = "id:113.17.169.103:9001,";
-    public final String kCurrentVersion = "5.0.4";
+    public final String kCurrentVersion = "5.1.1P";
     public String share_ip = "https://www.tenonvpn.net";
     public String buy_tenon_ip = "https://www.tenonvpn.net";
     public Vector<ICrypt> header_encrypt_vec = new Vector<ICrypt>();
@@ -148,14 +159,23 @@ public final class P2pLibManager {
     private Set<String> direct_set = new HashSet<String>();
     private long local_used_bandwidth = 0;
     private long local_now_day_tm = 0;
+    public boolean mAdShowedButNotCompleted = false;
+    public boolean mAdShowed = false;
+    public boolean mWatchAdToRunDialogShowed = false;
+    public boolean mCountryMode = true;
+    public final boolean mIsSupperVip = false;
+    public final boolean mIsPaymentVersion = true;
+
+    private HashMap<String, String> mIpWithNodesMap = new HashMap<String, String>();
+    public HashMap<String, Integer> code_to_country_map = new HashMap<String, Integer>();
+    public String choosed_vpn_ip_key = new String("");
 
     public void Init(SplashActivity main_class) {
         main_this = main_class;
-
 //        File file = new File(Environment.getExternalStorageDirectory(),File.separator + "MyApp" + File.separator + "cache");
 //        spPathChange(file);
 
-        if (is_not_google_ver) {
+        if (!is_google_ver || mIsPaymentVersion || mIsSupperVip) {
             down_ad_id = "ca-app-pub-3940256099942544/6300978111";
             jl_ad_id = "ca-app-pub-3940256099942544/5224354917";
             jl_ad_id_1 = "ca-app-pub-3940256099942544/5224354917";
@@ -163,6 +183,13 @@ public final class P2pLibManager {
             jl_ad_id_3 = "ca-app-pub-3940256099942544/5224354917";
             jl_ad_id_4 = "ca-app-pub-3940256099942544/5224354917";
             jl_ad_id_5 = "ca-app-pub-3940256099942544/5224354917";
+
+            ins_ad_id = "ca-app-pub-3940256099942544/5354046379";
+            ins_ad_id_1 = "ca-app-pub-3940256099942544/5354046379";
+            ins_ad_id_2 = "ca-app-pub-3940256099942544/5354046379";
+            ins_ad_id_3 = "ca-app-pub-3940256099942544/5354046379";
+            ins_ad_id_4 = "ca-app-pub-3940256099942544/5354046379";
+            ins_ad_id_5 = "ca-app-pub-3940256099942544/5354046379";
         } else {
             down_ad_id = "ca-app-pub-1878869478486684/8691822122";
             jl_ad_id = "ca-app-pub-1878869478486684/9047045341";
@@ -171,6 +198,13 @@ public final class P2pLibManager {
             jl_ad_id_3 = "ca-app-pub-1878869478486684/3694532348";
             jl_ad_id_4 = "ca-app-pub-1878869478486684/7324632070";
             jl_ad_id_5 = "ca-app-pub-1878869478486684/3674636453";
+
+            ins_ad_id = "ca-app-pub-1878869478486684/9003371792";
+            ins_ad_id_1 = "ca-app-pub-1878869478486684/5962576806";
+            ins_ad_id_2 = "ca-app-pub-1878869478486684/7084086789";
+            ins_ad_id_3 = "ca-app-pub-1878869478486684/8264757773";
+            ins_ad_id_4 = "ca-app-pub-1878869478486684/7373513782";
+            ins_ad_id_5 = "ca-app-pub-1878869478486684/5579433424";
         }
 
         direct_set.add("42.51.39.113");
@@ -253,6 +287,49 @@ public final class P2pLibManager {
         InitHeaderEncrypt();
         InitPayforAccounts();
         GetVipStatus();
+        mCountryMode = GetCountryMode();
+        String saved_node = GetSavedVpnNode(choosed_country);
+        if (!saved_node.isEmpty()) {
+            String info_split[] = saved_node.split(":");
+            if (info_split.length >= 7) {
+                choosed_vpn_ip = info_split[0];
+            }
+        }
+
+        code_to_country_map.put("US", (R.string.US));
+        code_to_country_map.put("CN", (R.string.CN));
+        code_to_country_map.put("SG", (R.string.SG));
+        code_to_country_map.put("JP", (R.string.JP));
+        code_to_country_map.put("KR", (R.string.KR));
+        code_to_country_map.put("CA", (R.string.CA));
+        code_to_country_map.put("FR", (R.string.FR));
+        code_to_country_map.put("GB", (R.string.GB));
+        code_to_country_map.put("DE", (R.string.DE));
+        code_to_country_map.put("AU", (R.string.AU));
+        code_to_country_map.put("BR", (R.string.BR));
+        code_to_country_map.put("NL", (R.string.NL));
+        code_to_country_map.put("HK", (R.string.HK));
+        code_to_country_map.put("IN", (R.string.IN));
+        code_to_country_map.put("RU", (R.string.RU));
+        if (mIsSupperVip) {
+            mCountryMode = false;
+        }
+
+        if (!mCountryMode) {
+            choosed_vpn_ip_key = GetSavedIpKey();
+            if (choosed_vpn_ip_key.isEmpty()) {
+                choosed_vpn_ip_key = main_class.getString(R.string.choose_one_ip);
+            } else {
+                String res = GetSavedIpNode();
+                String info_split[] = res.split(":");
+                if (info_split.length >= 6) {
+                    choosed_vpn_ip = info_split[0];
+                    choosed_vpn_port = updateVpnPort(info_split[5]);
+                    seckey = info_split[3];
+                    public_key = getPublicKey();
+                }
+            }
+        }
     }
 
     public static long bytesToLong(byte[] input, int offset, boolean littleEndian) {
@@ -270,6 +347,9 @@ public final class P2pLibManager {
     public boolean IsDirectNode(String ip) {
         return direct_set.contains(ip);
     }
+    public long GetVipLeftDays() {
+        return vip_left_days;
+    }
 
     public String GetDefaultRouting(String des) {
         synchronized(def_route_lock) {
@@ -282,6 +362,10 @@ public final class P2pLibManager {
     }
 
     public boolean isVip() {
+        if (mIsSupperVip) {
+            return true;
+        }
+
         return vip_left_days > 0;
     }
 
@@ -389,6 +473,7 @@ public final class P2pLibManager {
         if (!ParseClientProperty()) {
             return false;
         }
+
         return true;
     }
 
@@ -397,18 +482,7 @@ public final class P2pLibManager {
      */
 
     public void AdReward(String ad_string) {
-        String content = ad_string;
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        byte[] rel = digest.digest(content.getBytes());
-        String hex = Hex.encode(rel);
-        adReward(hex);
+        adReward(ad_string + "_and_" + kCurrentVersion);
     }
 
     public boolean fileIsExists(String strFile)
@@ -685,7 +759,45 @@ public final class P2pLibManager {
         }
     }
 
+    public boolean GetVpnNodeWithKey(String key) {
+        if (key.equals(choosed_vpn_ip_key)) {
+            String res = GetSavedIpNode();
+            String info_split[] = res.split(":");
+            if (info_split.length >= 6) {
+                choosed_vpn_ip = info_split[0];
+                choosed_vpn_port = updateVpnPort(info_split[5]);
+                seckey = info_split[3];
+                public_key = getPublicKey();
+                return true;
+            }
+        }
+
+        if (!mIpWithNodesMap.containsKey(key)) {
+            return false;
+        }
+
+        String res = mIpWithNodesMap.get(key);
+        String info_split[] = res.split(":");
+        if (info_split.length < 6) {
+            return false;
+        }
+
+        SaveIpNode(res, key);
+        choosed_vpn_ip_key = key;
+        choosed_vpn_ip = info_split[0];
+        choosed_vpn_port = updateVpnPort(info_split[5]);
+        seckey = info_split[3];
+        public_key = getPublicKey();
+       return true;
+    }
+
     public boolean GetVpnNode() {
+        if (!mCountryMode) {
+            if (GetVpnNodeWithKey(choosed_vpn_ip_key)) {
+                return true;
+            }
+        }
+
         String res = GetOneVpnNode(choosed_country);
         if (res.isEmpty()) {
             for (String country : def_vpn_coutry) {
@@ -700,6 +812,13 @@ public final class P2pLibManager {
             return false;
         }
 
+//        String saved_node = GetSavedVpnNode(choosed_country);
+//        if (!saved_node.isEmpty()) {
+//            res = saved_node;
+//        } else {
+//            P2pLibManager.getInstance().SaveVpnNode(res, P2pLibManager.getInstance().choosed_country);
+//        }
+
         String info_split[] = res.split(":");
         if (info_split.length < 7) {
             return false;
@@ -707,7 +826,6 @@ public final class P2pLibManager {
 
         choosed_vpn_ip = info_split[0];
         choosed_vpn_port = updateVpnPort(info_split[5]);
-//        choosed_vpn_port = Integer.parseInt(info_split[1]);
         seckey = info_split[3];
         public_key = getPublicKey();
         return true;
@@ -757,6 +875,57 @@ public final class P2pLibManager {
             }
         }
         return "";
+    }
+
+    public String[] GetAllIps() {
+        String[] res = mIpWithNodesMap.keySet().toArray(new String[mIpWithNodesMap.keySet().size()]);
+        Arrays.sort(res);
+        return res;
+    }
+
+    public void InitGetAllNodes() {
+        String vpn_url = getAllNodes(P2pLibManager.getInstance().isVip());
+        if (vpn_url.isEmpty()) {
+            vpn_url = GetSavedVpnNode("ALL");
+            if (vpn_url.isEmpty()) {
+                return;
+            }
+        } else {
+            SaveVpnNode(vpn_url, "ALL");
+        }
+
+        String[] svr_route_split = vpn_url.split("~");
+        if (svr_route_split.length != 2) {
+            return;
+        }
+
+        String[] country_vpn_nodes = svr_route_split[0].split("`");
+        for (int country_idx = 0; country_idx < country_vpn_nodes.length; ++country_idx) {
+            String[] country_with_nodes = country_vpn_nodes[country_idx].split(";");
+            if (country_with_nodes.length != 2) {
+                continue;
+            }
+
+            String country = country_with_nodes[0];
+            if (mIsSupperVip && country.equals("CN")) {
+                continue;
+            }
+
+            String[] nodes = country_with_nodes[1].split(",");
+            int count = 0;
+            for (int node_idx = 0; node_idx < nodes.length; ++node_idx) {
+                String[] node_info = nodes[node_idx].split(":");
+                if (node_info.length < 6) {
+                    continue;
+                }
+
+                ++count;
+                if (count > 4) {
+                    break;
+                }
+                mIpWithNodesMap.put(main_this.getString(code_to_country_map.get(country)) + " " + node_info[0], nodes[node_idx]);
+            }
+        }
     }
 
     public String GetOneVpnNode(String country) {
@@ -917,40 +1086,159 @@ public final class P2pLibManager {
         return true;
     }
 
+    public String GetSavedIpKey() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String vpn_node=sharedPreferences.getString("saved_ip_key","");
+            return vpn_node;
+        } catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public String GetSavedIpNode() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String vpn_node=sharedPreferences.getString("saved_ip_node","");
+            return vpn_node;
+        } catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public boolean SaveIpNode(String node, String key) {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("saved_ip_key", key);
+            editor.putString("saved_ip_node", node);
+            editor.commit();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public String GetSavedVpnNode(String country) {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String vpn_node=sharedPreferences.getString("saved_vpn_node_" + country,"");
+            return vpn_node;
+        } catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public boolean SaveVpnNode(String node, String country) {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("saved_vpn_node_" + country, node);
+            editor.commit();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean GetCountryMode() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String country_mode = sharedPreferences.getString("country_mode","");
+            if (country_mode.isEmpty()) {
+                return true;
+            }
+
+            return Boolean.valueOf(country_mode);
+        } catch (Exception e) {
+        }
+
+        return true;
+    }
+
+
+    public boolean SaveCountryMode(Boolean country_mode) {
+        if (!country_mode) {
+            choosed_vpn_ip_key = GetSavedIpKey();
+            if (choosed_vpn_ip_key.isEmpty()) {
+                choosed_vpn_ip_key = main_this.getString(R.string.choose_one_ip);
+            } else {
+                if (!mCountryMode) {
+                    GetVpnNodeWithKey(choosed_vpn_ip_key);
+                }
+            }
+        }
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("country_mode", String.valueOf(country_mode));
+            editor.commit();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
     public void AddLocalBandwidth(long bandwidth) {
-//        long now_day_tm = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
-//        if (now_day_tm != local_now_day_tm) {
-//            local_now_day_tm = now_day_tm;
-//            local_used_bandwidth = 0;
-//        }
-//
-//        local_used_bandwidth += bandwidth;
-//        try {
-//            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.putLong("local_used_bandwidth", local_used_bandwidth);
-//            editor.putLong("local_now_day_tm", local_now_day_tm);
-//            editor.commit();
-//        } catch (Exception e) {
-//        }
+        if (is_google_ver) {
+            return;
+        }
+
+        if (mIsSupperVip) {
+            return;
+        }
+
+        if (isVip()) {
+            return;
+        }
+
+        long now_day_tm = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
+        if (now_day_tm != local_now_day_tm) {
+            local_now_day_tm = now_day_tm;
+            local_used_bandwidth = 0;
+        }
+
+        local_used_bandwidth += bandwidth;
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("local_used_bandwidth", local_used_bandwidth);
+            editor.putLong("local_now_day_tm", local_now_day_tm);
+            editor.commit();
+        } catch (Exception e) {
+        }
     }
 
     public boolean IsLocalBandwidthExceeded() {
-        return false;
-//        try {
-//            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
-//            long tmp_local_used_bandwidth=sharedPreferences.getLong("local_used_bandwidth",0);
-//            long tmp_local_now_day_tm=sharedPreferences.getLong("local_now_day_tm",0);
-//            long now_day_tm = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
-//            if (now_day_tm != tmp_local_now_day_tm) {
-//                return false;
-//            }
-//
-//            return tmp_local_used_bandwidth > (1024 * 1024 * 100);
-//        } catch (Exception e) {
-//        }
-//
-//        return local_used_bandwidth > (1024 * 1024 * 100);
+        if (is_google_ver) {
+            return false;
+        }
+
+        if (mIsSupperVip) {
+            return false;
+        }
+
+        if (isVip()) {
+            return false;
+        }
+
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            long tmp_local_used_bandwidth=sharedPreferences.getLong("local_used_bandwidth",0);
+            long tmp_local_now_day_tm=sharedPreferences.getLong("local_now_day_tm",0);
+            long now_day_tm = System.currentTimeMillis() / (24 * 60 * 60 * 1000);
+            if (now_day_tm != tmp_local_now_day_tm) {
+                return false;
+            }
+
+            return tmp_local_used_bandwidth > (1024 * 1024 * 20);
+        } catch (Exception e) {
+        }
+
+        return local_used_bandwidth > (1024 * 1024 * 20);
     }
 
     private static final int kStreamConnectRangeMin = 0;
@@ -995,6 +1283,24 @@ public final class P2pLibManager {
             default:
                 return 0;
         }
+    }
+
+    public boolean IsFirstInstallAndChangeMode() {
+        try {
+            SharedPreferences sharedPreferences = main_this.getSharedPreferences("data", Context.MODE_PRIVATE);
+            String first_mode = sharedPreferences.getString("IsFirstInstallAndChangeMode","");
+            if (first_mode.isEmpty()) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("IsFirstInstallAndChangeMode", "1");
+                editor.commit();
+                return true;
+            }
+
+            return false;
+        } catch (Exception e) {
+        }
+
+        return false;
     }
 
     public String VpnConnected() {
@@ -1163,5 +1469,6 @@ public final class P2pLibManager {
     public static native String getNewBootstrap();
     public static native String transaction(String to, long tenon, String gid);
     public static native void adReward(String gid);
+    public static native String getAllNodes(boolean vip);
 
 }

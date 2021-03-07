@@ -36,18 +36,14 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements OnUserEarnedRewardListener {
     static {
         System.loadLibrary("native-lib");
     }
     private Disposable mCountDownTimer;
     private Button mBtnPass;
     private int mAdPassSeconds = 5000;
-    private RewardedAd mRewardedAd = null;
-    private boolean mAdShowed = false;
-    private boolean mAdShowedButNotCompleted = false;
-
-    private int mRewardCount = 0;
+    private InsAdManager mInsAdManager = null;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -62,19 +58,9 @@ public class SplashActivity extends BaseActivity {
         });
 
         P2pLibManager.getInstance().Init(this);
-        mRewardedAd = new RewardedAd(this, P2pLibManager.getInstance().jl_ad_id);
-        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
-            @Override
-            public void onRewardedAdLoaded() {
-                // Ad successfully loaded.
-            }
-
-            @Override
-            public void onRewardedAdFailedToLoad(LoadAdError adError) {
-                // Ad failed to load.
-            }
-        };
-        mRewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
+        mInsAdManager = new InsAdManager();
+        mInsAdManager.Init(null, this);
+        mInsAdManager.ReloadAllAd();
         setContentView(R.layout.activity_splash);
         initView();
         if (!P2pLibManager.getInstance().InitNetwork(this)) {
@@ -88,54 +74,20 @@ public class SplashActivity extends BaseActivity {
             return;
         }
         CheckVip();
-        if (P2pLibManager.getInstance().vip_left_days > 0) {
+        if (P2pLibManager.getInstance().isVip() || P2pLibManager.getInstance().mIsPaymentVersion) {
             mAdPassSeconds = 1000;
         }
 
-        ShowAd();
+        mBtnPass.setText(String.format("%s%ds", getString(R.string.pass_ad), mAdPassSeconds / 1000));
+        mInsAdManager.ShowAd();
         StartTimer();
     }
 
-    void ShowAd() {
-        if (mRewardedAd.isLoaded() && P2pLibManager.getInstance().vip_left_days <= 0) {
-            if (mCountDownTimer != null && !mCountDownTimer.isDisposed()) {
-                mCountDownTimer.dispose();
-            }
-
-            Activity activityContext = SplashActivity.this;
-            RewardedAdCallback adCallback = new RewardedAdCallback() {
-                @Override
-                public void onRewardedAdOpened() {
-                    // Ad opened.
-                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-                }
-
-                @Override
-                public void onRewardedAdClosed() {
-                    // Ad closed.
-                    mAdShowed = true;
-                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-                    launchMain();
-                }
-
-                @Override
-                public void onUserEarnedReward(@NonNull RewardItem reward) {
-                    // User earned reward.
-                    mAdShowed = true;
-                    P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
-                    P2pLibManager.getInstance().AdReward(reward.toString());
-                    Toast.makeText(SplashActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
-                    launchMain();
-                }
-
-                @Override
-                public void onRewardedAdFailedToShow(AdError adError) {
-                    // Ad failed to display.
-                }
-            };
-
-            mRewardedAd.show(activityContext, adCallback);
-        }
+    @Override
+    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+        Log.i("TAG", "onUserEarnedReward");
+        // TODO: Reward the user!
+        mInsAdManager.AdClicked();
     }
 
     void CheckVip() {
@@ -159,30 +111,36 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void StartTimer() {
+        P2pLibManager.getInstance().mAdShowed = false;
+        P2pLibManager.getInstance().showAdCalled = false;
         mCountDownTimer = Observable
             .interval(0, 1, TimeUnit.SECONDS)
             .take(mAdPassSeconds)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(aLong -> {
-                mBtnPass.setText(String.format("%s%ds", getString(R.string.pass_ad), mAdPassSeconds / 1000 - aLong));
-                if (P2pLibManager.getInstance().vip_left_days > 0) {
+                if (mAdPassSeconds / 1000 - aLong >= 0) {
+                    mBtnPass.setText(String.format("%s%ds", getString(R.string.pass_ad), mAdPassSeconds / 1000 - aLong));
+                }
+                if (P2pLibManager.getInstance().isVip()) {
                     mCountDownTimer.dispose();
                     launchMain();
                     return;
                 }
 
-                if (0 == (mAdPassSeconds / 1000 - aLong) && !mAdShowedButNotCompleted) {
+                if ((mAdPassSeconds / 1000 - aLong) <= 0 && !P2pLibManager.getInstance().mAdShowedButNotCompleted) {
                     mCountDownTimer.dispose();
                     launchMain();
                     return;
                 }
 
-                if (mAdShowed) {
+                if (P2pLibManager.getInstance().mAdShowed) {
                     mCountDownTimer.dispose();
                     launchMain();
                 }  else {
-                    ShowAd();
+                    if (!P2pLibManager.getInstance().showAdCalled) {
+                        mInsAdManager.ShowAd();
+                    }
                 }
             });
     }

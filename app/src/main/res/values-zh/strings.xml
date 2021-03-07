@@ -80,7 +80,7 @@
     <string name="please_input_private_key">请输入私钥</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
-    <string name="connecting">正在为您链接...</string>
+    <string name="connecting">连接中..., 退出会断连!</string>
     <string name="connected">已链接</string>
     <string name="about">关于</string>
     <string name="add_nodes">加入节点</string>
@@ -107,7 +107,7 @@
     <string name="recharge_way_6">方式 6</string>
     <string name="recharge_way_7">方式 7</string>
     <string name="mining">挖矿</string>
-    <string name="get_reward">观看广告将获得币：3~10 </string>
+    <string name="get_reward">观看广告将获得币：1~10 </string>
     <string name="minning">挖矿</string>
 
     <string name="pay_way_month">包月\n5美元</string>
@@ -171,5 +171,30 @@
     <string name="download_free">下载免费版</string>
     <string name="tomorrow">明天再用</string>
     <string name="failed_load_ad">广告还没准备好，请重试!</string>
+    <string name="dont_showed_ad">异常关闭，连接失败!</string>
+    <string name="adload_mining">观看广告挖矿获取更多Tenon？</string>
+    <string name="watch_ad_to_run">完整看完广告后继续使用.</string>
+    <string name="ad_to_run">继续使用</string>
+    <string name="switch_ip">更换</string>
+    <string name="current_ip">固定IP</string>
+    <string name="ip_mode">IP模式</string>
+    <string name="country_mode">国家模式</string>
+    <string name="US">美国&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="CN">中国&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="SG">新加坡&#160;&#160;&#160;&#160;</string>
+    <string name="JP">日本&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="KR">韩国&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="CA">加拿大&#160;&#160;&#160;&#160;</string>
+    <string name="FR">法国&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="GB">英国&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="DE">德国&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="AU">澳大利亚</string>
+    <string name="BR">巴西&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="NL">荷兰&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="HK">香港&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="IN">印度&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <string name="RU">俄罗斯&#160;&#160;&#160;&#160;</string>
+    <string name="choose_one_ip">请选择IP.</string>
+    <string name="supper_user">超级 VIP</string>
 
 </resources>

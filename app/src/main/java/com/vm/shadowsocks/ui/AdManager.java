@@ -29,6 +29,9 @@ public class AdManager {
     private RewardedAd mRewardedAdJL_5 = null;
 
     public void Init(MainActivity ctx, SplashActivity splash_ctx) {
+        if (P2pLibManager.getInstance().mIsSupperVip || P2pLibManager.getInstance().mIsPaymentVersion) {
+            return;
+        }
         main_this = ctx;
         splash_this = splash_ctx;
         if (main_this != null) {
@@ -43,6 +46,9 @@ public class AdManager {
     }
 
     public void ReloadAllAd() {
+        if (P2pLibManager.getInstance().mIsSupperVip || P2pLibManager.getInstance().mIsPaymentVersion) {
+            return;
+        }
         if (mRewardedAdJL_5 == null) {
             mRewardedAdJL_5 = new RewardedAd(base_this, P2pLibManager.getInstance().jl_ad_id_5);
             RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
@@ -146,6 +152,38 @@ public class AdManager {
         }
     }
 
+    public boolean Adloaded() {
+        if (P2pLibManager.getInstance().mIsSupperVip || P2pLibManager.getInstance().mIsPaymentVersion) {
+            return false;
+        }
+
+        if (mRewardedAdJL_5 != null && mRewardedAdJL_5.isLoaded()) {
+            return true;
+        }
+
+        if (mRewardedAdJL_4 != null && mRewardedAdJL_4.isLoaded()) {
+            return true;
+        }
+
+        if (mRewardedAdJL_3 != null && mRewardedAdJL_3.isLoaded()) {
+            return true;
+        }
+
+        if (mRewardedAdJL_2 != null && mRewardedAdJL_2.isLoaded()) {
+            return true;
+        }
+
+        if (mRewardedAdJL_1 != null && mRewardedAdJL_1.isLoaded()) {
+            return true;
+        }
+
+        if (mRewardedAd != null && mRewardedAd.isLoaded()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public void ShowAd() {
         P2pLibManager.getInstance().showAdCalled = false;
         Activity activityContext = base_this;
@@ -158,11 +196,12 @@ public class AdManager {
             @Override
             public void onRewardedAdClosed() {
                 // Ad closed.
-                P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
+                P2pLibManager.getInstance().mAdShowed = true;
                 if (main_this != null) {
-                    P2pLibManager.getInstance().showAdCalled = true;
                     main_this.ChangeToConnected();
                 }
+
+                P2pLibManager.getInstance().mWatchAdToRunDialogShowed = false;
             }
 
             @Override
@@ -170,59 +209,69 @@ public class AdManager {
                 // User earned reward.
                 P2pLibManager.getInstance().prev_showed_ad_tm = Calendar.getInstance().getTimeInMillis();
                 P2pLibManager.getInstance().AdReward(reward.toString());
+                P2pLibManager.getInstance().mAdShowed = true;
                 Toast.makeText(base_this, base_this.getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
                 if (main_this != null) {
                     P2pLibManager.getInstance().showAdCalled = true;
                     main_this.ChangeToConnected();
                 }
+                P2pLibManager.getInstance().mWatchAdToRunDialogShowed = false;
             }
 
             @Override
             public void onRewardedAdFailedToShow(AdError adError) {
                 // Ad failed to display.
+                P2pLibManager.getInstance().mAdShowed = true;
                 if (main_this != null) {
                     main_this.ChangeToConnected();
                 }
+                P2pLibManager.getInstance().mWatchAdToRunDialogShowed = false;
             }
         };
 
         if (mRewardedAdJL_5 != null && mRewardedAdJL_5.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            P2pLibManager.getInstance().showAdCalled = true;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = true;
             mRewardedAdJL_5.show(activityContext, adCallback);
             mRewardedAdJL_5 = null;
             return;
         }
 
         if (mRewardedAdJL_4 != null && mRewardedAdJL_4.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            P2pLibManager.getInstance().showAdCalled = true;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = true;
             mRewardedAdJL_4.show(activityContext, adCallback);
             mRewardedAdJL_4 = null;
             return;
         }
 
         if (mRewardedAdJL_3 != null && mRewardedAdJL_3.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            P2pLibManager.getInstance().showAdCalled = true;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = true;
             mRewardedAdJL_3.show(activityContext, adCallback);
             mRewardedAdJL_3 = null;
             return;
         }
 
         if (mRewardedAdJL_2 != null && mRewardedAdJL_2.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            P2pLibManager.getInstance().showAdCalled = true;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = true;
             mRewardedAdJL_2.show(activityContext, adCallback);
             mRewardedAdJL_2 = null;
             return;
         }
 
         if (mRewardedAdJL_1 != null && mRewardedAdJL_1.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            P2pLibManager.getInstance().showAdCalled = true;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = true;
             mRewardedAdJL_1.show(activityContext, adCallback);
             mRewardedAdJL_1 = null;
             return;
         }
 
         if (mRewardedAd != null && mRewardedAd.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
+            P2pLibManager.getInstance().showAdCalled = true;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = true;
             mRewardedAd.show(activityContext, adCallback);
             mRewardedAd = null;
             return;

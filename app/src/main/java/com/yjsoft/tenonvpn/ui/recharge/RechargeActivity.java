@@ -86,6 +86,11 @@ public class RechargeActivity extends BaseActivity {
         findViewById(R.id.btn_watch_ad).setOnClickListener(v -> launchSplash());
         findViewById(R.id.btn_share_reward).setOnClickListener(v -> shareToReward());
         UpdateTableView();
+        if (P2pLibManager.getInstance().mIsPaymentVersion) {
+            findViewById(R.id.minging_watch_ad).setVisibility(View.GONE);
+            TextView way_6 = (TextView)findViewById(R.id.mining_way_6);
+            way_6.setText(R.string.recharge_way_5);
+        }
 
         Thread t1 = new Thread(check_tx,"check tx");
         t1.start();
@@ -420,11 +425,15 @@ public class RechargeActivity extends BaseActivity {
                 .subscribe(aLong -> {
                     mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
                     mPb.setProgress((int) ((aLong * 10) / 1000));
+                    long nowTm = Calendar.getInstance().getTimeInMillis();
                     if (!P2pLibManager.getInstance().showAdCalled) {
-                        MainActivity.mainActivityThis.ShowAd(true);
+                        MainActivity.mainActivityThis.mAdManager.ShowAd();
                     }
+//                    if (!P2pLibManager.getInstance().showAdCalled) {
+//                        MainActivity.mainActivityThis.mAdManager.ShowAd();
+//                    }
 
-                    if (aLong == 9000 || P2pLibManager.getInstance().showAdCalled) {
+                    if (aLong > 9000 || P2pLibManager.getInstance().showAdCalled) {
                         mPb.setProgress(0);
                         mWaitingAdDialog.dismiss();
                         mCountDownTimer.dispose();

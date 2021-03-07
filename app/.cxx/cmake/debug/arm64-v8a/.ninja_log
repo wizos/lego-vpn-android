@@ -10,3 +10,13 @@
 2	58	0	clean	3255ce8ee36b67a6
 61	2939	634994051	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	290430b2dbc446c5
 2939	6169	634994054	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+138	8407	636079035	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+75	4571	636306126	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+49	3554	636306428	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+44	3759	636306597	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+125	7659	636308679	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+78	5471	636310494	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+79	3986	636310519	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+70	4603	636311382	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe
+67	4024	636625345	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	290430b2dbc446c5
+4024	8135	636625349	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	92f0e5f15e049ebe

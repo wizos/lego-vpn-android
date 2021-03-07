@@ -89,7 +89,7 @@
     <string name="please_input_private_key">Input Private Key</string>
     <string name="confirm">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="connecting">Linking for you now...</string>
+    <string name="connecting">Linking..., Don\'t close!</string>
     <string name="connected">Disconnect</string>
     <string name="about">About</string>
     <string name="add_nodes">Join Nodes</string>
@@ -115,7 +115,7 @@
     <string name="recharge_way_5">Method 5</string>
     <string name="recharge_way_6">Method 6</string>
     <string name="recharge_way_7">Method 7</string>
-    <string name="get_reward">Watched ad earned coins random 3 ~ 10 </string>
+    <string name="get_reward">Watched ad earned coins random 1 ~ 10 </string>
 
     <string name="pay_way_month">Monthly\n$5</string>
     <string name="pay_way_quarter">Quarterly\n$12/-20%</string>
@@ -180,5 +180,29 @@
     <string name="download_free">Get Free</string>
     <string name="tomorrow">Use Tomorrow</string>
     <string name="failed_load_ad">ad is not ready, retry!</string>
-
+    <string name="dont_showed_ad">Closed abnormally, connection failed!</string>
+    <string name="adload_mining">Mining for more tenon?</string>
+    <string name="watch_ad_to_run">Continue to use after complete watched the ad.</string>
+    <string name="ad_to_run">Continue</string>
+    <string name="switch_ip">Switch</string>
+    <string name="current_ip">Fixed IP</string>
+    <string name="ip_mode">Ip Mode</string>
+    <string name="country_mode">Country Mode</string>
+    <string name="US">America</string>
+    <string name="CN">China</string>
+    <string name="SG">Singapore</string>
+    <string name="JP">Japan</string>
+    <string name="KR">Korea</string>
+    <string name="CA">Canada</string>
+    <string name="FR">France</string>
+    <string name="GB">England</string>
+    <string name="DE">Germany</string>
+    <string name="AU">Australia</string>
+    <string name="BR">Brazil</string>
+    <string name="NL">Netherlands</string>
+    <string name="HK">Hong Kong</string>
+    <string name="IN">India</string>
+    <string name="RU">Russia</string>
+    <string name="choose_one_ip">Choose one ip.</string>
+    <string name="supper_user">Supper VIP</string>
 </resources>

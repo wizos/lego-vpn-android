@@ -88,7 +88,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1878869478486684~5064593068"/>
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
     </application>
 </manifest>
     <!-- 沙盒           android:value="ca-app-pub-3940256099942544~3347511713"/>-->

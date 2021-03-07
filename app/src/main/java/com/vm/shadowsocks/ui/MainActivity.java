@@ -1,7 +1,7 @@
 package com.vm.shadowsocks.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -11,18 +11,16 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
@@ -40,21 +38,14 @@ import android.net.VpnService;
 import android.os.Handler;
 import android.os.Message;
 
-import com.google.android.ads.nativetemplates.TemplateView;
-import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.rewarded.RewardItem;
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdCallback;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.vm.shadowsocks.R;
 import com.vm.shadowsocks.core.AppProxyManager;
 import com.vm.shadowsocks.core.LocalVpnService;
@@ -67,7 +58,6 @@ import com.yjsoft.tenonvpn.ui.settings.SettingsActivity;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.JSONArray;
 
@@ -85,7 +75,8 @@ import android.view.KeyEvent;
 public class MainActivity extends BaseActivity implements
         View.OnClickListener,
         OnCheckedChangeListener,
-        LocalVpnService.onStatusChangedListener  {
+        LocalVpnService.onStatusChangedListener,
+        OnUserEarnedRewardListener {
     static {
         System.loadLibrary("native-lib");
     }
@@ -125,18 +116,22 @@ public class MainActivity extends BaseActivity implements
     private String mNodesShortName = "US";
     private String[] nodesNames;
     private String[] checkOutNodeNames;
+    private String[] allNodeIps;
+    private int mIpIndex = 0;
     private Vector<Integer> nodesNumbers = new Vector<Integer>();
     private boolean mMainIsVip = true;
     private AdView mAdView;
     private ForegroundCallbacks foregroundCallbacks = null;
     private GPSUtils mGpsUtils = null;
-    private RewardedAd mRewardedAd = null;
     private int mAdShowedTimes = 0;
     private int mPrevAdShowedTimes = 0;
-    private boolean mIsUserDisconnect = false;
-    private int mLoadAdSuccTimes = 0;
-    private int mLoadAdFailedTimes = 0;
-    private  boolean mShouldReloadAd = false;
+    private boolean mIsUserDisconnect = true;
+    public AdManager mAdManager = null;
+    public InsAdManager mInsAdManager = null;
+    private final int kConnectTimeLong = 6000;
+    private boolean miningDialogShowed = false;
+    private boolean mWatchAdToRunCalledAndShowedAd = true;
+    private  long mStartAppTimestamp = 0;
 
     private int[] county = {
             R.drawable.aa
@@ -226,10 +221,20 @@ public class MainActivity extends BaseActivity implements
     }
 
     void setVipStatus() {
-        P2pLibManager.getInstance().PayforVpn();
-        if (P2pLibManager.getInstance().vip_left_days >= 0) {
+        if (P2pLibManager.getInstance().mIsSupperVip) {
             TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
-            leftDays.setText(P2pLibManager.getInstance().vip_left_days + getString(R.string.layters_over_after));
+            leftDays.setText(getString(R.string.supper_user));
+            TextView balance = (TextView) findViewById(R.id.balance_lego);
+            balance.setVisibility(View.GONE);
+            findViewById(R.id.tv_recharge).setVisibility(View.GONE);
+            findViewById(R.id.tv_cash).setVisibility(View.GONE);
+            return;
+        }
+
+        P2pLibManager.getInstance().PayforVpn();
+        if (P2pLibManager.getInstance().isVip()) {
+            TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
+            leftDays.setText(P2pLibManager.getInstance().GetVipLeftDays() + getString(R.string.layters_over_after));
             TextView balance = (TextView) findViewById(R.id.balance_lego);
             long newBlance = P2pLibManager.getInstance().GetLastRechargeAmount();
             if (P2pLibManager.getInstance().now_balance >= 0) {
@@ -245,7 +250,7 @@ public class MainActivity extends BaseActivity implements
 //            }
         } else {
             TextView leftDays = (TextView) findViewById(R.id.tv_left_days);
-            leftDays.setText("- - " + getString(R.string.layters_over_after));
+            leftDays.setText("0" + getString(R.string.layters_over_after));
             TextView balance = (TextView) findViewById(R.id.balance_lego);
             long newBlance = P2pLibManager.getInstance().GetLastRechargeAmount();
             if (P2pLibManager.getInstance().now_balance >= 0) {
@@ -305,14 +310,33 @@ public class MainActivity extends BaseActivity implements
         }
 
         checkOutNodeNames = tmpCheckOutNodeNames.toArray(new String[tmpCheckOutNodeNames.size()]);
+        P2pLibManager.getInstance().InitGetAllNodes();
+        allNodeIps = P2pLibManager.getInstance().GetAllIps();
     }
 
     private void changeMainToFree() {
-        findViewById(R.id.ll_free).setVisibility(View.VISIBLE);
-        findViewById(R.id.ll_title_free).setVisibility(View.VISIBLE);
-        findViewById(R.id.ll_pro).setVisibility(View.GONE);
-        findViewById(R.id.ll_title_pro).setVisibility(View.GONE);
-        mMainIsVip = false;
+        int hideCode = View.INVISIBLE;
+//        if (!P2pLibManager.getInstance().IsFirstInstallAndChangeMode()) {
+//            hideCode = View.GONE;
+//        }
+
+        if (P2pLibManager.getInstance().mCountryMode) {
+            findViewById(R.id.ll_country_select_nodes).setVisibility(hideCode);
+            findViewById(R.id.ll_choose_ip).setVisibility(View.VISIBLE);
+            TextView modeView = (TextView)findViewById(R.id.tv_switch);
+            modeView.setText(R.string.ip_mode);
+        } else {
+            findViewById(R.id.ll_country_select_nodes).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_choose_ip).setVisibility(hideCode);
+            TextView modeView = (TextView)findViewById(R.id.tv_switch);
+            modeView.setText(R.string.country_mode);
+        }
+
+        P2pLibManager.getInstance().mCountryMode = !P2pLibManager.getInstance().mCountryMode;
+        P2pLibManager.getInstance().SaveCountryMode(P2pLibManager.getInstance().mCountryMode);
+        TextView ipText = (TextView)findViewById(R.id.text_switch_ip);
+        ipText.setText(P2pLibManager.getInstance().choosed_vpn_ip_key);
+        LocalVpnService.IsRunning = false;
     }
 
     private void changeMainToVip() {
@@ -339,6 +363,14 @@ public class MainActivity extends BaseActivity implements
                 showSelectNodesDialog();
             }
         });
+
+        findViewById(R.id.ll_choose_ip).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectIpDialog();
+            }
+        });
+
         mTvSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -399,10 +431,27 @@ public class MainActivity extends BaseActivity implements
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId(P2pLibManager.getInstance().down_ad_id);
 
-        if (P2pLibManager.getInstance().vip_left_days > 0 ) {
-            LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
-            lay_out.setVisibility(View.GONE);
+        if (!(!P2pLibManager.getInstance().is_google_ver || P2pLibManager.getInstance().mIsPaymentVersion || P2pLibManager.getInstance().mIsSupperVip)) {
+            if (P2pLibManager.getInstance().isVip() ) {
+                LinearLayout lay_out = (LinearLayout)findViewById(R.id.my_layout);
+                lay_out.setVisibility(View.GONE);
+            }
         }
+
+        if (!P2pLibManager.getInstance().mCountryMode) {
+            findViewById(R.id.ll_country_select_nodes).setVisibility(View.INVISIBLE);
+            findViewById(R.id.ll_choose_ip).setVisibility(View.VISIBLE);
+            TextView modeView = (TextView)findViewById(R.id.tv_switch);
+            modeView.setText(R.string.ip_mode);
+        } else {
+            findViewById(R.id.ll_country_select_nodes).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_choose_ip).setVisibility(View.INVISIBLE);
+            TextView modeView = (TextView)findViewById(R.id.tv_switch);
+            modeView.setText(R.string.country_mode);
+        }
+
+        TextView ipText = (TextView)findViewById(R.id.text_switch_ip);
+        ipText.setText(P2pLibManager.getInstance().choosed_vpn_ip_key);
     }
 
     private void showSelectNodesDialog() {
@@ -421,6 +470,22 @@ public class MainActivity extends BaseActivity implements
                         ImageView ivCounty = findViewById(R.id.iv_county);
                         ivCounty.setImageResource(county[mNodesIndex]);
                         P2pLibManager.getInstance().choosed_country = mNodesShortName;
+                        LocalVpnService.IsRunning = false;
+                    }
+                })
+                .show();
+    }
+
+    private void showSelectIpDialog() {
+        new androidx.appcompat.app.AlertDialog.Builder(this, R.style.BlackDialog)
+                .setSingleChoiceItems(allNodeIps, mIpIndex, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mIpIndex = which;
+                        TextView tvNodesName = findViewById(R.id.text_switch_ip);
+                        tvNodesName.setText(allNodeIps[mIpIndex]);
+                        P2pLibManager.getInstance().GetVpnNodeWithKey(allNodeIps[mIpIndex]);
                         LocalVpnService.IsRunning = false;
                     }
                 })
@@ -497,21 +562,13 @@ public class MainActivity extends BaseActivity implements
 
     private Integer checkVipStatus() {
         if (mMainIsVip) {
-            if (P2pLibManager.getInstance().vip_left_days < 0) {
-                //changeMainToFree();
-                //changeMainToVip();
-                Toast.makeText(this, getString(R.string.can_not_get_balance), Toast.LENGTH_LONG).show();
-                return 1;
-            }
-
-            if (P2pLibManager.getInstance().vip_left_days == 0) {
-                //changeMainToFree();
+            if (!P2pLibManager.getInstance().isVip()) {
                 Toast.makeText(this, getString(R.string.is_not_vip), Toast.LENGTH_LONG).show();
                 return 1;
             }
         }
 
-        if (P2pLibManager.getInstance().vip_left_days > 0) {
+        if (P2pLibManager.getInstance().isVip()) {
             changeMainToVip();
             Toast.makeText(this, getString(R.string.is_vip), Toast.LENGTH_LONG).show();
         }
@@ -519,26 +576,35 @@ public class MainActivity extends BaseActivity implements
         return 0;
     }
 
-    public RewardedAd createAndLoadRewardedAd() {
-        mShouldReloadAd = false;
-        RewardedAd rewardedAd = new RewardedAd(this,P2pLibManager.getInstance().jl_ad_id);
-        RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback() {
-            @Override
-            public void onRewardedAdLoaded() {
-                // Ad successfully loaded.
-            }
+    public void ChangeToDisconnect() {
+        LocalVpnService.IsRunning = false;
+        if (mConnectingDialog != null) {
+            mConnectingDialog.dismiss();
+        }
 
-            @Override
-            public void onRewardedAdFailedToLoad(LoadAdError adError) {
-                // Ad failed to load.
-                mShouldReloadAd = true;
-            }
-        };
-        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
-        return rewardedAd;
+        mIsConnect = false;
+        mFlConnect.setBackgroundResource(R.drawable.selector_un_connect);
+        mIvConnect.setImageResource(R.drawable.un_connected);
+        mTvConnect.setText(R.string.un_connect);
+        mTvConnect.setTextColor(getResources().getColor(R.color.colorUnConnect));
+        mTvConnectDesc.setVisibility(View.INVISIBLE);
+        mLlConnect.setBackgroundResource(R.drawable.selector_un_connect_inner);
+        mIvSecurity.setVisibility(View.INVISIBLE);
+        if (mPb != null) {
+            mPb.setProgress(0);
+        }
+
+        if (mCountDownTimer != null) {
+            mCountDownTimer.dispose();
+        }
     }
 
     public void ChangeToConnected() {
+        if (!LocalVpnService.IsRunning) {
+            ChangeToDisconnect();
+            return;
+        }
+
         if (mConnectingDialog == null) {
             return;
         }
@@ -553,59 +619,8 @@ public class MainActivity extends BaseActivity implements
         mIvSecurity.setVisibility(View.VISIBLE);
         mPb.setProgress(0);
         mCountDownTimer.dispose();
-    }
-
-    public void ShowAd(boolean directShow) {
-        if (!directShow) {
-            if (!foregroundCallbacks.isForeground()) {
-                return;
-            }
-
-            long now_tm = Calendar.getInstance().getTimeInMillis();
-            if (now_tm - P2pLibManager.getInstance().prev_showed_ad_tm < 5 * 60 * 1000) {
-                return;
-            }
-        }
-
-        if (mRewardedAd.isLoaded()) {
-            P2pLibManager.getInstance().prev_showed_ad_tm = System.currentTimeMillis();
-            Activity activityContext = MainActivity.this;
-            RewardedAdCallback adCallback = new RewardedAdCallback() {
-                @Override
-                public void onRewardedAdOpened() {
-                    // Ad opened.
-                    if (directShow) {
-                        P2pLibManager.getInstance().showAdCalled = true;
-                    }
-                }
-
-                @Override
-                public void onRewardedAdClosed() {
-                    // Ad closed.
-                    mShouldReloadAd = true;
-                    P2pLibManager.getInstance().showAdCalled = true;
-                    ChangeToConnected();
-                }
-
-                @Override
-                public void onUserEarnedReward(@NonNull RewardItem reward) {
-                    // User earned reward.
-                    P2pLibManager.getInstance().AdReward(reward.toString());
-                    mShouldReloadAd = true;
-                    P2pLibManager.getInstance().showAdCalled = true;
-                    Toast.makeText(MainActivity.this, getString(R.string.get_reward) + " Tenon", Toast.LENGTH_SHORT).show();
-                    ChangeToConnected();
-                }
-
-                @Override
-                public void onRewardedAdFailedToShow(AdError adError) {
-                    // Ad failed to display.
-                    mShouldReloadAd = true;
-                    ChangeToConnected();
-                }
-            };
-            mRewardedAd.show(activityContext, adCallback);
-        }
+        mWatchAdToRunCalledAndShowedAd = false;
+        showAdMiningdDialog();
     }
 
     private void toggleConnect() {
@@ -620,6 +635,13 @@ public class MainActivity extends BaseActivity implements
                 return;
             }
 
+            if (!P2pLibManager.getInstance().mCountryMode) {
+                if (P2pLibManager.getInstance().choosed_vpn_ip_key.equals(getString(R.string.choose_one_ip))) {
+                    Toast.makeText(MainActivity.this, getString(R.string.choose_one_ip), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            miningDialogShowed = false;
             mIsUserDisconnect = false;
             checkVipStatus();
             startVpn(null);
@@ -664,7 +686,17 @@ public class MainActivity extends BaseActivity implements
             }
         });
 
-        mRewardedAd = createAndLoadRewardedAd();
+        String curProcess = getProcessName(this, android.os.Process.myPid());
+        if (TextUtils.equals(curProcess,"com.vm.tenonvpn")) {
+            initAppStatusListener();
+        }
+        mAdManager = new AdManager();
+        mAdManager.Init(this, null);
+        mAdManager.ReloadAllAd();
+        mStartAppTimestamp = System.currentTimeMillis();
+
+        mInsAdManager = new InsAdManager();
+        mInsAdManager.Init(this, null);
         mGpsUtils = GPSUtils.getInstance(mainActivityThis);
         mGpsUtils.initPermission();
         String countryCode = mGpsUtils.getCountryCode();
@@ -693,6 +725,55 @@ public class MainActivity extends BaseActivity implements
         mTvAccount.setText(P2pLibManager.getInstance().account_id);
         Thread t1 = new Thread(check_tx, "check tx");
         t1.start();
+    }
+
+    private String getProcessName(Context cxt, int pid) {
+        ActivityManager am = (ActivityManager) cxt.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps == null) {
+            return null;
+        }
+        for (ActivityManager.RunningAppProcessInfo procInfo : runningApps) {
+            if (procInfo.pid == pid) {
+                return procInfo.processName;
+            }
+        }
+        return null;
+    }
+
+    private void initAppStatusListener() {
+        ForegroundCallbacks.init(this.getApplication()).addListener(new ForegroundCallbacks.Listener() {
+            @Override
+            public void onBecameForeground() {
+                if (!LocalVpnService.IsRunning) {
+                    // 未连接
+                    mIsConnect = false;
+                    mFlConnect.setBackgroundResource(R.drawable.selector_un_connect);
+                    mIvConnect.setImageResource(R.drawable.un_connected);
+                    mTvConnect.setText(R.string.un_connect);
+                    mTvConnect.setTextColor(getResources().getColor(R.color.colorUnConnect));
+                    mTvConnectDesc.setVisibility(View.INVISIBLE);
+                    mLlConnect.setBackgroundResource(R.drawable.selector_un_connect_inner);
+                    mIvSecurity.setVisibility(View.INVISIBLE);
+                    mPb.setProgress(0);
+                    mCountDownTimer.dispose();
+                    mConnectingDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onBecameBackground() {
+                mWatchAdToRunCalledAndShowedAd = false;
+                if ((mPb.getProgress() < 90 &&
+                        mPb.getProgress() != 0 &&
+                        !P2pLibManager.getInstance().mAdShowedButNotCompleted &&
+                        !P2pLibManager.getInstance().isVip())) {
+                    LocalVpnService.IsRunning = false;
+                    mIsUserDisconnect = true;
+                    Toast.makeText(MainActivity.this, getString(R.string.dont_showed_ad), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     String getVersionName() {
@@ -770,7 +851,7 @@ public class MainActivity extends BaseActivity implements
                 vpn_service.protect(Integer.parseInt(fd_res[i]));
             }
 
-            if (P2pLibManager.getInstance().isVip() || mAdShowedTimes > mPrevAdShowedTimes) {
+            if (P2pLibManager.getInstance().isVip() || mAdShowedTimes > mPrevAdShowedTimes || P2pLibManager.getInstance().mIsPaymentVersion) {
                 ChangeToConnected();
             }
         } else {
@@ -788,7 +869,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     public void goToTelegram(View view) {
-        if (P2pLibManager.getInstance().isVip()) {
+        if (P2pLibManager.getInstance().isVip() || P2pLibManager.getInstance().mIsPaymentVersion) {
             Uri uri = Uri.parse("https://t.me/tenonvpn_vip");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
@@ -954,21 +1035,24 @@ public class MainActivity extends BaseActivity implements
             mIvSecurity.setVisibility(View.INVISIBLE);
         } else {
             showConnectDialog();
+            P2pLibManager.getInstance().showAdCalled = false;
+            P2pLibManager.getInstance().mAdShowed = false;
+            P2pLibManager.getInstance().mAdShowedButNotCompleted = false;
             mCountDownTimer = Observable
                     .interval(0, 1, TimeUnit.MILLISECONDS)
-                    .take(10000)
+                    .take(kConnectTimeLong)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(aLong -> {
                         mTvConnectingDesc.setText(getString(R.string.connecting) + ((int) (aLong / 1000)) + "s");
-                        mPb.setProgress((int) ((aLong * 10) / 1000));
-                        if (aLong >= 9000|| mAdShowedTimes > mPrevAdShowedTimes) {
+                        mPb.setProgress((int) ((aLong / ((float)kConnectTimeLong / 10000.0) * 10) / 1000));
+                        if (aLong >= (kConnectTimeLong - 1000)|| mAdShowedTimes > mPrevAdShowedTimes) {
                             ChangeToConnected();
                             mPrevAdShowedTimes = mAdShowedTimes;
                         } else {
-                            long nowTm = Calendar.getInstance().getTimeInMillis();
-                            if (nowTm - P2pLibManager.getInstance().prev_showed_ad_tm > 10000 && !P2pLibManager.getInstance().isVip()) {
-                                ShowAd(true);
+                            if (!P2pLibManager.getInstance().isVip() &&
+                                    !P2pLibManager.getInstance().showAdCalled) {
+                                mInsAdManager.ShowAd();
                             }
                         }
                     });
@@ -1051,12 +1135,14 @@ public class MainActivity extends BaseActivity implements
                 .setPositiveButton(R.string.download_free, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.vm.tenonvpn");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
                     }
                 }).setNegativeButton(R.string.recharge, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        launchRecharge();
                     }
                 }).setNeutralButton(R.string.tomorrow, new DialogInterface.OnClickListener() {
                     @Override
@@ -1065,6 +1151,89 @@ public class MainActivity extends BaseActivity implements
                     }
                 })
                 .show();
+    }
+
+    private void showAdMiningdDialog() {
+        if (P2pLibManager.getInstance().mIsSupperVip) {
+            return;
+        }
+
+        if (P2pLibManager.getInstance().mWatchAdToRunDialogShowed) {
+            return;
+        }
+
+        if (miningDialogShowed) {
+            return;
+        }
+
+        if (!mAdManager.Adloaded()) {
+            return;
+        }
+
+        miningDialogShowed = true;
+        View view = LayoutInflater.from(this).inflate(R.layout.mining_ad, null, false);
+        new androidx.appcompat.app.AlertDialog.Builder(this).setTitle(R.string.mining)
+                .setView(view)
+                .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        miningDialogShowed = false;
+                        dialogInterface.dismiss();
+                    }
+                }).setNegativeButton(R.string.mining, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mAdManager.ShowAd();
+                        miningDialogShowed = false;
+                        dialogInterface.dismiss();
+                    }
+                }).show();
+    }
+
+    private void showWatchAdToRunDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.watch_ad_to_run, null, false);
+        new androidx.appcompat.app.AlertDialog.Builder(this).setTitle(R.string.ad_to_run)
+                .setView(view)
+                .setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        P2pLibManager.getInstance().mWatchAdToRunDialogShowed = false;
+                        dialogInterface.dismiss();
+                    }
+                }).setNegativeButton(R.string.ad_to_run, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mIsUserDisconnect = false;
+                mAdManager.ShowAd();
+                dialogInterface.dismiss();
+                LocalVpnService.IsRunning = true;
+                ChangeToConnected();
+            }
+        }).show();
+    }
+
+    private void CheckAdShowed() {
+        if (P2pLibManager.getInstance().isVip()) {
+            return;
+        }
+
+        long now_tm = Calendar.getInstance().getTimeInMillis();
+        if (now_tm - P2pLibManager.getInstance().prev_showed_ad_tm >= 1000 * 1800) {
+            if (mAdManager.Adloaded()) {
+                 if (now_tm - mStartAppTimestamp < 60000) {
+                    return;
+                }
+
+                if (P2pLibManager.getInstance().mWatchAdToRunDialogShowed) {
+                    return;
+                }
+
+                P2pLibManager.getInstance().mWatchAdToRunDialogShowed = true;
+                mIsUserDisconnect = true;
+                ChangeToDisconnect();
+                showWatchAdToRunDialog();
+            }
+        }
     }
 
     private Handler handler = new Handler() {
@@ -1094,9 +1263,11 @@ public class MainActivity extends BaseActivity implements
 
                 String new_bootstrap = P2pLibManager.getNewBootstrap();
                 P2pLibManager.getInstance().SaveNewBootstrapNodes(new_bootstrap);
-                if (mShouldReloadAd) {
-                    mRewardedAd = createAndLoadRewardedAd();
-                }
+                mAdManager.ReloadAllAd();
+                CheckAdShowed();
+
+                TextView ipText = (TextView)findViewById(R.id.text_switch_ip);
+                ipText.setText(P2pLibManager.getInstance().choosed_vpn_ip_key);
             }
         }
     };
@@ -1118,5 +1289,12 @@ public class MainActivity extends BaseActivity implements
                 }
             }
         }
+    }
+
+    @Override
+    public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+        Log.i("TAG", "onUserEarnedReward");
+        // TODO: Reward the user!
+        mInsAdManager.AdClicked();
     }
 }

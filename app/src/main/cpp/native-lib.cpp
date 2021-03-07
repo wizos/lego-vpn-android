@@ -77,6 +77,16 @@ JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getRouteNodes
     return env->NewStringUTF(vpn_svr.c_str());
 }
 
+JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getAllNodes(
+        JNIEnv *env,
+        jobject,
+        jboolean vip) {
+    std::vector<lego::client::VpnServerNodePtr> nodes;
+    jboolean iscopy;
+    std::string res = lego::client::VpnClient::Instance()->GetVpnServerNodes("ALL", "", 16, false, vip, nodes);
+    return env->NewStringUTF(res.c_str());
+}
+
 JNIEXPORT jstring JNICALL Java_com_vm_shadowsocks_ui_P2pLibManager_getVpnNodes(
         JNIEnv *env,
         jobject,
