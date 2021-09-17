@@ -1,3 +1,1 @@
-tenon vpn android powered by shadowsocks
-
-
+此项目已废弃
